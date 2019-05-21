@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.cpp
+Attribute_Expression.hpp
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.hpp
+
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.hpp
+compilertool.hpp
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/compilertool.hpp
+string
+-
+
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Database_Statement.cpp
+Create_Database_Statement.hpp
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Database_Statement.hpp
+
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Database_Statement.hpp
+compilertool.hpp
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/compilertool.hpp
+
+/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/compilertool.hpp
+vector
+-
+string
+-
+

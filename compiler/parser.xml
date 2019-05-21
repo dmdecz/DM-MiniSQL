@@ -1,0 +1,976 @@
+<?xml version="1.0"?>
+
+<bison-xml-report version="3.3.2" bug-report="bug-bison@gnu.org" url="http://www.gnu.org/software/bison/">
+
+  <filename>/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y</filename>
+
+  <grammar>
+    <rules>
+      <rule number="0" usefulness="useful">
+        <lhs>$accept</lhs>
+        <rhs>
+          <symbol>statement_list</symbol>
+          <symbol>$end</symbol>
+        </rhs>
+      </rule>
+      <rule number="1" usefulness="useful">
+        <lhs>statement_list</lhs>
+        <rhs>
+          <symbol>statement</symbol>
+        </rhs>
+      </rule>
+      <rule number="2" usefulness="useful">
+        <lhs>statement_list</lhs>
+        <rhs>
+          <symbol>statement_list</symbol>
+          <symbol>statement</symbol>
+        </rhs>
+      </rule>
+      <rule number="3" usefulness="useful">
+        <lhs>statement</lhs>
+        <rhs>
+          <symbol>END</symbol>
+        </rhs>
+      </rule>
+      <rule number="4" usefulness="useful">
+        <lhs>statement</lhs>
+        <rhs>
+          <symbol>ENDL</symbol>
+        </rhs>
+      </rule>
+      <rule number="5" usefulness="useful">
+        <lhs>statement</lhs>
+        <rhs>
+          <symbol>select_statement</symbol>
+          <symbol>ENDL</symbol>
+        </rhs>
+      </rule>
+      <rule number="6" usefulness="useful">
+        <lhs>statement</lhs>
+        <rhs>
+          <symbol>source_statement</symbol>
+          <symbol>ENDL</symbol>
+        </rhs>
+      </rule>
+      <rule number="7" usefulness="useful">
+        <lhs>statement</lhs>
+        <rhs>
+          <symbol>create_db_statement</symbol>
+          <symbol>ENDL</symbol>
+        </rhs>
+      </rule>
+      <rule number="8" usefulness="useful">
+        <lhs>statement</lhs>
+        <rhs>
+          <symbol>QUIT</symbol>
+          <symbol>ENDL</symbol>
+        </rhs>
+      </rule>
+      <rule number="9" usefulness="useful">
+        <lhs>source_statement</lhs>
+        <rhs>
+          <symbol>SOURCE</symbol>
+          <symbol>FILENAME</symbol>
+        </rhs>
+      </rule>
+      <rule number="10" usefulness="useful">
+        <lhs>select_statement</lhs>
+        <rhs>
+          <symbol>SELECT</symbol>
+          <symbol>select_list</symbol>
+          <symbol>FROM</symbol>
+          <symbol>table_list</symbol>
+          <symbol>select_condition</symbol>
+        </rhs>
+      </rule>
+      <rule number="11" usefulness="useful">
+        <lhs>select_list</lhs>
+        <rhs>
+          <symbol>exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="12" usefulness="useful">
+        <lhs>select_list</lhs>
+        <rhs>
+          <symbol>select_list</symbol>
+          <symbol>','</symbol>
+          <symbol>exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="13" usefulness="useful">
+        <lhs>table_list</lhs>
+        <rhs>
+          <symbol>exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="14" usefulness="useful">
+        <lhs>table_list</lhs>
+        <rhs>
+          <symbol>table_list</symbol>
+          <symbol>','</symbol>
+          <symbol>exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="15" usefulness="useful">
+        <lhs>select_condition</lhs>
+        <rhs>
+          <empty/>
+        </rhs>
+      </rule>
+      <rule number="16" usefulness="useful">
+        <lhs>select_condition</lhs>
+        <rhs>
+          <symbol>WHERE</symbol>
+          <symbol>exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="17" usefulness="useful">
+        <lhs>exp</lhs>
+        <rhs>
+          <symbol>STRING</symbol>
+        </rhs>
+      </rule>
+      <rule number="18" usefulness="useful">
+        <lhs>create_db_statement</lhs>
+        <rhs>
+          <symbol>CREATE</symbol>
+          <symbol>TABLE</symbol>
+          <symbol>&quot;(&quot;</symbol>
+          <symbol>attribute_list</symbol>
+          <symbol>&quot;)&quot;</symbol>
+        </rhs>
+      </rule>
+      <rule number="19" usefulness="useful">
+        <lhs>attribute_list</lhs>
+        <rhs>
+          <symbol>attribute_exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="20" usefulness="useful">
+        <lhs>attribute_list</lhs>
+        <rhs>
+          <symbol>attribute_list</symbol>
+          <symbol>&quot;,&quot;</symbol>
+          <symbol>attribute_exp</symbol>
+        </rhs>
+      </rule>
+      <rule number="21" usefulness="useful">
+        <lhs>attribute_exp</lhs>
+        <rhs>
+          <symbol>STRING</symbol>
+          <symbol>variant_type</symbol>
+        </rhs>
+      </rule>
+      <rule number="22" usefulness="useful">
+        <lhs>variant_type</lhs>
+        <rhs>
+          <symbol>&quot;int&quot;</symbol>
+        </rhs>
+      </rule>
+      <rule number="23" usefulness="useful">
+        <lhs>variant_type</lhs>
+        <rhs>
+          <symbol>&quot;double&quot;</symbol>
+        </rhs>
+      </rule>
+      <rule number="24" usefulness="useful">
+        <lhs>variant_type</lhs>
+        <rhs>
+          <symbol>&quot;char&quot;</symbol>
+          <symbol>&quot;(&quot;</symbol>
+          <symbol>NUMBER</symbol>
+          <symbol>&quot;)&quot;</symbol>
+        </rhs>
+      </rule>
+    </rules>
+    <terminals>
+      <terminal symbol-number="0" token-number="0" name="$end" usefulness="useful"/>
+      <terminal symbol-number="26" token-number="44" name="','" usefulness="useful"/>
+      <terminal symbol-number="1" token-number="256" name="error" usefulness="useful"/>
+      <terminal symbol-number="3" token-number="258" name="NUMBER" usefulness="useful"/>
+      <terminal symbol-number="4" token-number="259" name="SELECT" usefulness="useful"/>
+      <terminal symbol-number="5" token-number="260" name="FROM" usefulness="useful"/>
+      <terminal symbol-number="6" token-number="261" name="WHERE" usefulness="useful"/>
+      <terminal symbol-number="7" token-number="262" name="ENDL" usefulness="useful"/>
+      <terminal symbol-number="8" token-number="263" name="BLANK" usefulness="unused-in-grammar"/>
+      <terminal symbol-number="9" token-number="264" name="QUIT" usefulness="useful"/>
+      <terminal symbol-number="10" token-number="265" name="END" usefulness="useful"/>
+      <terminal symbol-number="11" token-number="266" name="SOURCE" usefulness="useful"/>
+      <terminal symbol-number="12" token-number="267" name="CREATE" usefulness="useful"/>
+      <terminal symbol-number="13" token-number="268" name="TABLE" usefulness="useful"/>
+      <terminal symbol-number="14" token-number="269" name="&quot;-&quot;" usefulness="unused-in-grammar"/>
+      <terminal symbol-number="15" token-number="270" name="&quot;+&quot;" usefulness="unused-in-grammar"/>
+      <terminal symbol-number="16" token-number="271" name="&quot;*&quot;" usefulness="unused-in-grammar"/>
+      <terminal symbol-number="17" token-number="272" name="&quot;/&quot;" usefulness="unused-in-grammar"/>
+      <terminal symbol-number="18" token-number="273" name="&quot;(&quot;" usefulness="useful"/>
+      <terminal symbol-number="19" token-number="274" name="&quot;)&quot;" usefulness="useful"/>
+      <terminal symbol-number="20" token-number="275" name="&quot;,&quot;" usefulness="useful"/>
+      <terminal symbol-number="21" token-number="276" name="&quot;int&quot;" usefulness="useful"/>
+      <terminal symbol-number="22" token-number="277" name="&quot;double&quot;" usefulness="useful"/>
+      <terminal symbol-number="23" token-number="278" name="&quot;char&quot;" usefulness="useful"/>
+      <terminal symbol-number="24" token-number="279" name="STRING" usefulness="useful"/>
+      <terminal symbol-number="25" token-number="280" name="FILENAME" usefulness="useful"/>
+    </terminals>
+    <nonterminals>
+      <nonterminal symbol-number="27" name="$accept" usefulness="useful"/>
+      <nonterminal symbol-number="28" name="statement_list" usefulness="useful"/>
+      <nonterminal symbol-number="29" name="statement" usefulness="useful"/>
+      <nonterminal symbol-number="30" name="source_statement" usefulness="useful"/>
+      <nonterminal symbol-number="31" name="select_statement" usefulness="useful"/>
+      <nonterminal symbol-number="32" name="select_list" usefulness="useful"/>
+      <nonterminal symbol-number="33" name="table_list" usefulness="useful"/>
+      <nonterminal symbol-number="34" name="select_condition" usefulness="useful"/>
+      <nonterminal symbol-number="35" name="exp" usefulness="useful"/>
+      <nonterminal symbol-number="36" name="create_db_statement" usefulness="useful"/>
+      <nonterminal symbol-number="37" name="attribute_list" usefulness="useful"/>
+      <nonterminal symbol-number="38" name="attribute_exp" usefulness="useful"/>
+      <nonterminal symbol-number="39" name="variant_type" usefulness="useful"/>
+    </nonterminals>
+  </grammar>
+
+  <automaton>
+
+    <state number="0">
+      <itemset>
+        <item rule-number="0" point="0"/>
+        <item rule-number="1" point="0"/>
+        <item rule-number="2" point="0"/>
+        <item rule-number="3" point="0"/>
+        <item rule-number="4" point="0"/>
+        <item rule-number="5" point="0"/>
+        <item rule-number="6" point="0"/>
+        <item rule-number="7" point="0"/>
+        <item rule-number="8" point="0"/>
+        <item rule-number="9" point="0"/>
+        <item rule-number="10" point="0"/>
+        <item rule-number="18" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="SELECT" state="1"/>
+          <transition type="shift" symbol="ENDL" state="2"/>
+          <transition type="shift" symbol="QUIT" state="3"/>
+          <transition type="shift" symbol="END" state="4"/>
+          <transition type="shift" symbol="SOURCE" state="5"/>
+          <transition type="shift" symbol="CREATE" state="6"/>
+          <transition type="goto" symbol="statement_list" state="7"/>
+          <transition type="goto" symbol="statement" state="8"/>
+          <transition type="goto" symbol="source_statement" state="9"/>
+          <transition type="goto" symbol="select_statement" state="10"/>
+          <transition type="goto" symbol="create_db_statement" state="11"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="1">
+      <itemset>
+        <item rule-number="10" point="1"/>
+        <item rule-number="11" point="0"/>
+        <item rule-number="12" point="0"/>
+        <item rule-number="17" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="12"/>
+          <transition type="goto" symbol="select_list" state="13"/>
+          <transition type="goto" symbol="exp" state="14"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="2">
+      <itemset>
+        <item rule-number="4" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="4" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="3">
+      <itemset>
+        <item rule-number="8" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="ENDL" state="15"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="4">
+      <itemset>
+        <item rule-number="3" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="3" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="5">
+      <itemset>
+        <item rule-number="9" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="FILENAME" state="16"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="6">
+      <itemset>
+        <item rule-number="18" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="TABLE" state="17"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="7">
+      <itemset>
+        <item rule-number="0" point="1"/>
+        <item rule-number="2" point="1"/>
+        <item rule-number="3" point="0"/>
+        <item rule-number="4" point="0"/>
+        <item rule-number="5" point="0"/>
+        <item rule-number="6" point="0"/>
+        <item rule-number="7" point="0"/>
+        <item rule-number="8" point="0"/>
+        <item rule-number="9" point="0"/>
+        <item rule-number="10" point="0"/>
+        <item rule-number="18" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="$end" state="18"/>
+          <transition type="shift" symbol="SELECT" state="1"/>
+          <transition type="shift" symbol="ENDL" state="2"/>
+          <transition type="shift" symbol="QUIT" state="3"/>
+          <transition type="shift" symbol="END" state="4"/>
+          <transition type="shift" symbol="SOURCE" state="5"/>
+          <transition type="shift" symbol="CREATE" state="6"/>
+          <transition type="goto" symbol="statement" state="19"/>
+          <transition type="goto" symbol="source_statement" state="9"/>
+          <transition type="goto" symbol="select_statement" state="10"/>
+          <transition type="goto" symbol="create_db_statement" state="11"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="8">
+      <itemset>
+        <item rule-number="1" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="1" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="9">
+      <itemset>
+        <item rule-number="6" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="ENDL" state="20"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="10">
+      <itemset>
+        <item rule-number="5" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="ENDL" state="21"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="11">
+      <itemset>
+        <item rule-number="7" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="ENDL" state="22"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="12">
+      <itemset>
+        <item rule-number="17" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="17" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="13">
+      <itemset>
+        <item rule-number="10" point="2"/>
+        <item rule-number="12" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="FROM" state="23"/>
+          <transition type="shift" symbol="','" state="24"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="14">
+      <itemset>
+        <item rule-number="11" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="11" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="15">
+      <itemset>
+        <item rule-number="8" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="8" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="16">
+      <itemset>
+        <item rule-number="9" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="9" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="17">
+      <itemset>
+        <item rule-number="18" point="2"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="&quot;(&quot;" state="25"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="18">
+      <itemset>
+        <item rule-number="0" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="accept" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="19">
+      <itemset>
+        <item rule-number="2" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="2" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="20">
+      <itemset>
+        <item rule-number="6" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="6" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="21">
+      <itemset>
+        <item rule-number="5" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="5" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="22">
+      <itemset>
+        <item rule-number="7" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="7" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="23">
+      <itemset>
+        <item rule-number="10" point="3"/>
+        <item rule-number="13" point="0"/>
+        <item rule-number="14" point="0"/>
+        <item rule-number="17" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="12"/>
+          <transition type="goto" symbol="table_list" state="26"/>
+          <transition type="goto" symbol="exp" state="27"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="24">
+      <itemset>
+        <item rule-number="12" point="2"/>
+        <item rule-number="17" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="12"/>
+          <transition type="goto" symbol="exp" state="28"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="25">
+      <itemset>
+        <item rule-number="18" point="3"/>
+        <item rule-number="19" point="0"/>
+        <item rule-number="20" point="0"/>
+        <item rule-number="21" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="29"/>
+          <transition type="goto" symbol="attribute_list" state="30"/>
+          <transition type="goto" symbol="attribute_exp" state="31"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="26">
+      <itemset>
+        <item rule-number="10" point="4"/>
+        <item rule-number="14" point="1"/>
+        <item rule-number="15" point="0">
+          <lookaheads>
+            <symbol>ENDL</symbol>
+          </lookaheads>
+        </item>
+        <item rule-number="16" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="WHERE" state="32"/>
+          <transition type="shift" symbol="','" state="33"/>
+          <transition type="goto" symbol="select_condition" state="34"/>
+        </transitions>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="15" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="27">
+      <itemset>
+        <item rule-number="13" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="13" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="28">
+      <itemset>
+        <item rule-number="12" point="3"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="12" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="29">
+      <itemset>
+        <item rule-number="21" point="1"/>
+        <item rule-number="22" point="0"/>
+        <item rule-number="23" point="0"/>
+        <item rule-number="24" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="&quot;int&quot;" state="35"/>
+          <transition type="shift" symbol="&quot;double&quot;" state="36"/>
+          <transition type="shift" symbol="&quot;char&quot;" state="37"/>
+          <transition type="goto" symbol="variant_type" state="38"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="30">
+      <itemset>
+        <item rule-number="18" point="4"/>
+        <item rule-number="20" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="&quot;)&quot;" state="39"/>
+          <transition type="shift" symbol="&quot;,&quot;" state="40"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="31">
+      <itemset>
+        <item rule-number="19" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="19" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="32">
+      <itemset>
+        <item rule-number="16" point="1"/>
+        <item rule-number="17" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="12"/>
+          <transition type="goto" symbol="exp" state="41"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="33">
+      <itemset>
+        <item rule-number="14" point="2"/>
+        <item rule-number="17" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="12"/>
+          <transition type="goto" symbol="exp" state="42"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="34">
+      <itemset>
+        <item rule-number="10" point="5"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="10" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="35">
+      <itemset>
+        <item rule-number="22" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="22" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="36">
+      <itemset>
+        <item rule-number="23" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="23" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="37">
+      <itemset>
+        <item rule-number="24" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="&quot;(&quot;" state="43"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="38">
+      <itemset>
+        <item rule-number="21" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="21" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="39">
+      <itemset>
+        <item rule-number="18" point="5"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="18" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="40">
+      <itemset>
+        <item rule-number="20" point="2"/>
+        <item rule-number="21" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="STRING" state="29"/>
+          <transition type="goto" symbol="attribute_exp" state="44"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="41">
+      <itemset>
+        <item rule-number="16" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="16" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="42">
+      <itemset>
+        <item rule-number="14" point="3"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="14" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="43">
+      <itemset>
+        <item rule-number="24" point="2"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="NUMBER" state="45"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="44">
+      <itemset>
+        <item rule-number="20" point="3"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="20" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="45">
+      <itemset>
+        <item rule-number="24" point="3"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="&quot;)&quot;" state="46"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="46">
+      <itemset>
+        <item rule-number="24" point="4"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="24" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+  </automaton>
+</bison-xml-report>

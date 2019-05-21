@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/DM.dir/main.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/main.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/main.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compiler.dir/parser.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compiler.dir/scanner.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/scanner.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/scanner.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compiler.dir/compiler.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compiler.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compiler.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Table_Statement.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Table_Statement.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compilertools.dir/Select_Statement.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Select_Statement.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Select_Statement.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compilertools.dir/String_Expression.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/String_Expression.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/String_Expression.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/compilertools.dir/compilertool.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/compilertool.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/compilertool.cpp"
+},
+{
+  "directory": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/api",
+  "command": "/usr/local/bin/g++-8    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk   -o CMakeFiles/api.dir/api.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/api/api.cpp",
+  "file": "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/api/api.cpp"
+}
+]
