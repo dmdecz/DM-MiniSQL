@@ -1,2 +1,0 @@
-/usr/bin/ar qc libsyntax.a  CMakeFiles/syntax.dir/parser.cpp.o CMakeFiles/syntax.dir/scanner.cpp.o CMakeFiles/syntax.dir/compiler.cpp.o CMakeFiles/syntax.dir/compilertool.cpp.o
-/usr/bin/ranlib libsyntax.a
