@@ -547,6 +547,32 @@ compilertools/fast:
 .PHONY : compilertools/fast
 
 #=============================================================================
+# Target rules for targets named expressions
+
+# Build rule for target.
+expressions: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 expressions
+.PHONY : expressions
+
+# fast build rule for target.
+expressions/fast:
+	$(MAKE) -f compiler/compilertools/expressions/CMakeFiles/expressions.dir/build.make compiler/compilertools/expressions/CMakeFiles/expressions.dir/build
+.PHONY : expressions/fast
+
+#=============================================================================
+# Target rules for targets named statements
+
+# Build rule for target.
+statements: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 statements
+.PHONY : statements
+
+# fast build rule for target.
+statements/fast:
+	$(MAKE) -f compiler/compilertools/statements/CMakeFiles/statements.dir/build.make compiler/compilertools/statements/CMakeFiles/statements.dir/build
+.PHONY : statements/fast
+
+#=============================================================================
 # Target rules for targets named api
 
 # Build rule for target.
@@ -628,6 +654,8 @@ help:
 	@echo "... Experimental"
 	@echo "... compiler"
 	@echo "... compilertools"
+	@echo "... expressions"
+	@echo "... statements"
 	@echo "... api"
 	@echo "... main.o"
 	@echo "... main.i"

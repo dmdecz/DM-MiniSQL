@@ -65,6 +65,7 @@
 		"typeindex": "cpp",
 		"variant": "cpp",
 		"list": "cpp",
-		"complex": "cpp"
+		"complex": "cpp",
+		"*.ipp": "cpp"
 	}
 }

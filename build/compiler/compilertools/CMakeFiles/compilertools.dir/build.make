@@ -57,61 +57,9 @@ include compiler/compilertools/CMakeFiles/compilertools.dir/progress.make
 # Include the compile flags for this target's objects.
 include compiler/compilertools/CMakeFiles/compilertools.dir/flags.make
 
-compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o: compiler/compilertools/CMakeFiles/compilertools.dir/flags.make
-compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o: ../compiler/compilertools/Attribute_Expression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.cpp
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compilertools.dir/Attribute_Expression.cpp.i"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.cpp > CMakeFiles/compilertools.dir/Attribute_Expression.cpp.i
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compilertools.dir/Attribute_Expression.cpp.s"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Attribute_Expression.cpp -o CMakeFiles/compilertools.dir/Attribute_Expression.cpp.s
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o: compiler/compilertools/CMakeFiles/compilertools.dir/flags.make
-compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o: ../compiler/compilertools/Create_Table_Statement.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Table_Statement.cpp
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.i"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Table_Statement.cpp > CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.i
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.s"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Create_Table_Statement.cpp -o CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.s
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.o: compiler/compilertools/CMakeFiles/compilertools.dir/flags.make
-compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.o: ../compiler/compilertools/Select_Statement.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.o"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/compilertools.dir/Select_Statement.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Select_Statement.cpp
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compilertools.dir/Select_Statement.cpp.i"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Select_Statement.cpp > CMakeFiles/compilertools.dir/Select_Statement.cpp.i
-
-compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compilertools.dir/Select_Statement.cpp.s"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/Select_Statement.cpp -o CMakeFiles/compilertools.dir/Select_Statement.cpp.s
-
-compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.o: compiler/compilertools/CMakeFiles/compilertools.dir/flags.make
-compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.o: ../compiler/compilertools/String_Expression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.o"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/compilertools.dir/String_Expression.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/String_Expression.cpp
-
-compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/compilertools.dir/String_Expression.cpp.i"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/String_Expression.cpp > CMakeFiles/compilertools.dir/String_Expression.cpp.i
-
-compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/compilertools.dir/String_Expression.cpp.s"
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/String_Expression.cpp -o CMakeFiles/compilertools.dir/String_Expression.cpp.s
-
 compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.o: compiler/compilertools/CMakeFiles/compilertools.dir/flags.make
 compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.o: ../compiler/compilertools/compilertool.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.o"
 	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && /usr/local/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/compilertools.dir/compilertool.cpp.o -c /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/compilertools/compilertool.cpp
 
 compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.i: cmake_force
@@ -124,23 +72,15 @@ compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.s: cmake_fo
 
 # Object files for target compilertools
 compilertools_OBJECTS = \
-"CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o" \
-"CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o" \
-"CMakeFiles/compilertools.dir/Select_Statement.cpp.o" \
-"CMakeFiles/compilertools.dir/String_Expression.cpp.o" \
 "CMakeFiles/compilertools.dir/compilertool.cpp.o"
 
 # External object files for target compilertools
 compilertools_EXTERNAL_OBJECTS =
 
-compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o
-compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o
-compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.o
-compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.o
 compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/compilertool.cpp.o
 compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/build.make
 compiler/compilertools/libcompilertools.a: compiler/compilertools/CMakeFiles/compilertools.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libcompilertools.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libcompilertools.a"
 	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && $(CMAKE_COMMAND) -P CMakeFiles/compilertools.dir/cmake_clean_target.cmake
 	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/compilertools.dir/link.txt --verbose=$(VERBOSE)
 

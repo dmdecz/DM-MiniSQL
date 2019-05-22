@@ -158,114 +158,6 @@ compilertools/fast:
 	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/build
 .PHONY : compilertools/fast
 
-Attribute_Expression.o: Attribute_Expression.cpp.o
-
-.PHONY : Attribute_Expression.o
-
-# target to build an object file
-Attribute_Expression.cpp.o:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.o
-.PHONY : Attribute_Expression.cpp.o
-
-Attribute_Expression.i: Attribute_Expression.cpp.i
-
-.PHONY : Attribute_Expression.i
-
-# target to preprocess a source file
-Attribute_Expression.cpp.i:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.i
-.PHONY : Attribute_Expression.cpp.i
-
-Attribute_Expression.s: Attribute_Expression.cpp.s
-
-.PHONY : Attribute_Expression.s
-
-# target to generate assembly for a file
-Attribute_Expression.cpp.s:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Attribute_Expression.cpp.s
-.PHONY : Attribute_Expression.cpp.s
-
-Create_Table_Statement.o: Create_Table_Statement.cpp.o
-
-.PHONY : Create_Table_Statement.o
-
-# target to build an object file
-Create_Table_Statement.cpp.o:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.o
-.PHONY : Create_Table_Statement.cpp.o
-
-Create_Table_Statement.i: Create_Table_Statement.cpp.i
-
-.PHONY : Create_Table_Statement.i
-
-# target to preprocess a source file
-Create_Table_Statement.cpp.i:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.i
-.PHONY : Create_Table_Statement.cpp.i
-
-Create_Table_Statement.s: Create_Table_Statement.cpp.s
-
-.PHONY : Create_Table_Statement.s
-
-# target to generate assembly for a file
-Create_Table_Statement.cpp.s:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Create_Table_Statement.cpp.s
-.PHONY : Create_Table_Statement.cpp.s
-
-Select_Statement.o: Select_Statement.cpp.o
-
-.PHONY : Select_Statement.o
-
-# target to build an object file
-Select_Statement.cpp.o:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.o
-.PHONY : Select_Statement.cpp.o
-
-Select_Statement.i: Select_Statement.cpp.i
-
-.PHONY : Select_Statement.i
-
-# target to preprocess a source file
-Select_Statement.cpp.i:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.i
-.PHONY : Select_Statement.cpp.i
-
-Select_Statement.s: Select_Statement.cpp.s
-
-.PHONY : Select_Statement.s
-
-# target to generate assembly for a file
-Select_Statement.cpp.s:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/Select_Statement.cpp.s
-.PHONY : Select_Statement.cpp.s
-
-String_Expression.o: String_Expression.cpp.o
-
-.PHONY : String_Expression.o
-
-# target to build an object file
-String_Expression.cpp.o:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.o
-.PHONY : String_Expression.cpp.o
-
-String_Expression.i: String_Expression.cpp.i
-
-.PHONY : String_Expression.i
-
-# target to preprocess a source file
-String_Expression.cpp.i:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.i
-.PHONY : String_Expression.cpp.i
-
-String_Expression.s: String_Expression.cpp.s
-
-.PHONY : String_Expression.s
-
-# target to generate assembly for a file
-String_Expression.cpp.s:
-	cd /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build && $(MAKE) -f compiler/compilertools/CMakeFiles/compilertools.dir/build.make compiler/compilertools/CMakeFiles/compilertools.dir/String_Expression.cpp.s
-.PHONY : String_Expression.cpp.s
-
 compilertool.o: compilertool.cpp.o
 
 .PHONY : compilertool.o
@@ -305,18 +197,6 @@ help:
 	@echo "... package_source"
 	@echo "... package"
 	@echo "... test"
-	@echo "... Attribute_Expression.o"
-	@echo "... Attribute_Expression.i"
-	@echo "... Attribute_Expression.s"
-	@echo "... Create_Table_Statement.o"
-	@echo "... Create_Table_Statement.i"
-	@echo "... Create_Table_Statement.s"
-	@echo "... Select_Statement.o"
-	@echo "... Select_Statement.i"
-	@echo "... Select_Statement.s"
-	@echo "... String_Expression.o"
-	@echo "... String_Expression.i"
-	@echo "... String_Expression.s"
 	@echo "... compilertool.o"
 	@echo "... compilertool.i"
 	@echo "... compilertool.s"

@@ -3,6 +3,7 @@
 
 #include "compilertools/compilertools.hpp"
 #include "parser.hpp"
+#include "../api/api.hpp"
 
 // Give Flex the prototype of yylex we want ...
 # define YY_DECL \
@@ -15,17 +16,20 @@ class Compiler
 public:
 	static std::string file;
 
-	Compiler();
+	bool trace_scanning;
+  	yy::location location;
+
+	API * api;
+
+	Compiler(API *);
 	void execute_statement(Statement *);
 	virtual ~Compiler();
 
-	int result;
+	// parser
 	int parse ();
 	bool trace_parsing;
 	void scan_begin ();
   	void scan_end ();
- 	bool trace_scanning;
-  	yy::location location;
 };
 
 #endif // __COMPILER_HPP__

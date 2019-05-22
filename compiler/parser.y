@@ -28,28 +28,31 @@
 %define api.token.prefix {TOK_}
 
 %token <int> NUMBER;
-%token SELECT FROM WHERE ENDL BLANK QUIT END SOURCE CREATE TABLE
+%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE
 %token
-  MINUS  	"-"
-  PLUS   	"+"
-  STAR   	"*"
-  SLASH   	"/"
-  LPAREN  	"("
-  RPAREN  	")"
-  COMMA   	","
-  INT		"int"
-  DOUBLE 	"double"
-  CHAR 		"char"
+	BLANK
+	END			"eof"
+	ENDL		";"
+	MINUS		"-"
+	PLUS	 	"+"
+	STAR	 	"*"
+	SLASH	 	"/"
+	LPAREN		"("
+	RPAREN		")"
+	COMMA	 	","
+	INT			"int"
+	DOUBLE		"double"
+	CHAR		"char"
+	PRIMARY_KEY	"primary key"
+	FOREIGN_KEY	"foreign key"
 ;
 %token <std::string> STRING FILENAME
 
 %type <int> variant_type
 %type <std::string> source_statement
-%type <Expression *> exp attribute_exp
-%type <ExpressionList *> select_list table_list select_condition attribute_list
-%type <Statement *> statement
-%type <Select_Statement *> select_statement
-%type <Create_Database_Statement *> create_db_statement
+%type <Expression *> exp attribute_exp constrain_exp
+%type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list
+%type <Statement *> statement select_statement create_table_statement
 
 %printer { yyo << $$; } <*>;
 
@@ -65,7 +68,7 @@ statement:
 	| ENDL { $$ = nullptr; }
 	| select_statement ENDL { $$ = $1; }
 	| source_statement ENDL { $$ = nullptr; Compiler::file = $1; return 0; }
-	| create_db_statement ENDL { $$ = $1; }
+	| create_table_statement ENDL { $$ = $1; }
 	| QUIT ENDL { std::cout << "Bye" << std::endl; return -1; }
 	;
 
@@ -75,13 +78,11 @@ source_statement:
 
 select_statement:
 	SELECT select_list FROM table_list select_condition {
-		$$ = new Select_Statement;
-		$$->set_select($2);
-		// std::cout << $2 << std::endl;
-		$$->set_table($4);
-		// std::cout << $4 << std::endl;
-		$$->set_condition($5);
-		// std::cout << $5 << std::endl;
+		Select_Statement * select = new Select_Statement;
+		select->set_select($2);
+		select->set_table($4);
+		select->set_condition($5);
+		$$ = select;
 	}
 	;
 
@@ -104,12 +105,13 @@ exp:
 	STRING { $$ = new String_Expression($1); }
 	;
 
-create_db_statement:
+create_table_statement:
 	CREATE TABLE STRING
-	"(" attribute_list ")" {
-		$$ = new Create_Database_Statement();
-		$$->set_attribute($4);
-		$$->set_constrain(nullptr);
+	"(" attribute_list "," constrain_list ")" {
+		Create_Table_Statement * create = new Create_Table_Statement($3);
+		create->set_attribute($5);
+		create->set_constrain($7);
+		$$ = create;
 	}
 	;
 
@@ -126,6 +128,16 @@ variant_type:
 	"int" { $$ = -1; }
 	| "double" { $$ = -2; }
 	| "char" "(" NUMBER ")" { $$ = $3; }
+	;
+
+constrain_list:
+	constrain_exp { $$ = new ExpressionList(); $$->push_back($1); }
+	| constrain_list "," constrain_exp { $1->push_back($3); $$ = $1; }
+	;
+
+constrain_exp:
+	PRIMARY_KEY "(" STRING ")" { $$ = new Constrain_Expression(0, $3); }
+	| FOREIGN_KEY "(" STRING ")" { $$ = new Constrain_Expression(1, $3); }
 	;
 
 %%

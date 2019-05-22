@@ -369,33 +369,31 @@ namespace yy {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // create_db_statement
-      char dummy1[sizeof (Create_Database_Statement *)];
-
       // exp
       // attribute_exp
-      char dummy2[sizeof (Expression *)];
+      // constrain_exp
+      char dummy1[sizeof (Expression *)];
 
       // select_list
       // table_list
       // select_condition
       // attribute_list
-      char dummy3[sizeof (ExpressionList *)];
-
-      // select_statement
-      char dummy4[sizeof (Select_Statement *)];
+      // constrain_list
+      char dummy2[sizeof (ExpressionList *)];
 
       // statement
-      char dummy5[sizeof (Statement *)];
+      // select_statement
+      // create_table_statement
+      char dummy3[sizeof (Statement *)];
 
       // NUMBER
       // variant_type
-      char dummy6[sizeof (int)];
+      char dummy4[sizeof (int)];
 
       // STRING
       // FILENAME
       // source_statement
-      char dummy7[sizeof (std::string)];
+      char dummy5[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -447,13 +445,13 @@ namespace yy {
         TOK_SELECT = 259,
         TOK_FROM = 260,
         TOK_WHERE = 261,
-        TOK_ENDL = 262,
-        TOK_BLANK = 263,
-        TOK_QUIT = 264,
-        TOK_END = 265,
-        TOK_SOURCE = 266,
-        TOK_CREATE = 267,
-        TOK_TABLE = 268,
+        TOK_QUIT = 262,
+        TOK_SOURCE = 263,
+        TOK_CREATE = 264,
+        TOK_TABLE = 265,
+        TOK_BLANK = 266,
+        TOK_END = 267,
+        TOK_ENDL = 268,
         TOK_MINUS = 269,
         TOK_PLUS = 270,
         TOK_STAR = 271,
@@ -464,8 +462,10 @@ namespace yy {
         TOK_INT = 276,
         TOK_DOUBLE = 277,
         TOK_CHAR = 278,
-        TOK_STRING = 279,
-        TOK_FILENAME = 280
+        TOK_PRIMARY_KEY = 279,
+        TOK_FOREIGN_KEY = 280,
+        TOK_STRING = 281,
+        TOK_FILENAME = 282
       };
     };
 
@@ -520,19 +520,6 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, Create_Database_Statement *&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const Create_Database_Statement *& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, Expression *&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -553,19 +540,6 @@ namespace yy {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const ExpressionList *& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, Select_Statement *&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const Select_Statement *& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -633,38 +607,34 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 36: // create_db_statement
-        value.template destroy< Create_Database_Statement * > ();
-        break;
-
-      case 35: // exp
-      case 38: // attribute_exp
+      case 37: // exp
+      case 40: // attribute_exp
+      case 43: // constrain_exp
         value.template destroy< Expression * > ();
         break;
 
-      case 32: // select_list
-      case 33: // table_list
-      case 34: // select_condition
-      case 37: // attribute_list
+      case 34: // select_list
+      case 35: // table_list
+      case 36: // select_condition
+      case 39: // attribute_list
+      case 42: // constrain_list
         value.template destroy< ExpressionList * > ();
         break;
 
-      case 31: // select_statement
-        value.template destroy< Select_Statement * > ();
-        break;
-
-      case 29: // statement
+      case 31: // statement
+      case 33: // select_statement
+      case 38: // create_table_statement
         value.template destroy< Statement * > ();
         break;
 
       case 3: // NUMBER
-      case 39: // variant_type
+      case 41: // variant_type
         value.template destroy< int > ();
         break;
 
-      case 24: // STRING
-      case 25: // FILENAME
-      case 30: // source_statement
+      case 26: // STRING
+      case 27: // FILENAME
+      case 32: // source_statement
         value.template destroy< std::string > ();
         break;
 
@@ -747,13 +717,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YYASSERT (tok == 0 || tok == token::TOK_SELECT || tok == token::TOK_FROM || tok == token::TOK_WHERE || tok == token::TOK_ENDL || tok == token::TOK_BLANK || tok == token::TOK_QUIT || tok == token::TOK_END || tok == token::TOK_SOURCE || tok == token::TOK_CREATE || tok == token::TOK_TABLE || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_COMMA || tok == token::TOK_INT || tok == token::TOK_DOUBLE || tok == token::TOK_CHAR || tok == 44);
+        YYASSERT (tok == 0 || tok == token::TOK_SELECT || tok == token::TOK_FROM || tok == token::TOK_WHERE || tok == token::TOK_QUIT || tok == token::TOK_SOURCE || tok == token::TOK_CREATE || tok == token::TOK_TABLE || tok == token::TOK_BLANK || tok == token::TOK_END || tok == token::TOK_ENDL || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_COMMA || tok == token::TOK_INT || tok == token::TOK_DOUBLE || tok == token::TOK_CHAR || tok == token::TOK_PRIMARY_KEY || tok == token::TOK_FOREIGN_KEY || tok == 44);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YYASSERT (tok == 0 || tok == token::TOK_SELECT || tok == token::TOK_FROM || tok == token::TOK_WHERE || tok == token::TOK_ENDL || tok == token::TOK_BLANK || tok == token::TOK_QUIT || tok == token::TOK_END || tok == token::TOK_SOURCE || tok == token::TOK_CREATE || tok == token::TOK_TABLE || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_COMMA || tok == token::TOK_INT || tok == token::TOK_DOUBLE || tok == token::TOK_CHAR || tok == 44);
+        YYASSERT (tok == 0 || tok == token::TOK_SELECT || tok == token::TOK_FROM || tok == token::TOK_WHERE || tok == token::TOK_QUIT || tok == token::TOK_SOURCE || tok == token::TOK_CREATE || tok == token::TOK_TABLE || tok == token::TOK_BLANK || tok == token::TOK_END || tok == token::TOK_ENDL || tok == token::TOK_MINUS || tok == token::TOK_PLUS || tok == token::TOK_STAR || tok == token::TOK_SLASH || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_COMMA || tok == token::TOK_INT || tok == token::TOK_DOUBLE || tok == token::TOK_CHAR || tok == token::TOK_PRIMARY_KEY || tok == token::TOK_FOREIGN_KEY || tok == 44);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -882,36 +852,6 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ENDL (location_type l)
-      {
-        return symbol_type (token::TOK_ENDL, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_ENDL (const location_type& l)
-      {
-        return symbol_type (token::TOK_ENDL, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_BLANK (location_type l)
-      {
-        return symbol_type (token::TOK_BLANK, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_BLANK (const location_type& l)
-      {
-        return symbol_type (token::TOK_BLANK, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_QUIT (location_type l)
       {
         return symbol_type (token::TOK_QUIT, std::move (l));
@@ -922,21 +862,6 @@ switch (yytype)
       make_QUIT (const location_type& l)
       {
         return symbol_type (token::TOK_QUIT, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_END (location_type l)
-      {
-        return symbol_type (token::TOK_END, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_END (const location_type& l)
-      {
-        return symbol_type (token::TOK_END, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -982,6 +907,51 @@ switch (yytype)
       make_TABLE (const location_type& l)
       {
         return symbol_type (token::TOK_TABLE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BLANK (location_type l)
+      {
+        return symbol_type (token::TOK_BLANK, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BLANK (const location_type& l)
+      {
+        return symbol_type (token::TOK_BLANK, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_END (location_type l)
+      {
+        return symbol_type (token::TOK_END, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_END (const location_type& l)
+      {
+        return symbol_type (token::TOK_END, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ENDL (location_type l)
+      {
+        return symbol_type (token::TOK_ENDL, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ENDL (const location_type& l)
+      {
+        return symbol_type (token::TOK_ENDL, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1132,6 +1102,36 @@ switch (yytype)
       make_CHAR (const location_type& l)
       {
         return symbol_type (token::TOK_CHAR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PRIMARY_KEY (location_type l)
+      {
+        return symbol_type (token::TOK_PRIMARY_KEY, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PRIMARY_KEY (const location_type& l)
+      {
+        return symbol_type (token::TOK_PRIMARY_KEY, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FOREIGN_KEY (location_type l)
+      {
+        return symbol_type (token::TOK_FOREIGN_KEY, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_FOREIGN_KEY (const location_type& l)
+      {
+        return symbol_type (token::TOK_FOREIGN_KEY, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1470,12 +1470,12 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 39,     ///< Last index in yytable_.
-      yynnts_ = 13,  ///< Number of nonterminal symbols.
+      yylast_ = 53,     ///< Last index in yytable_.
+      yynnts_ = 15,  ///< Number of nonterminal symbols.
       yyfinal_ = 18, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 27  ///< Number of tokens.
+      yyntokens_ = 29  ///< Number of tokens.
     };
 
 
@@ -1497,7 +1497,7 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    26,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    28,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1521,9 +1521,9 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25
+      25,    26,    27
     };
-    const unsigned user_token_number_max_ = 280;
+    const unsigned user_token_number_max_ = 282;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int> (t) <= yyeof_)
@@ -1544,38 +1544,34 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 36: // create_db_statement
-        value.move< Create_Database_Statement * > (std::move (that.value));
-        break;
-
-      case 35: // exp
-      case 38: // attribute_exp
+      case 37: // exp
+      case 40: // attribute_exp
+      case 43: // constrain_exp
         value.move< Expression * > (std::move (that.value));
         break;
 
-      case 32: // select_list
-      case 33: // table_list
-      case 34: // select_condition
-      case 37: // attribute_list
+      case 34: // select_list
+      case 35: // table_list
+      case 36: // select_condition
+      case 39: // attribute_list
+      case 42: // constrain_list
         value.move< ExpressionList * > (std::move (that.value));
         break;
 
-      case 31: // select_statement
-        value.move< Select_Statement * > (std::move (that.value));
-        break;
-
-      case 29: // statement
+      case 31: // statement
+      case 33: // select_statement
+      case 38: // create_table_statement
         value.move< Statement * > (std::move (that.value));
         break;
 
       case 3: // NUMBER
-      case 39: // variant_type
+      case 41: // variant_type
         value.move< int > (std::move (that.value));
         break;
 
-      case 24: // STRING
-      case 25: // FILENAME
-      case 30: // source_statement
+      case 26: // STRING
+      case 27: // FILENAME
+      case 32: // source_statement
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -1594,38 +1590,34 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 36: // create_db_statement
-        value.copy< Create_Database_Statement * > (YY_MOVE (that.value));
-        break;
-
-      case 35: // exp
-      case 38: // attribute_exp
+      case 37: // exp
+      case 40: // attribute_exp
+      case 43: // constrain_exp
         value.copy< Expression * > (YY_MOVE (that.value));
         break;
 
-      case 32: // select_list
-      case 33: // table_list
-      case 34: // select_condition
-      case 37: // attribute_list
+      case 34: // select_list
+      case 35: // table_list
+      case 36: // select_condition
+      case 39: // attribute_list
+      case 42: // constrain_list
         value.copy< ExpressionList * > (YY_MOVE (that.value));
         break;
 
-      case 31: // select_statement
-        value.copy< Select_Statement * > (YY_MOVE (that.value));
-        break;
-
-      case 29: // statement
+      case 31: // statement
+      case 33: // select_statement
+      case 38: // create_table_statement
         value.copy< Statement * > (YY_MOVE (that.value));
         break;
 
       case 3: // NUMBER
-      case 39: // variant_type
+      case 41: // variant_type
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 24: // STRING
-      case 25: // FILENAME
-      case 30: // source_statement
+      case 26: // STRING
+      case 27: // FILENAME
+      case 32: // source_statement
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1651,38 +1643,34 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 36: // create_db_statement
-        value.move< Create_Database_Statement * > (YY_MOVE (s.value));
-        break;
-
-      case 35: // exp
-      case 38: // attribute_exp
+      case 37: // exp
+      case 40: // attribute_exp
+      case 43: // constrain_exp
         value.move< Expression * > (YY_MOVE (s.value));
         break;
 
-      case 32: // select_list
-      case 33: // table_list
-      case 34: // select_condition
-      case 37: // attribute_list
+      case 34: // select_list
+      case 35: // table_list
+      case 36: // select_condition
+      case 39: // attribute_list
+      case 42: // constrain_list
         value.move< ExpressionList * > (YY_MOVE (s.value));
         break;
 
-      case 31: // select_statement
-        value.move< Select_Statement * > (YY_MOVE (s.value));
-        break;
-
-      case 29: // statement
+      case 31: // statement
+      case 33: // select_statement
+      case 38: // create_table_statement
         value.move< Statement * > (YY_MOVE (s.value));
         break;
 
       case 3: // NUMBER
-      case 39: // variant_type
+      case 41: // variant_type
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 24: // STRING
-      case 25: // FILENAME
-      case 30: // source_statement
+      case 26: // STRING
+      case 27: // FILENAME
+      case 32: // source_statement
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1752,14 +1740,14 @@ switch (yytype)
     {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,    44
+     275,   276,   277,   278,   279,   280,   281,   282,    44
     };
     return token_type (yytoken_number_[type]);
   }
 
 
 } // yy
-#line 1763 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.hpp" // lalr1.cc:417
+#line 1751 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.hpp" // lalr1.cc:417
 
 
 

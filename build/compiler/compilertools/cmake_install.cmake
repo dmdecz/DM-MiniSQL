@@ -32,3 +32,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools/expressions/cmake_install.cmake")
+  include("/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/build/compiler/compilertools/statements/cmake_install.cmake")
+
+endif()
+

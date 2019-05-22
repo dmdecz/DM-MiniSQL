@@ -168,6 +168,8 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 "INT"|"int"			return yy::parser::make_INT (loc);
 "DOUBLE"|"double"	return yy::parser::make_DOUBLE (loc);
 "CHAR"|"char"		return yy::parser::make_CHAR (loc);
+"primary key"		return yy::parser::make_PRIMARY_KEY (loc);
+"foreign key"		return yy::parser::make_FOREIGN_KEY (loc);
 "-"					return yy::parser::make_MINUS  (loc);
 "+"					return yy::parser::make_PLUS   (loc);
 "*"					return yy::parser::make_STAR   (loc);
@@ -194,7 +196,7 @@ make_NUMBER (const std::string &s, const yy::parser::location_type& loc)
 void
 Compiler::scan_begin ()
 {
-		yy_flex_debug = trace_scanning;
+	yy_flex_debug = trace_scanning;
     yyin = stdin;
 }
 

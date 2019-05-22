@@ -6,21 +6,17 @@ void Compiler::execute_statement(Statement * s)
 {
 	if (s)
 	{
-		std::cout << s->type() << std::endl;
-		std::cout << s->args(0) << std::endl;
-		std::cout << s->args(1) << std::endl;
-		std::cout << s->args(2) << std::endl;
+		this->api->excute(s);
 		delete s;
 	}		
 }
 
 Compiler::~Compiler(void) {}
 
-Compiler::Compiler ()
-	: trace_parsing (false), trace_scanning (false) {}
+Compiler::Compiler(API * a)
+	: api(a), trace_parsing (false), trace_scanning (false) {}
 
-int
-Compiler::parse()
+int Compiler::parse()
 {
 	location.initialize(&file);
 	scan_begin();

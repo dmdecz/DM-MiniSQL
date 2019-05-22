@@ -3,13 +3,17 @@
 
 #include <vector>
 #include <string>
+#include <variant>
 
 class Statement;
 class Expression;
 class ExpressionList;
 
 
-typedef enum {SELECT_TYPE, CREATE_DB_TYPE} StatementType;
+typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE} StatementType;
+
+typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
+
 
 template<class T>
 void delete_ptr_in_vector(std::vector<T *> & v)
@@ -23,13 +27,14 @@ class Statement
 public:
 	virtual ~Statement(void) {}
 	virtual StatementType type(void) const = 0;
-	virtual const ExpressionList * args(int) const = 0;
+	virtual DMType args(int op = 0) const = 0;
 };
 
 class Expression
 {
 public:
 	virtual ~Expression(void) {}
+	virtual DMType values(int op = 0) const = 0;
 };
 
 class ExpressionList
