@@ -1,7 +1,7 @@
 #if !defined(__COMPILER_HPP__)
 #define __COMPILER_HPP__
 
-#include "compilertools/compilertools.hpp"
+#include "../common/common.hpp"
 #include "parser.hpp"
 #include "../api/api.hpp"
 

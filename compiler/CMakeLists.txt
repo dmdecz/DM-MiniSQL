@@ -33,7 +33,5 @@ ENDIF()
 set(SRC_COMPILER ${BisonOutput} ${FlexOutput} compiler.cpp)
 ADD_LIBRARY(compiler ${SRC_COMPILER})
 add_subdirectory(compilertools)
-add_compile_options(-Wregister)
-# add_compile_definitions(-Wregister)
 
 target_link_libraries(compiler readline compilertools)

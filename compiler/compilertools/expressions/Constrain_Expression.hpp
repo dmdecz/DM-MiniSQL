@@ -1,7 +1,7 @@
 #if !defined(CONSTRAIN_HPP)
 #define CONSTRAIN_HPP
 
-#include "../compilertool.hpp"
+#include "../../../common/common.hpp"
 
 #include <string>
 

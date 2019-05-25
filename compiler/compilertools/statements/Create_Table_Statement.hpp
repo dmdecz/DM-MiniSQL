@@ -1,7 +1,7 @@
 #if !defined(CREATE_TABLE_STATEMENT_HPP)
 #define CREATE_TABLE_STATEMENT_HPP
 
-#include "../compilertool.hpp"
+#include "../../../common/common.hpp"
 
 #include <string>
 

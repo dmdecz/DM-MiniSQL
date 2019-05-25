@@ -28,7 +28,7 @@
 %define api.token.prefix {TOK_}
 
 %token <int> NUMBER;
-%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE
+%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP
 %token
 	BLANK
 	END			"eof"
@@ -52,7 +52,7 @@
 %type <std::string> source_statement
 %type <Expression *> exp attribute_exp constrain_exp
 %type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list
-%type <Statement *> statement select_statement create_table_statement
+%type <Statement *> statement select_statement use_statement create_db_statement drop_db_statement drop_table_statement create_table_statement
 
 %printer { yyo << $$; } <*>;
 
@@ -69,7 +69,27 @@ statement:
 	| select_statement ENDL { $$ = $1; }
 	| source_statement ENDL { $$ = nullptr; Compiler::file = $1; return 0; }
 	| create_table_statement ENDL { $$ = $1; }
+	| drop_table_statement ENDL { $$ = $1; }
 	| QUIT ENDL { std::cout << "Bye" << std::endl; return -1; }
+	| use_statement ENDL { $$ = $1; }
+	| create_db_statement ENDL { $$ = $1; }
+	| drop_db_statement ENDL { $$ = $1; }
+	;
+
+drop_table_statement:
+	DROP TABLE STRING { $$ = new Drop_Table_Statement($3); }
+	;
+
+drop_db_statement:
+	DROP DATABASE STRING { $$ = new Drop_Database_Statement($3); }
+	;
+
+use_statement:
+	USE STRING { $$ = new Use_Statement($2); }
+	;
+
+create_db_statement:
+	CREATE DATABASE STRING { $$ = new Create_Database_Statement($3); }
 	;
 
 source_statement:
@@ -107,10 +127,10 @@ exp:
 
 create_table_statement:
 	CREATE TABLE STRING
-	"(" attribute_list "," constrain_list ")" {
+	"(" attribute_list constrain_list ")" {
 		Create_Table_Statement * create = new Create_Table_Statement($3);
 		create->set_attribute($5);
-		create->set_constrain($7);
+		create->set_constrain($6);
 		$$ = create;
 	}
 	;
@@ -131,7 +151,8 @@ variant_type:
 	;
 
 constrain_list:
-	constrain_exp { $$ = new ExpressionList(); $$->push_back($1); }
+	%empty { $$ = nullptr; }
+	| "," constrain_exp { $$ = new ExpressionList(); $$->push_back($2); }
 	| constrain_list "," constrain_exp { $1->push_back($3); $$ = $1; }
 	;
 

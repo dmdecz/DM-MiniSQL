@@ -159,12 +159,15 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 {int}				return make_NUMBER (yytext, loc);
 ";"					return yy::parser::make_ENDL  (loc);
 "SELECT"|"select"	return yy::parser::make_SELECT(loc);
+"DROP"|"drop"		return yy::parser::make_DROP(loc);
 "FROM"|"from"		return yy::parser::make_FROM  (loc);
 "WHERE"|"where"		return yy::parser::make_WHERE (loc);
 "QUIT"|"quit"		return yy::parser::make_QUIT  (loc);
 "SOURCE"|"source"	return yy::parser::make_SOURCE(loc);
 "CREATE"|"create"	return yy::parser::make_CREATE(loc);
 "TABLE"|"table"		return yy::parser::make_TABLE (loc);
+"USE"|"use"			return yy::parser::make_USE (loc);
+"DATABASE"|"database" return yy::parser::make_DATABASE (loc);
 "INT"|"int"			return yy::parser::make_INT (loc);
 "DOUBLE"|"double"	return yy::parser::make_DOUBLE (loc);
 "CHAR"|"char"		return yy::parser::make_CHAR (loc);

@@ -1,7 +1,7 @@
 #if !defined(STRING_EXPRESSION_HPP)
 #define STRING_EXPRESSION_HPP
 
-#include "../compilertool.hpp"
+#include "../../../common/common.hpp"
 
 class String_Expression: public Expression
 {

@@ -8,8 +8,10 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(DM main.cpp)
 add_subdirectory(compiler)
 add_subdirectory(api)
+add_subdirectory(catalog_manager)
+add_subdirectory(common)
 
-target_link_libraries(DM compiler api)
+target_link_libraries(DM compiler api catalog_manager common)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

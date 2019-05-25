@@ -1,7 +1,8 @@
-#if !defined(COMPILERTOOL_HPP)
-#define COMPILERTOOL_HPP
+#if !defined(COMMON_HPP)
+#define COMMON_HPP
 
 #include <vector>
+#include <map>
 #include <string>
 #include <variant>
 
@@ -10,16 +11,28 @@ class Expression;
 class ExpressionList;
 
 
-typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE} StatementType;
+typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE} StatementType;
 
 typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
-
+typedef int AttrType;
 
 template<class T>
 void delete_ptr_in_vector(std::vector<T *> & v)
 {
 	for (size_t i = 0; i < v.size(); i++)
 		if (!v[i]) delete v[i];
+	v.clear();
+}
+
+template<class A, class B>
+using MapIterator = typename std::map<A, B>::iterator ;
+
+template<class T, class A>
+void delete_ptr_in_map(std::map<A, T *> & m)
+{
+	for (MapIterator<A, T*> it = m.begin(); it != m.end(); it++)
+		delete it->second;
+	m.clear();
 }
 
 class Statement
@@ -50,4 +63,4 @@ public:
 };
 
 
-#endif // COMPILERTOOL_HPP
+#endif // COMMON_HPP
