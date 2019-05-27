@@ -7,16 +7,21 @@
 class Block
 {
 private:
-	int table_number;
+	const std::string & database_name;
+	std::string table_name;
 	int block_number;
 	char * data;
-	bool lock;
+	bool locked;
 	bool dirty;
 
 public:
-	Block();
+	Block(const std::string &, const std::string &, int);
+	Block(const std::string &, const std::string &, int, char *);
 	void load();
 	void write_back();
+	void lock();
+	void unlock();
+	bool is_hit(const std::string &, int);
 	~Block();
 };
 
@@ -25,15 +30,17 @@ class Buffer_Manager
 private:
 	std::string database_name;
 	std::vector<Block *> block_pool;
-	const int BUFFER_SIZE;
-	const int BLOCK_SIZE;
 
 public:
+	static int BUFFER_SIZE;
+	static int BLOCK_SIZE;
+
 	Buffer_Manager();
-	Buffer_Manager(int, int);
 
-	Block * get_block(int, int);
+	Block * get_block(const std::string &, int);
 
+	void use_database(const std::string &);
+	void drop_database(const std::string &);
 	void clear();
 	~Buffer_Manager();
 };

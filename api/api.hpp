@@ -3,6 +3,8 @@
 
 #include "../common/common.hpp"
 #include "../catalog_manager/catalog_manager.hpp"
+#include "../buffer_manager/buffer_manager.hpp"
+#include "../record_manager/record_manager.hpp"
 
 #include <vector>
 #include <string>
@@ -10,8 +12,10 @@
 class API
 {
 private:
-	// std::string database_name;
+	std::string database_name;
 	Catalog_Manager * m_catalog;
+	Buffer_Manager * m_buffer;
+	Record_Manager * m_record;
 
 public:
 	API(void);

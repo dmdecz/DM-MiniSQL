@@ -12,6 +12,7 @@ class ExpressionList;
 
 
 typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE} StatementType;
+typedef enum {BPLUSTREE, HASH} IndexType;
 
 typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
 typedef int AttrType;

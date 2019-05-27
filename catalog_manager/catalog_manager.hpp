@@ -13,15 +13,19 @@ private:
 	std::string & database_name;
 	std::string table_name;
 	std::map<std::string, AttrType> attribute_list;
-	std::vector<std::string> primary_key;
+	std::string primary_key;
 	bool dirty;
 	static int ATTRIBUTE_SIZE;
+	std::map<std::string, IndexType> index_list;
+	int block_number;
+	friend class Catalog_Manager;
 
 public:
 	Table_Message(std::string &, const std::string &);
-	Table_Message(std::string &, const std::string &, std::map<std::string, AttrType> &);
+	Table_Message(std::string &, const std::string &, std::map<std::string, AttrType> &, const std::string &);
 	void load();
 	void write_back();
+	bool has_index(const std::string &);
 	~Table_Message();
 };
 
@@ -39,8 +43,12 @@ public:
 	void create_database(const std::string &);
 	void drop_database(const std::string &);
 
-	void create_table(const std::string &, std::map<std::string, AttrType> &, std::vector<std::string> &);
+	void create_table(const std::string &, std::map<std::string, AttrType> &, std::string &);
 	void drop_table(const std::string &);
+
+	bool has_table(const std::string &);
+	bool has_index(const std::string &, const std::string &);
+	int data_block_number(const std::string &);
 
 	void clear();
 	void drop();
