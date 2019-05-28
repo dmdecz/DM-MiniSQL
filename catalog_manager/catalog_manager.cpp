@@ -11,13 +11,13 @@
 
 int Table_Message::ATTRIBUTE_SIZE = 12;
 
-Table_Message::Table_Message(std::string & database, const std::string & table)
+Table_Message::Table_Message(const std::string & database, const std::string & table)
 	: database_name(database), table_name(table), dirty(0)
 {
 	this->load();
 }
 
-Table_Message::Table_Message(std::string & database, const std::string & table, std::map<std::string, AttrType> & attr, const std::string & primary_key)
+Table_Message::Table_Message(const std::string & database, const std::string & table, std::map<std::string, AttrType> & attr, const std::string & primary_key)
 	: database_name(database), table_name(table), attribute_list(attr), dirty(1), block_number(0)
 {
 	this->index_list[primary_key] = BPLUSTREE;
@@ -71,7 +71,7 @@ void Table_Message::load()
 
 void Table_Message::write_back()
 {
-	if (!this->dirty)
+	if (!this->dirty || this->database_name.empty())
 		return;
 	std::ofstream fp;
 	std::string filename = this->database_name + "/" + this->table_name + "/table.info";
@@ -110,6 +110,19 @@ void Table_Message::write_back()
 	this->dirty = 0;
 }
 
+bool Table_Message::has_attribute(const std::string & attr_name)
+{
+	return this->attribute_list.find(attr_name) != this->attribute_list.end();
+}
+
+AttrType Table_Message::get_attribute_type(const std::string & attr_name)
+{
+	AttrType ret = 0;
+	if (this->has_attribute(attr_name))
+		ret = this->attribute_list[attr_name];
+	return ret;
+}
+
 bool Table_Message::has_index(const std::string & attr_name)
 {
 	return this->index_list.find(attr_name) != this->index_list.end();
@@ -119,37 +132,30 @@ Table_Message::~Table_Message() {}
 
 int Catalog_Manager::TABLE_NAME_SIZE = 12;
 
-Catalog_Manager::Catalog_Manager()
-	: dirty(0)
+Catalog_Manager::Catalog_Manager(const std::string & database)
+	: database_name(database), dirty(0)
 {
 	this->clear();
 }
 
-void Catalog_Manager::use_database(const std::string & str)
+void Catalog_Manager::load()
 {
-	this->clear();
-	DIR * database_dir = opendir(str.c_str());
-	// std::cout << database_dir << std::endl;
-	if (database_dir)
+	std::ifstream fp(this->database_name + "/tables.list", std::ios::binary);
+	// std::cout << fp.is_open() << std::endl;
+	int num;
+	char * buffer = new char[TABLE_NAME_SIZE];
+	fp.read((char*)&num, sizeof(int));
+	for (int i = 0; i < num; i++)
 	{
-		this->database_name = str;
-		std::ifstream fp(str + "/tables.list", std::ios::binary);
-		// std::cout << fp.is_open() << std::endl;
-		int num;
-		char * buffer = new char[TABLE_NAME_SIZE];
-		fp.read((char*)&num, sizeof(int));
-		for (int i = 0; i < num; i++)
-		{
-			fp.read(buffer, sizeof(char) * TABLE_NAME_SIZE);
-			std::string table_name = std::string(buffer);
-			std::cout << table_name << std::endl;
-			this->table_list[table_name] = new Table_Message(this->database_name, table_name);
-		}
-		delete buffer;
-		fp.close();
-		std::cout << "table number = " << num << std::endl;
-		this->dirty = 0;
+		fp.read(buffer, sizeof(char) * TABLE_NAME_SIZE);
+		std::string table_name = std::string(buffer);
+		std::cout << table_name << std::endl;
+		this->table_list[table_name] = new Table_Message(this->database_name, table_name);
 	}
+	delete buffer;
+	fp.close();
+	std::cout << "table number = " << num << std::endl;
+	this->dirty = 0;
 }
 
 void Catalog_Manager::create_database(const std::string & str)
@@ -165,26 +171,9 @@ void Catalog_Manager::create_database(const std::string & str)
 	}
 }
 
-void Catalog_Manager::drop_database(const std::string & str)
-{
-	if (opendir(str.c_str()))
-	{
-		if (str == this->database_name)
-			this->drop();
-		std::string cmd = "rm -rf " + str;
-		system(cmd.c_str());
-	}
-}
-
 void Catalog_Manager::clear()
 {
 	this->write_back();
-	delete_ptr_in_map(this->table_list);
-}
-
-void Catalog_Manager::drop()
-{
-	this->database_name.clear();
 	delete_ptr_in_map(this->table_list);
 }
 
@@ -239,6 +228,19 @@ void Catalog_Manager::drop_table(const std::string & table_name)
 bool Catalog_Manager::has_table(const std::string & table_name)
 {
 	return this->table_list.find(table_name) != this->table_list.end();
+}
+
+bool Catalog_Manager::has_attribute(const std::string & table_name, const std::string & attr_name)
+{
+	return this->has_table(table_name) && this->table_list[table_name]->has_attribute(attr_name);
+}
+
+AttrType Catalog_Manager::get_attribute_type(const std::string & table_name, const std::string & attr_name)
+{
+	AttrType ret = 0;
+	if (this->has_attribute(table_name, attr_name))
+		ret = this->table_list[table_name]->get_attribute_type(attr_name);
+	return ret;
 }
 
 bool Catalog_Manager::has_index(const std::string & table_name, const std::string & attr_name)

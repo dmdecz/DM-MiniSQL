@@ -28,19 +28,18 @@ public:
 class Buffer_Manager
 {
 private:
-	std::string database_name;
+	const std::string & database_name;
 	std::vector<Block *> block_pool;
 
 public:
 	static int BUFFER_SIZE;
 	static int BLOCK_SIZE;
 
-	Buffer_Manager();
+	Buffer_Manager(const std::string &);
 
 	Block * get_block(const std::string &, int);
+	void put_block(Block *);
 
-	void use_database(const std::string &);
-	void drop_database(const std::string &);
 	void clear();
 	~Buffer_Manager();
 };

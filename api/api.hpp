@@ -20,13 +20,14 @@ private:
 public:
 	API(void);
 	
-	void excute(Statement *);
+	int excute(Statement *);
 	void excute_use_database(Statement *);
 	void excute_create_database(Statement *);
 	void excute_drop_database(Statement *);
 	void excute_select(Statement *);
 	void excute_create_table(Statement *);
 	void excute_drop_table(Statement *);
+	void excute_insert(Statement *);
 	~API(void);
 };
 

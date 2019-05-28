@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.3.2.
+// A Bison parser, made by GNU Bison 3.4.1.
 
 // Locations for Bison parsers in C++
 
@@ -54,9 +54,9 @@
 #  endif
 # endif
 
-
 namespace yy {
-#line 60 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh" // location.cc:360
+#line 59 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh"
+
   /// A point in a source file.
   class position
   {
@@ -316,7 +316,7 @@ namespace yy {
     return ostr;
   }
 
-
 } // yy
-#line 322 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh" // location.cc:360
+#line 321 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh"
+
 #endif // !YY_YY_USERS_CHENZHUO_DOCUMENTS_ZJU_COURSES_GRADE2B_DBS_DM_COMPILER_LOCATION_HH_INCLUDED

@@ -11,11 +11,12 @@
 class Record_Manager
 {
 private:
+	const std::string & database_name;
 	Catalog_Manager * m_catalog;
 	Buffer_Manager * m_buffer;
 
 public:
-	Record_Manager(Catalog_Manager *, Buffer_Manager *);
+	Record_Manager(const std::string &, Catalog_Manager *, Buffer_Manager *);
 	void select(const std::string &);
 	void insert(const std::string &, std::map<std::string, DMType> &);
 	~Record_Manager();

@@ -5,13 +5,13 @@
 #include <map>
 #include <string>
 #include <variant>
+#include <iostream>
 
 class Statement;
 class Expression;
 class ExpressionList;
 
-
-typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE} StatementType;
+typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE, INSERT_TYPE} StatementType;
 typedef enum {BPLUSTREE, HASH} IndexType;
 
 typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
@@ -21,12 +21,12 @@ template<class T>
 void delete_ptr_in_vector(std::vector<T *> & v)
 {
 	for (size_t i = 0; i < v.size(); i++)
-		if (!v[i]) delete v[i];
+		if (v[i]) delete v[i];
 	v.clear();
 }
 
 template<class A, class B>
-using MapIterator = typename std::map<A, B>::iterator ;
+using MapIterator = typename std::map<A, B>::iterator;
 
 template<class T, class A>
 void delete_ptr_in_map(std::map<A, T *> & m)

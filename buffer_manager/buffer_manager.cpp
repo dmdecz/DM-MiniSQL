@@ -2,6 +2,7 @@
 #include "../common/common.hpp"
 
 #include <fstream>
+#include <iostream>
 
 Block::Block(const std::string & database, const std::string & table, int number)
 	: database_name(database), table_name(table), block_number(number), dirty(0), locked(0)
@@ -24,13 +25,13 @@ void Block::load()
 
 void Block::write_back()
 {
+	std::cout << this->database_name << " " << this->table_name << " " << this->dirty << std::endl;
 	if (this->database_name.empty() || !this->dirty)
 		return;
 	std::ofstream fp;
 	std::string filename = this->database_name + "/" + this->table_name + "/data.dm";
 	fp.open(filename, std::ios::binary);
 	fp.seekp(Buffer_Manager::BLOCK_SIZE * this->block_number, std::ios::beg);
-	this->data = new char[Buffer_Manager::BLOCK_SIZE];
 	fp.write(this->data, sizeof(char) * Buffer_Manager::BLOCK_SIZE);
 }
 
@@ -51,6 +52,7 @@ bool Block::is_hit(const std::string & table, int number)
 
 Block::~Block()
 {
+	std::cout << "~Block" << std::endl;
 	this->write_back();
 	delete this->data;
 }
@@ -58,7 +60,8 @@ Block::~Block()
 int Buffer_Manager::BUFFER_SIZE = 64;
 int Buffer_Manager::BLOCK_SIZE = 4096;
 
-Buffer_Manager::Buffer_Manager() {}
+Buffer_Manager::Buffer_Manager(const std::string & database)
+	: database_name(database) {}
 
 Block * Buffer_Manager::get_block(const std::string & table_name, int block_num)
 {
@@ -79,28 +82,19 @@ Block * Buffer_Manager::get_block(const std::string & table_name, int block_num)
 	return ret;
 }
 
-void Buffer_Manager::use_database(const std::string & str)
+void Buffer_Manager::put_block(Block * block)
 {
-	if (str != this->database_name)
-	{
-		this->database_name = str;
-		delete_ptr_in_vector(this->block_pool);
-	}
-}
-
-void Buffer_Manager::drop_database(const std::string & str)
-{
-	if (str == this->database_name)
-		this->clear();
+	this->block_pool.push_back(block);
 }
 
 void Buffer_Manager::clear()
 {
-	this->database_name.clear();
 	delete_ptr_in_vector(this->block_pool);
 }
 
 Buffer_Manager::~Buffer_Manager()
 {
-	delete_ptr_in_vector(this->block_pool);
+	std::cout << "~Buffer_Manager" << std::endl;
+	std::cout << this->block_pool.size() << std::endl;
+	this->clear();
 }

@@ -15,8 +15,9 @@ int main(int argc, char const *argv[])
 	int i = 0;
 	do
 	{
-		res = drv.parse();
-	} while (res != -1);
+		drv.parse();
+		// std::cout << drv.result << std::endl;
+	} while (drv.result != -1);
 
 	delete api;
 	

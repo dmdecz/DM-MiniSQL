@@ -20,7 +20,7 @@ public:
   	yy::location location;
 
 	API * api;
-
+	int result;
 	Compiler(API *);
 	void execute_statement(Statement *);
 	virtual ~Compiler();

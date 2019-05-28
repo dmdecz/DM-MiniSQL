@@ -4,11 +4,7 @@ std::string Compiler::file = "";
 
 void Compiler::execute_statement(Statement * s)
 {
-	if (s)
-	{
-		this->api->excute(s);
-		delete s;
-	}		
+	result = this->api->excute(s);
 }
 
 Compiler::~Compiler(void) {}
@@ -22,10 +18,12 @@ int Compiler::parse()
 	scan_begin();
 	yy::parser parse(*this);
 	parse.set_debug_level(trace_parsing);
+	// std::cout << "---------" << std::endl;
 	int res = parse();
+	// std::cout << "---------" << std::endl;
 	scan_end();
 	if (!file.empty())
 		res = this->parse();
-
+	// std::cout << "---------" << std::endl;
 	return res;
 }

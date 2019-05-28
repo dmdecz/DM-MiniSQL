@@ -16,7 +16,7 @@ ENDIF()
 FIND_PACKAGE(BISON REQUIRED)
 SET(BisonOutput ${CMAKE_CURRENT_SOURCE_DIR}/parser.cpp)
 SET(BisonFile ${CMAKE_CURRENT_SOURCE_DIR}/parser.y)
-SET(BISON_EXECUTABLE /usr/local/bin/bison)
+SET(BISON_EXECUTABLE /usr/local/Cellar/bison/3.4.1/bin/bison)
 IF(BISON_FOUND)
     ADD_CUSTOM_COMMAND(
       OUTPUT ${BisonOutput}

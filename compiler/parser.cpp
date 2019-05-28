@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.3.2.
+// A Bison parser, made by GNU Bison 3.4.1.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
@@ -41,12 +41,12 @@
 
 
 // Unqualified %code blocks.
-#line 23 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:435
+#line 23 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
 
 # include "compiler.hpp"
 # include "compilertools/compilertools.hpp"
 
-#line 50 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:435
+#line 50 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
 
 
 #ifndef YY_
@@ -139,9 +139,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-
 namespace yy {
-#line 145 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:510
+#line 144 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -249,38 +249,41 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 44: // exp
-      case 47: // attribute_exp
-      case 50: // constrain_exp
+      case 50: // exp
+      case 53: // attribute_exp
+      case 56: // constrain_exp
         value.YY_MOVE_OR_COPY< Expression * > (YY_MOVE (that.value));
         break;
 
-      case 41: // select_list
-      case 42: // table_list
-      case 43: // select_condition
-      case 46: // attribute_list
-      case 49: // constrain_list
+      case 39: // attr_list
+      case 40: // value_list
+      case 47: // select_list
+      case 48: // table_list
+      case 49: // select_condition
+      case 52: // attribute_list
+      case 55: // constrain_list
         value.YY_MOVE_OR_COPY< ExpressionList * > (YY_MOVE (that.value));
         break;
 
-      case 34: // statement
-      case 35: // drop_table_statement
-      case 36: // drop_db_statement
-      case 37: // use_statement
-      case 38: // create_db_statement
-      case 40: // select_statement
-      case 45: // create_table_statement
+      case 37: // statement
+      case 38: // insert_statement
+      case 41: // drop_table_statement
+      case 42: // drop_db_statement
+      case 43: // use_statement
+      case 44: // create_db_statement
+      case 46: // select_statement
+      case 51: // create_table_statement
         value.YY_MOVE_OR_COPY< Statement * > (YY_MOVE (that.value));
         break;
 
       case 3: // NUMBER
-      case 48: // variant_type
+      case 54: // variant_type
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 29: // STRING
-      case 30: // FILENAME
-      case 39: // source_statement
+      case 32: // STRING
+      case 33: // FILENAME
+      case 45: // source_statement
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -299,38 +302,41 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 44: // exp
-      case 47: // attribute_exp
-      case 50: // constrain_exp
+      case 50: // exp
+      case 53: // attribute_exp
+      case 56: // constrain_exp
         value.move< Expression * > (YY_MOVE (that.value));
         break;
 
-      case 41: // select_list
-      case 42: // table_list
-      case 43: // select_condition
-      case 46: // attribute_list
-      case 49: // constrain_list
+      case 39: // attr_list
+      case 40: // value_list
+      case 47: // select_list
+      case 48: // table_list
+      case 49: // select_condition
+      case 52: // attribute_list
+      case 55: // constrain_list
         value.move< ExpressionList * > (YY_MOVE (that.value));
         break;
 
-      case 34: // statement
-      case 35: // drop_table_statement
-      case 36: // drop_db_statement
-      case 37: // use_statement
-      case 38: // create_db_statement
-      case 40: // select_statement
-      case 45: // create_table_statement
+      case 37: // statement
+      case 38: // insert_statement
+      case 41: // drop_table_statement
+      case 42: // drop_db_statement
+      case 43: // use_statement
+      case 44: // create_db_statement
+      case 46: // select_statement
+      case 51: // create_table_statement
         value.move< Statement * > (YY_MOVE (that.value));
         break;
 
       case 3: // NUMBER
-      case 48: // variant_type
+      case 54: // variant_type
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 29: // STRING
-      case 30: // FILENAME
-      case 39: // source_statement
+      case 32: // STRING
+      case 33: // FILENAME
+      case 45: // source_statement
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -349,38 +355,41 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 44: // exp
-      case 47: // attribute_exp
-      case 50: // constrain_exp
+      case 50: // exp
+      case 53: // attribute_exp
+      case 56: // constrain_exp
         value.move< Expression * > (that.value);
         break;
 
-      case 41: // select_list
-      case 42: // table_list
-      case 43: // select_condition
-      case 46: // attribute_list
-      case 49: // constrain_list
+      case 39: // attr_list
+      case 40: // value_list
+      case 47: // select_list
+      case 48: // table_list
+      case 49: // select_condition
+      case 52: // attribute_list
+      case 55: // constrain_list
         value.move< ExpressionList * > (that.value);
         break;
 
-      case 34: // statement
-      case 35: // drop_table_statement
-      case 36: // drop_db_statement
-      case 37: // use_statement
-      case 38: // create_db_statement
-      case 40: // select_statement
-      case 45: // create_table_statement
+      case 37: // statement
+      case 38: // insert_statement
+      case 41: // drop_table_statement
+      case 42: // drop_db_statement
+      case 43: // use_statement
+      case 44: // create_db_statement
+      case 46: // select_statement
+      case 51: // create_table_statement
         value.move< Statement * > (that.value);
         break;
 
       case 3: // NUMBER
-      case 48: // variant_type
+      case 54: // variant_type
         value.move< int > (that.value);
         break;
 
-      case 29: // STRING
-      case 30: // FILENAME
-      case 39: // source_statement
+      case 32: // STRING
+      case 33: // FILENAME
+      case 45: // source_statement
         value.move< std::string > (that.value);
         break;
 
@@ -424,123 +433,141 @@ namespace yy {
     switch (yytype)
     {
       case 3: // NUMBER
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < int > (); }
-#line 430 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 439 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 29: // STRING
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 32: // STRING
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
-#line 436 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 445 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 30: // FILENAME
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 33: // FILENAME
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
-#line 442 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 451 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 34: // statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 37: // statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 448 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 457 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 35: // drop_table_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 38: // insert_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 454 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 463 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 36: // drop_db_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 39: // attr_list
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+        { yyo << yysym.value.template as < ExpressionList * > (); }
+#line 469 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+        break;
+
+      case 40: // value_list
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+        { yyo << yysym.value.template as < ExpressionList * > (); }
+#line 475 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+        break;
+
+      case 41: // drop_table_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 460 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 481 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 37: // use_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 42: // drop_db_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 466 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 487 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 38: // create_db_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 43: // use_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 472 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 493 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 39: // source_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 44: // create_db_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+        { yyo << yysym.value.template as < Statement * > (); }
+#line 499 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+        break;
+
+      case 45: // source_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
-#line 478 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 505 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 40: // select_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 46: // select_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 484 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 511 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 41: // select_list
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 47: // select_list
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
-#line 490 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 517 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 42: // table_list
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 48: // table_list
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
-#line 496 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 523 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 43: // select_condition
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 49: // select_condition
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
-#line 502 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 529 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 44: // exp
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 50: // exp
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
-#line 508 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 535 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 45: // create_table_statement
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 51: // create_table_statement
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
-#line 514 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 541 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 46: // attribute_list
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 52: // attribute_list
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
-#line 520 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 547 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 47: // attribute_exp
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 53: // attribute_exp
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
-#line 526 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 553 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 48: // variant_type
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 54: // variant_type
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < int > (); }
-#line 532 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 559 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 49: // constrain_list
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 55: // constrain_list
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
-#line 538 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 565 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
-      case 50: // constrain_exp
-#line 57 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:676
+      case 56: // constrain_exp
+#line 58 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
-#line 544 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:676
+#line 571 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
         break;
 
       default:
@@ -757,38 +784,41 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 44: // exp
-      case 47: // attribute_exp
-      case 50: // constrain_exp
+      case 50: // exp
+      case 53: // attribute_exp
+      case 56: // constrain_exp
         yylhs.value.emplace< Expression * > ();
         break;
 
-      case 41: // select_list
-      case 42: // table_list
-      case 43: // select_condition
-      case 46: // attribute_list
-      case 49: // constrain_list
+      case 39: // attr_list
+      case 40: // value_list
+      case 47: // select_list
+      case 48: // table_list
+      case 49: // select_condition
+      case 52: // attribute_list
+      case 55: // constrain_list
         yylhs.value.emplace< ExpressionList * > ();
         break;
 
-      case 34: // statement
-      case 35: // drop_table_statement
-      case 36: // drop_db_statement
-      case 37: // use_statement
-      case 38: // create_db_statement
-      case 40: // select_statement
-      case 45: // create_table_statement
+      case 37: // statement
+      case 38: // insert_statement
+      case 41: // drop_table_statement
+      case 42: // drop_db_statement
+      case 43: // use_statement
+      case 44: // create_db_statement
+      case 46: // select_statement
+      case 51: // create_table_statement
         yylhs.value.emplace< Statement * > ();
         break;
 
       case 3: // NUMBER
-      case 48: // variant_type
+      case 54: // variant_type
         yylhs.value.emplace< int > ();
         break;
 
-      case 29: // STRING
-      case 30: // FILENAME
-      case 39: // source_statement
+      case 32: // STRING
+      case 33: // FILENAME
+      case 45: // source_statement
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -813,109 +843,147 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 62 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 63 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { drv.execute_statement(yystack_[0].value.as < Statement * > ()); }
-#line 819 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 849 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 3:
-#line 63 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 64 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { drv.execute_statement(yystack_[0].value.as < Statement * > ()); }
-#line 825 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 855 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 4:
-#line 67 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 68 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = nullptr; }
-#line 831 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 861 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 5:
-#line 68 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 69 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = nullptr; }
-#line 837 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 867 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 6:
-#line 69 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 70 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
-#line 843 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 873 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 7:
-#line 70 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 71 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = nullptr; Compiler::file = yystack_[1].value.as < std::string > (); return 0; }
-#line 849 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 879 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 8:
-#line 71 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 72 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
-#line 855 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 885 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 9:
-#line 72 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 73 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
-#line 861 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 891 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 10:
-#line 73 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { std::cout << "Bye" << std::endl; return -1; }
-#line 867 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 74 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Statement * > () = nullptr; drv.execute_statement(yylhs.value.as < Statement * > ()); return -1; }
+#line 897 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 11:
-#line 74 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 75 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
-#line 873 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 903 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 12:
-#line 75 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 76 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
-#line 879 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 909 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 13:
-#line 76 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 77 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
-#line 885 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 915 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 14:
-#line 80 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Statement * > () = new Drop_Table_Statement(yystack_[0].value.as < std::string > ()); }
-#line 891 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 78 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
+#line 921 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 15:
-#line 84 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Statement * > () = new Drop_Database_Statement(yystack_[0].value.as < std::string > ()); }
-#line 897 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 82 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    {
+		yylhs.value.as < Statement * > () = new Insert_Statement(yystack_[7].value.as < std::string > (), yystack_[5].value.as < ExpressionList * > (), yystack_[1].value.as < ExpressionList * > ());
+	}
+#line 929 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 16:
-#line 88 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Statement * > () = new Use_Statement(yystack_[0].value.as < std::string > ()); }
-#line 903 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 88 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
+#line 935 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 17:
-#line 92 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Statement * > () = new Create_Database_Statement(yystack_[0].value.as < std::string > ()); }
-#line 909 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 89 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
+#line 941 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 18:
-#line 96 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 915 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 93 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 947 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 19:
-#line 100 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 94 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 953 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 20:
+#line 98 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Statement * > () = new Drop_Table_Statement(yystack_[0].value.as < std::string > ()); }
+#line 959 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 21:
+#line 102 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Statement * > () = new Drop_Database_Statement(yystack_[0].value.as < std::string > ()); }
+#line 965 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 22:
+#line 106 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Statement * > () = new Use_Statement(yystack_[0].value.as < std::string > ()); }
+#line 971 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 23:
+#line 110 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Statement * > () = new Create_Database_Statement(yystack_[0].value.as < std::string > ()); }
+#line 977 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 24:
+#line 114 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+#line 983 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 25:
+#line 118 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     {
 		Select_Statement * select = new Select_Statement;
 		select->set_select(yystack_[3].value.as < ExpressionList * > ());
@@ -923,130 +991,137 @@ namespace yy {
 		select->set_condition(yystack_[0].value.as < ExpressionList * > ());
 		yylhs.value.as < Statement * > () = select;
 	}
-#line 927 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 20:
-#line 110 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 933 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 21:
-#line 111 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 939 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 22:
-#line 115 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 945 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 23:
-#line 116 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 951 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 24:
-#line 120 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > () = nullptr; }
-#line 957 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 25:
-#line 121 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 963 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 995 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 26:
-#line 125 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Expression * > () = new String_Expression(yystack_[0].value.as < std::string > ()); }
-#line 969 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 128 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 1001 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 27:
-#line 130 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 129 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 1007 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 28:
+#line 133 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 1013 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 29:
+#line 134 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 1019 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 30:
+#line 138 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = nullptr; }
+#line 1025 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 31:
+#line 139 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 1031 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 32:
+#line 143 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Expression * > () = new String_Expression(yystack_[0].value.as < std::string > ()); }
+#line 1037 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 33:
+#line 144 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Expression * > () = new DMType_Expression(yystack_[0].value.as < int > ()); }
+#line 1043 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 34:
+#line 149 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     {
 		Create_Table_Statement * create = new Create_Table_Statement(yystack_[4].value.as < std::string > ());
 		create->set_attribute(yystack_[2].value.as < ExpressionList * > ());
 		create->set_constrain(yystack_[1].value.as < ExpressionList * > ());
 		yylhs.value.as < Statement * > () = create;
 	}
-#line 980 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 28:
-#line 139 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 986 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 29:
-#line 140 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
-#line 992 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 30:
-#line 144 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[1].value.as < std::string > (), yystack_[0].value.as < int > ()); }
-#line 998 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 31:
-#line 148 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < int > () = -1; }
-#line 1004 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 32:
-#line 149 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < int > () = -2; }
-#line 1010 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 33:
-#line 150 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
-#line 1016 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
-    break;
-
-  case 34:
-#line 154 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < ExpressionList * > () = nullptr; }
-#line 1022 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 1054 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 35:
-#line 155 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 158 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
-#line 1028 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 1060 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 36:
-#line 156 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 159 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
-#line 1034 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 1066 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 37:
-#line 160 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
-    { yylhs.value.as < Expression * > () = new Constrain_Expression(0, yystack_[1].value.as < std::string > ()); }
-#line 1040 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 163 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[1].value.as < std::string > (), yystack_[0].value.as < int > ()); }
+#line 1072 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
   case 38:
-#line 161 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:919
+#line 167 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < int > () = -1; }
+#line 1078 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 39:
+#line 168 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < int > () = -2; }
+#line 1084 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 40:
+#line 169 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
+#line 1090 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 41:
+#line 173 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = nullptr; }
+#line 1096 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 42:
+#line 174 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+#line 1102 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 43:
+#line 175 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
+#line 1108 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 44:
+#line 179 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
+    { yylhs.value.as < Expression * > () = new Constrain_Expression(0, yystack_[1].value.as < std::string > ()); }
+#line 1114 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+    break;
+
+  case 45:
+#line 180 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Constrain_Expression(1, yystack_[1].value.as < std::string > ()); }
-#line 1046 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 1120 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
     break;
 
 
-#line 1050 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:919
+#line 1124 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+
             default:
               break;
             }
@@ -1316,103 +1391,117 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -22;
+  const signed char parser::yypact_ninf_ = -43;
 
   const signed char parser::yytable_ninf_ = -1;
 
   const signed char
   parser::yypact_[] =
   {
-      21,   -18,     6,     5,     3,     4,    11,   -22,   -22,     1,
-     -22,     8,    15,    22,    28,    29,    30,    31,   -22,    -5,
-     -22,   -22,   -22,    19,    23,   -22,    24,    25,   -22,   -22,
-     -22,   -22,   -22,   -22,   -22,   -22,   -22,   -18,   -18,    34,
-     -22,   -22,   -22,    -4,   -22,   -22,    27,   -18,   -18,   -22,
-      -6,    35,   -22,   -22,   -22,   -22,   -22,    36,   -22,    14,
-     -19,    48,    38,    39,   -22,   -22,   -22,   -21,    40,    32,
-      37,   -22,   -22,    41,    42,   -22,   -22
+      31,    -1,    14,   -16,    17,   -13,    18,    26,   -43,   -43,
+       7,   -43,    29,    32,    36,    37,    38,    39,    40,    41,
+     -43,   -43,    -2,   -43,   -43,   -43,    30,    33,   -43,    34,
+      35,    42,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,
+     -43,   -43,    -1,    -1,    44,   -43,   -43,   -43,    45,     0,
+     -43,   -43,    43,    46,    -1,    -1,   -43,   -19,    47,   -43,
+     -43,   -21,   -43,   -43,   -43,   -43,    48,   -43,    -8,    11,
+      54,    49,    58,    52,    53,   -43,   -43,   -43,    16,    55,
+     -43,    57,    51,    56,   -43,    -1,   -43,    59,    60,    28,
+     -43,   -43,   -43,   -43,    -1,   -43
   };
 
   const unsigned char
   parser::yydefact_[] =
   {
-       0,     0,     0,     0,     0,     0,     0,     4,     5,     0,
-       2,     0,     0,     0,     0,     0,     0,     0,    26,     0,
-      20,    10,    18,     0,     0,    16,     0,     0,     1,     3,
-       9,    13,    11,    12,     7,     6,     8,     0,     0,     0,
-      17,    14,    15,    24,    22,    21,     0,     0,     0,    19,
-       0,    34,    28,    25,    23,    31,    32,     0,    30,     0,
-       0,     0,     0,     0,    29,    35,    27,     0,     0,     0,
-       0,    36,    33,     0,     0,    37,    38
+       0,     0,     0,     0,     0,     0,     0,     0,     4,     5,
+       0,     2,     0,     0,     0,     0,     0,     0,     0,     0,
+      33,    32,     0,    26,    10,    24,     0,     0,    22,     0,
+       0,     0,     1,     3,    14,     9,    13,    11,    12,     7,
+       6,     8,     0,     0,     0,    23,    20,    21,     0,    30,
+      28,    27,     0,     0,     0,     0,    25,     0,    41,    35,
+      16,     0,    31,    29,    38,    39,     0,    37,     0,     0,
+       0,     0,     0,     0,     0,    36,    42,    34,     0,     0,
+      17,     0,     0,     0,    43,     0,    40,     0,     0,     0,
+      18,    44,    45,    15,     0,    19
   };
 
   const signed char
   parser::yypgoto_[] =
   {
-     -22,   -22,    56,   -22,   -22,   -22,   -22,   -22,   -22,   -22,
-     -22,   -22,     2,   -22,   -22,     9,   -22,   -22,     0
+     -43,   -43,    61,   -43,   -43,   -43,   -43,   -43,   -43,   -43,
+     -43,   -43,   -43,   -43,   -43,   -42,   -43,   -43,    -5,   -43,
+     -43,   -14
   };
 
   const signed char
   parser::yydefgoto_[] =
   {
-      -1,     9,    10,    11,    12,    13,    14,    15,    16,    19,
-      43,    49,    20,    17,    51,    52,    58,    60,    65
+      -1,    10,    11,    12,    61,    89,    13,    14,    15,    16,
+      17,    18,    22,    49,    56,    23,    19,    58,    59,    67,
+      69,    76
   };
 
   const unsigned char
   parser::yytable_[] =
   {
-      37,    28,    47,    66,    67,     1,    62,    63,     2,     3,
-       4,    18,     5,    23,     6,    24,     7,     8,    55,    56,
-      57,    26,    21,    27,    30,     1,    38,    48,     2,     3,
-       4,    31,     5,    25,     6,    22,     7,     8,    32,    44,
-      45,    62,    63,    50,    33,    34,    35,    36,    39,    53,
-      54,    68,    40,    41,    42,    46,    50,    61,    59,    69,
-      70,    73,    72,    75,    76,    29,    74,    71,    64
+      50,    51,    20,    42,    70,    71,    54,    32,    64,    65,
+      66,     1,    62,    63,     2,     3,     4,    25,     5,    28,
+       6,     7,    73,    74,    57,     8,     9,    26,    29,    27,
+      30,    21,    43,    24,    55,     1,    77,    78,     2,     3,
+       4,    31,     5,    90,     6,     7,    73,    74,    34,     8,
+       9,    35,    95,    93,    94,    36,    37,    38,    39,    40,
+      41,    81,    44,    75,    84,    45,    46,    47,    52,    53,
+      79,    33,    72,    68,    48,    57,    82,    83,    60,    85,
+       0,    80,    86,    87,    91,    92,     0,     0,    88
   };
 
-  const unsigned char
+  const signed char
   parser::yycheck_[] =
   {
-       5,     0,     6,    22,    23,     4,    27,    28,     7,     8,
-       9,    29,    11,    10,    13,    12,    15,    16,    24,    25,
-      26,    10,    16,    12,    16,     4,    31,    31,     7,     8,
-       9,    16,    11,    29,    13,    30,    15,    16,    16,    37,
-      38,    27,    28,    29,    16,    16,    16,    16,    29,    47,
-      48,     3,    29,    29,    29,    21,    29,    21,    23,    21,
-      21,    29,    22,    22,    22,     9,    29,    67,    59
+      42,    43,     3,     5,    25,    26,     6,     0,    27,    28,
+      29,     4,    54,    55,     7,     8,     9,    33,    11,    32,
+      13,    14,    30,    31,    32,    18,    19,    10,    10,    12,
+      12,    32,    34,    19,    34,     4,    25,    26,     7,     8,
+       9,    15,    11,    85,    13,    14,    30,    31,    19,    18,
+      19,    19,    94,    25,    26,    19,    19,    19,    19,    19,
+      19,     3,    32,    68,    78,    32,    32,    32,    24,    24,
+      16,    10,    24,    26,    32,    32,    24,    24,    32,    24,
+      -1,    32,    25,    32,    25,    25,    -1,    -1,    32
   };
 
   const unsigned char
   parser::yystos_[] =
   {
-       0,     4,     7,     8,     9,    11,    13,    15,    16,    33,
-      34,    35,    36,    37,    38,    39,    40,    45,    29,    41,
-      44,    16,    30,    10,    12,    29,    10,    12,     0,    34,
-      16,    16,    16,    16,    16,    16,    16,     5,    31,    29,
-      29,    29,    29,    42,    44,    44,    21,     6,    31,    43,
-      29,    46,    47,    44,    44,    24,    25,    26,    48,    23,
-      49,    21,    27,    28,    47,    50,    22,    23,     3,    21,
-      21,    50,    22,    29,    29,    22,    22
+       0,     4,     7,     8,     9,    11,    13,    14,    18,    19,
+      36,    37,    38,    41,    42,    43,    44,    45,    46,    51,
+       3,    32,    47,    50,    19,    33,    10,    12,    32,    10,
+      12,    15,     0,    37,    19,    19,    19,    19,    19,    19,
+      19,    19,     5,    34,    32,    32,    32,    32,    32,    48,
+      50,    50,    24,    24,     6,    34,    49,    32,    52,    53,
+      32,    39,    50,    50,    27,    28,    29,    54,    26,    55,
+      25,    26,    24,    30,    31,    53,    56,    25,    26,    16,
+      32,     3,    24,    24,    56,    24,    25,    32,    32,    40,
+      50,    25,    25,    25,    26,    50
   };
 
   const unsigned char
   parser::yyr1_[] =
   {
-       0,    32,    33,    33,    34,    34,    34,    34,    34,    34,
-      34,    34,    34,    34,    35,    36,    37,    38,    39,    40,
-      41,    41,    42,    42,    43,    43,    44,    45,    46,    46,
-      47,    48,    48,    48,    49,    49,    49,    50,    50
+       0,    35,    36,    36,    37,    37,    37,    37,    37,    37,
+      37,    37,    37,    37,    37,    38,    39,    39,    40,    40,
+      41,    42,    43,    44,    45,    46,    47,    47,    48,    48,
+      49,    49,    50,    50,    51,    52,    52,    53,    54,    54,
+      54,    55,    55,    55,    56,    56
   };
 
   const unsigned char
   parser::yyr2_[] =
   {
        0,     2,     1,     2,     1,     1,     2,     2,     2,     2,
-       2,     2,     2,     2,     3,     3,     2,     3,     2,     5,
-       1,     3,     1,     3,     0,     2,     1,     7,     1,     3,
-       2,     1,     1,     4,     0,     2,     3,     4,     4
+       2,     2,     2,     2,     2,    10,     1,     3,     1,     3,
+       3,     3,     2,     3,     2,     5,     1,     3,     1,     3,
+       0,     2,     1,     1,     7,     1,     3,     2,     1,     1,
+       4,     0,     2,     3,     4,     4
   };
 
 
@@ -1423,25 +1512,27 @@ namespace yy {
   const parser::yytname_[] =
   {
   "$end", "error", "$undefined", "NUMBER", "SELECT", "FROM", "WHERE",
-  "QUIT", "SOURCE", "CREATE", "TABLE", "USE", "DATABASE", "DROP", "BLANK",
-  "\"eof\"", "\";\"", "\"-\"", "\"+\"", "\"*\"", "\"/\"", "\"(\"", "\")\"",
-  "\",\"", "\"int\"", "\"double\"", "\"char\"", "\"primary key\"",
-  "\"foreign key\"", "STRING", "FILENAME", "','", "$accept",
-  "statement_list", "statement", "drop_table_statement",
-  "drop_db_statement", "use_statement", "create_db_statement",
-  "source_statement", "select_statement", "select_list", "table_list",
-  "select_condition", "exp", "create_table_statement", "attribute_list",
-  "attribute_exp", "variant_type", "constrain_list", "constrain_exp", YY_NULLPTR
+  "QUIT", "SOURCE", "CREATE", "TABLE", "USE", "DATABASE", "DROP", "INSERT",
+  "INTO", "VALUES", "BLANK", "\"eof\"", "\";\"", "\"-\"", "\"+\"", "\"*\"",
+  "\"/\"", "\"(\"", "\")\"", "\",\"", "\"int\"", "\"double\"", "\"char\"",
+  "\"primary key\"", "\"foreign key\"", "STRING", "FILENAME", "','",
+  "$accept", "statement_list", "statement", "insert_statement",
+  "attr_list", "value_list", "drop_table_statement", "drop_db_statement",
+  "use_statement", "create_db_statement", "source_statement",
+  "select_statement", "select_list", "table_list", "select_condition",
+  "exp", "create_table_statement", "attribute_list", "attribute_exp",
+  "variant_type", "constrain_list", "constrain_exp", YY_NULLPTR
   };
 
 #if YYDEBUG
   const unsigned char
   parser::yyrline_[] =
   {
-       0,    62,    62,    63,    67,    68,    69,    70,    71,    72,
-      73,    74,    75,    76,    80,    84,    88,    92,    96,   100,
-     110,   111,   115,   116,   120,   121,   125,   129,   139,   140,
-     144,   148,   149,   150,   154,   155,   156,   160,   161
+       0,    63,    63,    64,    68,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    82,    88,    89,    93,    94,
+      98,   102,   106,   110,   114,   118,   128,   129,   133,   134,
+     138,   139,   143,   144,   148,   158,   159,   163,   167,   168,
+     169,   173,   174,   175,   179,   180
   };
 
   // Print the state stack on the debug stream.
@@ -1474,10 +1565,10 @@ namespace yy {
 #endif // YYDEBUG
 
 
-
 } // yy
-#line 1480 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp" // lalr1.cc:1242
-#line 164 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y" // lalr1.cc:1243
+#line 1570 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.cpp"
+
+#line 183 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/parser.y"
 
 
 void
