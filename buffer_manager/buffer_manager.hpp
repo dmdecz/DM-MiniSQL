@@ -22,6 +22,8 @@ public:
 	void lock();
 	void unlock();
 	bool is_hit(const std::string &, int);
+	void datacpy(int, const void *, size_t);
+	char * get_data(int);
 	~Block();
 };
 

@@ -1,5 +1,9 @@
 # build
 build/
+cmake-build-debug/
 # .vscode
 .vscode/
 .DS_Store
+# clion
+.idea/
+

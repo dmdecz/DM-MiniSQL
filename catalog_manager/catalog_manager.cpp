@@ -40,6 +40,7 @@ void Table_Message::load()
 		fp.read(buffer, sizeof(char) * ATTRIBUTE_SIZE);
 		fp.read((char*)&type, sizeof(AttrType));
 		this->attribute_list[std::string(buffer)] = type;
+		this->record_length += attrTypeLength(type);
 		// std::cout << buffer << '\t' << type << std::endl;
 	}
 
@@ -54,7 +55,7 @@ void Table_Message::load()
 		// std::cout << buffer << '\t' << index_type << std::endl;
 	}
 
-	delete buffer;
+	delete[] buffer;
 	fp.close();
 
 	std::string table_filename = this->database_name + "/" + table_name + "/data.dm";
@@ -93,11 +94,11 @@ void Table_Message::write_back()
 	}
 
 	size = this->index_list.size();
-	std::cout << "::" << size << std::endl;
+//	std::cout << "::" << size << std::endl;
 	fp.write((char*)&size, sizeof(int));
 	for (std::map<std::string, IndexType>::iterator it = this->index_list.begin(); it != this->index_list.end(); it++)
 	{
-		std::cout << "index: \n" << it->first.c_str() << std::endl;
+//		std::cout << "index: \n" << it->first.c_str() << std::endl;
 		fp.write(it->first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
 		fp.write((char*)&it->second, sizeof(IndexType));
 	}
@@ -123,12 +124,20 @@ AttrType Table_Message::get_attribute_type(const std::string & attr_name)
 	return ret;
 }
 
+std::map<std::string, AttrType> & Table_Message::get_attributes()
+{
+    return this->attribute_list;
+}
+
 bool Table_Message::has_index(const std::string & attr_name)
 {
 	return this->index_list.find(attr_name) != this->index_list.end();
 }
 
-Table_Message::~Table_Message() {}
+Table_Message::~Table_Message()
+{
+	this->write_back();
+}
 
 int Catalog_Manager::TABLE_NAME_SIZE = 12;
 
@@ -152,7 +161,7 @@ void Catalog_Manager::load()
 		std::cout << table_name << std::endl;
 		this->table_list[table_name] = new Table_Message(this->database_name, table_name);
 	}
-	delete buffer;
+	delete[] buffer;
 	fp.close();
 	std::cout << "table number = " << num << std::endl;
 	this->dirty = 0;
@@ -209,6 +218,7 @@ void Catalog_Manager::create_table(const std::string & table_name, std::map<std:
 	if (this->database_name.empty() || this->table_list.find(table_name) != this->table_list.end())
 		return;
 	mkdir(table_dir_name.c_str(), S_IRWXU);
+	std::cout << "create table_dir/" << std::endl;
 	this->table_list[table_name] = new Table_Message(this->database_name, table_name, attr_list, primary_key);
 	this->dirty = 1;
 }
@@ -253,5 +263,24 @@ int Catalog_Manager::data_block_number(const std::string & table_name)
 	int ret = 0;
 	if (this->has_table(table_name))
 		ret = this->table_list[table_name]->block_number;
+	return ret;
+}
+
+void Catalog_Manager::add_data_block(const std::string & table_name)
+{
+	if (this->has_table(table_name))
+		this->table_list[table_name]->block_number++;
+}
+
+std::map<std::string, AttrType> & Catalog_Manager::get_attributes(const std::string & table_name)
+{
+    return this->table_list[table_name]->get_attributes();
+}
+
+int Catalog_Manager::get_record_length(const std::string & table_name)
+{
+	int ret = 0;
+	if (this->has_table(table_name))
+		ret = this->table_list[table_name]->record_length;
 	return ret;
 }

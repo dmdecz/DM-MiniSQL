@@ -19,6 +19,8 @@ public:
 	Record_Manager(const std::string &, Catalog_Manager *, Buffer_Manager *);
 	void select(const std::string &);
 	void insert(const std::string &, std::map<std::string, DMType> &);
+	void insert_to_new_block(const std::string &, std::map<std::string, DMType> &, int);
+	int insert_to_old_block(const std::string &, std::map<std::string, DMType> &, int);
 	~Record_Manager();
 };
 

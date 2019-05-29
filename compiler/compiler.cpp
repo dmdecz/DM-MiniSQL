@@ -4,7 +4,7 @@ std::string Compiler::file = "";
 
 void Compiler::execute_statement(Statement * s)
 {
-	result = this->api->excute(s);
+	result = this->api->execute(s);
 }
 
 Compiler::~Compiler(void) {}

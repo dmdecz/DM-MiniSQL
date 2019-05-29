@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <cstring>
 
 Block::Block(const std::string & database, const std::string & table, int number)
 	: database_name(database), table_name(table), block_number(number), dirty(0), locked(0)
@@ -25,7 +26,7 @@ void Block::load()
 
 void Block::write_back()
 {
-	std::cout << this->database_name << " " << this->table_name << " " << this->dirty << std::endl;
+//	std::cout << this->database_name << " " << this->table_name << " " << this->dirty << std::endl;
 	if (this->database_name.empty() || !this->dirty)
 		return;
 	std::ofstream fp;
@@ -33,6 +34,16 @@ void Block::write_back()
 	fp.open(filename, std::ios::binary);
 	fp.seekp(Buffer_Manager::BLOCK_SIZE * this->block_number, std::ios::beg);
 	fp.write(this->data, sizeof(char) * Buffer_Manager::BLOCK_SIZE);
+}
+
+void Block::datacpy(int offset, const void * s, size_t length)
+{
+	memcpy(this->data + offset, s, length);
+}
+
+char * Block::get_data(int offset)
+{
+	return this->data + offset;
 }
 
 void Block::lock()
@@ -52,7 +63,7 @@ bool Block::is_hit(const std::string & table, int number)
 
 Block::~Block()
 {
-	std::cout << "~Block" << std::endl;
+//	std::cout << "~Block" << std::endl;
 	this->write_back();
 	delete this->data;
 }
@@ -94,7 +105,7 @@ void Buffer_Manager::clear()
 
 Buffer_Manager::~Buffer_Manager()
 {
-	std::cout << "~Buffer_Manager" << std::endl;
-	std::cout << this->block_pool.size() << std::endl;
+//	std::cout << "~Buffer_Manager" << std::endl;
+//	std::cout << this->block_pool.size() << std::endl;
 	this->clear();
 }

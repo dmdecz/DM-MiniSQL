@@ -1,4 +1,5 @@
 #include "api.hpp"
+#include "../error/error.h"
 
 #include <iostream>
 #include <fstream>
@@ -16,7 +17,7 @@ API::API(void)
 	this->m_record = new Record_Manager(this->database_name, this->m_catalog, this->m_buffer);
 }
 
-int API::excute(Statement * s)
+int API::execute(Statement * s)
 {
 	if (!s)
 	{
@@ -25,18 +26,18 @@ int API::excute(Statement * s)
 	}
 	
 	if (s->type() == USE_TYPE)
-		this->excute_use_database(s);
+		this->execute_use_database(s);
 	else if (s->type() == CREATE_DB_TYPE)
-		this->excute_create_database(s);
+		this->execute_create_database(s);
 	else if (s->type() == DROP_DB_TYPE)
-		this->excute_drop_database(s);
+		this->execute_drop_database(s);
 	else
 		switch (s->type())
 		{
-		case SELECT_TYPE: this->excute_select(s); break;
-		case CREATE_TABLE_TYPE: this->excute_create_table(s); break;
-		case DROP_TABLE_TYPE: this->excute_drop_table(s); break;
-		case INSERT_TYPE: this->excute_insert(s); break;
+		case SELECT_TYPE: this->execute_select(s); break;
+		case CREATE_TABLE_TYPE: this->execute_create_table(s); break;
+		case DROP_TABLE_TYPE: this->execute_drop_table(s); break;
+		case INSERT_TYPE: this->execute_insert(s); break;
 		default: break;
 		}
 	delete s;
@@ -44,7 +45,7 @@ int API::excute(Statement * s)
 	return 1;
 }
 
-void API::excute_use_database(Statement * s)
+void API::execute_use_database(Statement * s)
 {
 	std::string database_name = std::get<std::string>(s->args());
 	if (database_name == this->database_name)
@@ -59,13 +60,13 @@ void API::excute_use_database(Statement * s)
 	this->m_catalog->load();
 }
 
-void API::excute_create_database(Statement * s)
+void API::execute_create_database(Statement * s)
 {
 	std::string database_name = std::get<std::string>(s->args());
 	this->m_catalog->create_database(database_name);
 }
 
-void API::excute_drop_database(Statement * s)
+void API::execute_drop_database(Statement * s)
 {
 	std::string database_name = std::get<std::string>(s->args());
 	if (opendir(database_name.c_str()))
@@ -81,7 +82,7 @@ void API::excute_drop_database(Statement * s)
 	}
 }
 
-void API::excute_select(Statement * s)
+void API::execute_select(Statement * s)
 {
 	ExpressionList * select_list = std::get<ExpressionList *>(s->args(0));
 	ExpressionList * table_list = std::get<ExpressionList *>(s->args(1));
@@ -105,7 +106,7 @@ void API::excute_select(Statement * s)
 
 }
 
-void API::excute_insert(Statement * s)
+void API::execute_insert(Statement * s)
 {
 	std::string table_name = std::get<std::string>(s->args(0));
 	ExpressionList * attribute_list = std::get<ExpressionList *>(s->args(1));
@@ -117,13 +118,17 @@ void API::excute_insert(Statement * s)
 	{
 		std::string attr = std::get<std::string>((*attribute_list)[i]->values());
 		attr_value[attr] = (*value_list)[i]->values();
-		std::cout << attr << std::endl;
+//		std::cout << attr << std::endl;
 	}
-	
-	this->m_record->insert(table_name, attr_value);
+	try {
+		this->m_record->insert(table_name, attr_value);
+	} catch (Error & e) {
+		e.diagnose();
+	}
+
 }
 
-void API::excute_create_table(Statement * s)
+void API::execute_create_table(Statement * s)
 {
 	std::string table_name = std::get<std::string>(s->args());
 	ExpressionList * attribute_list = std::get<ExpressionList *>(s->args(1));
@@ -137,13 +142,12 @@ void API::excute_create_table(Statement * s)
 			std::string name = std::get<std::string>(((*attribute_list)[i])->values(0));
 			AttrType type = std::get<int>(((*attribute_list)[i])->values(1));
 			attrlist[name] = type;
-			// std::cout << name << '\t' << type << std::endl;
 		}
 	std::string primary_key = std::get<std::string>(((*constrain_list)[0])->values(1));
 	this->m_catalog->create_table(table_name, attrlist, primary_key);
 }
 
-void API::excute_drop_table(Statement * s)
+void API::execute_drop_table(Statement * s)
 {
 	std::string table_name = std::get<std::string>(s->args());
 	this->m_catalog->drop_table(table_name);
@@ -151,7 +155,7 @@ void API::excute_drop_table(Statement * s)
 
 API::~API(void)
 {
-	std::cout << "~API" << std::endl;
+//	std::cout << "~API" << std::endl;
 	delete this->m_catalog;
 	delete this->m_buffer;
 	delete this->m_record;

@@ -13,6 +13,7 @@ private:
 	const std::string & database_name;
 	std::string table_name;
 	std::map<std::string, AttrType> attribute_list;
+	int record_length;
 	std::string primary_key;
 	bool dirty;
 	static int ATTRIBUTE_SIZE;
@@ -27,6 +28,7 @@ public:
 	void write_back();
 	bool has_attribute(const std::string &);
 	AttrType get_attribute_type(const std::string &);
+    std::map<std::string, AttrType> & get_attributes();
 	bool has_index(const std::string &);
 	~Table_Message();
 };
@@ -52,6 +54,9 @@ public:
 	AttrType get_attribute_type(const std::string &, const std::string &);
 	bool has_index(const std::string &, const std::string &);
 	int data_block_number(const std::string &);
+	void add_data_block(const std::string &);
+    std::map<std::string, AttrType> & get_attributes(const std::string &);
+	int get_record_length(const std::string &);
 
 	void clear();
 	void write_back();

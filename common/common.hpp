@@ -15,7 +15,10 @@ typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_
 typedef enum {BPLUSTREE, HASH} IndexType;
 
 typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
+const void * VoidPtrToDMType(DMType);
 typedef int AttrType;
+const int attrTypeLength(AttrType);
+const bool typeMatch(AttrType, DMType);
 
 template<class T>
 void delete_ptr_in_vector(std::vector<T *> & v)

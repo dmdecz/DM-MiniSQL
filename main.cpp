@@ -11,12 +11,12 @@ int main(int argc, char const *argv[])
 	Compiler drv(api);
 	if (argc == 2)
 		Compiler::file = std::string(argv[1]);
-	int res = 0;
-	int i = 0;
+//	int res = 0;
+//	int i = 0;
 	do
 	{
 		drv.parse();
-		// std::cout << drv.result << std::endl;
+//		std::cout << drv.result << std::endl;
 	} while (drv.result != -1);
 
 	delete api;
