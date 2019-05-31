@@ -20,27 +20,42 @@ API::API(void)
 int API::execute(Statement * s)
 {
 	if (!s)
-	{
-		std::cout << "Bye" << std::endl;
 		return -1;
-	}
-	
-	if (s->type() == USE_TYPE)
-		this->execute_use_database(s);
-	else if (s->type() == CREATE_DB_TYPE)
-		this->execute_create_database(s);
-	else if (s->type() == DROP_DB_TYPE)
-		this->execute_drop_database(s);
-	else
+	try {
 		switch (s->type())
 		{
-		case SELECT_TYPE: this->execute_select(s); break;
-		case CREATE_TABLE_TYPE: this->execute_create_table(s); break;
-		case DROP_TABLE_TYPE: this->execute_drop_table(s); break;
-		case INSERT_TYPE: this->execute_insert(s); break;
-		default: break;
+			case QUIT_TYPE:
+				std::cout << "Bye" << std::endl;
+				return -1;
+			case USE_TYPE:
+				this->execute_use_database(s);
+				break;
+			case CREATE_DB_TYPE:
+				this->execute_create_database(s);
+				break;
+			case DROP_DB_TYPE:
+				this->execute_drop_database(s);
+				break;
+			case SELECT_TYPE:
+				this->execute_select(s);
+				break;
+			case CREATE_TABLE_TYPE:
+				this->execute_create_table(s);
+				break;
+			case DROP_TABLE_TYPE:
+				this->execute_drop_table(s);
+				break;
+			case INSERT_TYPE:
+				this->execute_insert(s);
+				break;
+			default:
+				break;
 		}
-	delete s;
+		delete s;
+	} catch (Error & e) {
+		e.diagnose();
+	}
+
 	std::cout << std::endl;
 	return 1;
 }
@@ -51,7 +66,7 @@ void API::execute_use_database(Statement * s)
 	if (database_name == this->database_name)
 		return;
 	if (!opendir(database_name.c_str()))
-		return;
+		throw Error(1, "No database named '" + database_name + "'.");
 	this->m_catalog->clear();
 	this->m_buffer->clear();
 
@@ -88,21 +103,22 @@ void API::execute_select(Statement * s)
 	ExpressionList * table_list = std::get<ExpressionList *>(s->args(1));
 	ExpressionList * select_cond = std::get<ExpressionList *>(s->args(2));
 	std::string table_name = std::get<std::string>(((*table_list)[0])->values());
-
-	if (this->m_catalog->has_table(table_name))
-	{
-		this->m_record->select(table_name);
+	std::vector<std::string> list;
+	for (int i = 0; i < select_list->size(); ++i) {
+		std::string str = std::get<std::string>((*select_list)[i]->values());
+		list.push_back(str);
 	}
-	// Block * block = this->m_buffer->get_block(table_name, 0);
-	// if (select_list)
-	// 	for (size_t i = 0; i < select_list->size(); i++)
-	// 		std::cout << std::get<std::string>(((*select_list)[i])->values()) << std::endl;
-	// if (table_list)
-	// 	for (size_t i = 0; i < table_list->size(); i++)
-	// 		std::cout << std::get<std::string>(((*table_list)[i])->values()) << std::endl;
-	// if (select_cond)
-	// 	for (size_t i = 0; i < select_cond->size(); i++)
-	// 		std::cout << std::get<std::string>(((*select_cond)[i])->values()) << std::endl;
+	if (select_cond) {
+		for (size_t i = 0; i < select_cond->size(); i++) {
+			std::cout << std::get<std::string>(((*select_cond)[i])->values()) << std::endl;
+
+		}
+	}
+	if (this->m_catalog->has_table(table_name)) {
+		this->m_record->select(table_name, list);
+	} else {
+		throw Error(700, "No table named '" + table_name + "'.");
+	}
 
 }
 
@@ -120,11 +136,8 @@ void API::execute_insert(Statement * s)
 		attr_value[attr] = (*value_list)[i]->values();
 //		std::cout << attr << std::endl;
 	}
-	try {
-		this->m_record->insert(table_name, attr_value);
-	} catch (Error & e) {
-		e.diagnose();
-	}
+
+	this->m_record->insert(table_name, attr_value);
 
 }
 

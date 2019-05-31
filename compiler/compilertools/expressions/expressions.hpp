@@ -5,5 +5,6 @@
 #include "Attribute_Expression.hpp"
 #include "Constrain_Expression.hpp"
 #include "DMType_Expression.hpp"
+#include "Condition_Expression.hpp"
 
 #endif // EXPRESSIONS_HPP

@@ -183,6 +183,12 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 "("					return yy::parser::make_LPAREN (loc);
 ")"					return yy::parser::make_RPAREN (loc);
 ","					return yy::parser::make_COMMA (loc);
+"="					return yy::parser::make_EQUAL (loc);
+"<"					return yy::parser::make_LESS  (loc);
+">"					return yy::parser::make_LARGE (loc);
+"<>"				return yy::parser::make_NOT   (loc);
+"and"				return yy::parser::make_AND   (loc);
+"or"				return yy::parser::make_OR    (loc);
 {filename}			return yy::parser::make_FILENAME(std::string(yytext), loc);
 {string}			return yy::parser::make_STRING(std::string(yytext), loc);
 .					/*std::cout << loc << ": invalid character: " + std::string(yytext) << std::endl*/;

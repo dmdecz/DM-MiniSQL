@@ -43,6 +43,12 @@
 	INT			"int"
 	DOUBLE		"double"
 	CHAR		"char"
+	EQUAL       "="
+	LESS        "<"
+	LARGE       ">"
+	NOT         "<>"
+	AND         "and"
+	OR          "or"
 	PRIMARY_KEY	"primary key"
 	FOREIGN_KEY	"foreign key"
 ;
@@ -50,8 +56,8 @@
 
 %type <int> variant_type
 %type <std::string> source_statement
-%type <Expression *> exp attribute_exp constrain_exp
-%type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list attr_list value_list
+%type <Expression *> exp attribute_exp constrain_exp select_condition_exp
+%type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list attr_list value_list select_condition_list
 %type <Statement *> statement use_statement create_db_statement drop_db_statement
 %type <Statement *> select_statement drop_table_statement create_table_statement insert_statement
 
@@ -71,7 +77,7 @@ statement:
 	| source_statement ENDL { $$ = nullptr; Compiler::file = $1; return 0; }
 	| create_table_statement ENDL { $$ = $1; }
 	| drop_table_statement ENDL { $$ = $1; }
-	| QUIT ENDL { $$ = nullptr; drv.execute_statement($$); return -1; }
+	| QUIT ENDL { $$ = new Quit_Statement; drv.execute_statement($$); return -1; }
 	| use_statement ENDL { $$ = $1; }
 	| create_db_statement ENDL { $$ = $1; }
 	| drop_db_statement ENDL { $$ = $1; }
@@ -125,22 +131,35 @@ select_statement:
 	;
 
 select_list:
-	exp { $$ = new ExpressionList; $$->push_back($1); }
-	| select_list ',' exp { $$->push_back($3); }
-	;
+    STAR { $$ = new ExpressionList; $$->push_back(new String_Expression("*")); }
+	| STRING { $$ = new ExpressionList; $$->push_back(new String_Expression($1)); }
+    | select_list "," STRING { $$ = $1; $$->push_back(new String_Expression($3)); }
+    ;
 
 table_list:
-	exp { $$ = new ExpressionList; $$->push_back($1); }
-	| table_list ',' exp { $$->push_back($3); }
-	;
+	STRING { $$ = new ExpressionList; $$->push_back(new String_Expression($1)); }
+    | table_list "," STRING { $$ = $1; $$->push_back(new String_Expression($3)); }
+    ;
 
 select_condition:
 	%empty { $$ = nullptr; }
-	| WHERE exp { $$ = new ExpressionList; $$->push_back($2); }
+	| WHERE select_condition_list { $$ = $2; }
 	;
 
+select_condition_list:
+    select_condition_exp { $$ = new ExpressionList; $$->push_back($1); }
+    | select_condition_list "and" select_condition_exp { $$ = $1; $$->push_back($3); }
+    ;
+
+select_condition_exp:
+    STRING "=" exp { $$ = new Condition_Expression($1, 0, $3->values()); }
+    | STRING "<" exp { $$ = new Condition_Expression($1, 1, $3->values()); }
+    | STRING ">" exp { $$ = new Condition_Expression($1, 2, $3->values()); }
+    | STRING "<>" exp { $$ = new Condition_Expression($1, 3, $3->values()); }
+    ;
+
 exp:
-	STRING { $$ = new String_Expression($1); }
+	STRING { $$ = new DMType_Expression(std::string($1)); }
 	| NUMBER { $$ = new DMType_Expression($1); }
 	;
 

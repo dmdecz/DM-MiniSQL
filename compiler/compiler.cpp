@@ -24,6 +24,5 @@ int Compiler::parse()
 	scan_end();
 	if (!file.empty())
 		res = this->parse();
-	// std::cout << "---------" << std::endl;
 	return res;
 }

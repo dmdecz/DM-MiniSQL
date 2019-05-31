@@ -22,6 +22,10 @@ Table_Message::Table_Message(const std::string & database, const std::string & t
 {
 	this->index_list[primary_key] = BPLUSTREE;
 	this->write_back();
+	this->record_length = 0;
+	for (MapIterator<std::string, AttrType> it = this->attribute_list.begin(); it != this->attribute_list.end(); ++it) {
+		this->record_length += attrTypeLength(it->second);
+	}
 }
 
 void Table_Message::load()
@@ -35,6 +39,7 @@ void Table_Message::load()
 	fp.read((char*)&size, sizeof(int));
 	char * buffer = new char[ATTRIBUTE_SIZE];
 	AttrType type;
+	this->record_length = 0;
 	for (int i = 0; i < size; i++)
 	{
 		fp.read(buffer, sizeof(char) * ATTRIBUTE_SIZE);
@@ -64,7 +69,7 @@ void Table_Message::load()
 	if (fp.is_open())
 	{
 		fp.seekg(0, std::ios::end);
-		this->block_number = fp.tellg() / Buffer_Manager::BLOCK_SIZE + 1;
+		this->block_number = fp.tellg() / Block::BLOCK_SIZE;
 		fp.close();
 	}
 	this->dirty = 0;

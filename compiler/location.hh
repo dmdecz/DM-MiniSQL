@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh
+ ** \file /Users/chenzhuo/Desktop/Working/DM/compiler/location.hh
  ** Define the yy::location class.
  */
 
-#ifndef YY_YY_USERS_CHENZHUO_DOCUMENTS_ZJU_COURSES_GRADE2B_DBS_DM_COMPILER_LOCATION_HH_INCLUDED
-# define YY_YY_USERS_CHENZHUO_DOCUMENTS_ZJU_COURSES_GRADE2B_DBS_DM_COMPILER_LOCATION_HH_INCLUDED
+#ifndef YY_YY_USERS_CHENZHUO_DESKTOP_WORKING_DM_COMPILER_LOCATION_HH_INCLUDED
+# define YY_YY_USERS_CHENZHUO_DESKTOP_WORKING_DM_COMPILER_LOCATION_HH_INCLUDED
 
 # include <algorithm> // std::max
 # include <iostream>
@@ -55,7 +55,7 @@
 # endif
 
 namespace yy {
-#line 59 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh"
+#line 59 "/Users/chenzhuo/Desktop/Working/DM/compiler/location.hh"
 
   /// A point in a source file.
   class position
@@ -317,6 +317,6 @@ namespace yy {
   }
 
 } // yy
-#line 321 "/Users/chenzhuo/Documents/ZJU/Courses/Grade2b/DBS/DM/compiler/location.hh"
+#line 321 "/Users/chenzhuo/Desktop/Working/DM/compiler/location.hh"
 
-#endif // !YY_YY_USERS_CHENZHUO_DOCUMENTS_ZJU_COURSES_GRADE2B_DBS_DM_COMPILER_LOCATION_HH_INCLUDED
+#endif // !YY_YY_USERS_CHENZHUO_DESKTOP_WORKING_DM_COMPILER_LOCATION_HH_INCLUDED

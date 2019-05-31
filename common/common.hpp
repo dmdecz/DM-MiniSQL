@@ -11,14 +11,18 @@ class Statement;
 class Expression;
 class ExpressionList;
 
-typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE, INSERT_TYPE} StatementType;
+typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE, INSERT_TYPE, QUIT_TYPE} StatementType;
 typedef enum {BPLUSTREE, HASH} IndexType;
 
 typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
-const void * VoidPtrToDMType(DMType);
+std::ostream& operator<<(std::ostream & output, DMType & v);
+
 typedef int AttrType;
+const void * DMType_to_void_pointer(DMType);
+DMType void_pointer_to_DMType(void *, AttrType);
 const int attrTypeLength(AttrType);
-const bool typeMatch(AttrType, DMType);
+const bool type_match(AttrType, DMType);
+const bool type_match(DMType, AttrType);
 
 template<class T>
 void delete_ptr_in_vector(std::vector<T *> & v)

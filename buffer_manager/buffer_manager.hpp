@@ -15,6 +15,9 @@ private:
 	bool dirty;
 
 public:
+	static int BLOCK_SIZE;
+	static int BLOCK_HEAD_SIZE;
+
 	Block(const std::string &, const std::string &, int);
 	Block(const std::string &, const std::string &, int, char *);
 	void load();
@@ -35,7 +38,6 @@ private:
 
 public:
 	static int BUFFER_SIZE;
-	static int BLOCK_SIZE;
 
 	Buffer_Manager(const std::string &);
 
