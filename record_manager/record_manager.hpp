@@ -12,11 +12,13 @@ class Record
 {
 private:
 	std::map<std::string, AttrType> & type;
+	std::map<std::string, std::pair<int, DMType>> & condition;
 	std::map<std::string, DMType> value;
 public:
-	Record(std::map<std::string, AttrType> & type);
+	Record(std::map<std::string, AttrType> & type, std::map<std::string, std::pair<int, DMType>> & condition);
 	void get_value(char * data);
 	DMType operator[](const std::string &);
+	bool is_valid();
 	void clear();
 	~Record();
 };
@@ -30,7 +32,7 @@ private:
 
 public:
 	Record_Manager(const std::string &, Catalog_Manager *, Buffer_Manager *);
-	void select(const std::string &, std::vector<std::string> &);
+	void select(const std::string &, std::vector<std::string> &, std::map<std::string, std::pair<int, DMType>> &);
 	void insert(const std::string &, std::map<std::string, DMType> &);
 	void insert_to_new_block(const std::string &, std::map<std::string, DMType> &, int);
 	int insert_to_old_block(const std::string &, std::map<std::string, DMType> &, int);

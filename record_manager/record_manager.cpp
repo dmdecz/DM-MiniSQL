@@ -4,8 +4,8 @@
 #include <iostream>
 #include <cstring>
 
-Record::Record(std::map<std::string, AttrType> & _type)
-	: type (_type) {}
+Record::Record(std::map<std::string, AttrType> & _type, std::map<std::string, std::pair<int, DMType>> & _condition)
+	: type (_type), condition(_condition) {}
 
 void Record::get_value(char * data)
 {
@@ -14,6 +14,30 @@ void Record::get_value(char * data)
 		data += attrTypeLength(it->second);
 //		std::cout << this->value[it->first] << std::endl;
 	}
+}
+
+bool Record::is_valid()
+{
+	bool ret = true;
+	for (auto & attr : this->condition) {
+		switch (attr.second.first) {
+			case 0:
+				ret = ret && (this->value[attr.first] == attr.second.second);
+				break;
+			case 1:
+				ret = ret && (this->value[attr.first] < attr.second.second);
+				break;
+			case 2:
+				ret = ret && (this->value[attr.first] > attr.second.second);
+				break;
+			case 3:
+				ret = ret && (this->value[attr.first] != attr.second.second);
+				break;
+		}
+		if (!ret)
+			break;
+	}
+	return ret;
 }
 
 DMType Record::operator[](const std::string & name)
@@ -32,26 +56,18 @@ Record::~Record() = default;
 Record_Manager::Record_Manager(const std::string & database, Catalog_Manager * catalog, Buffer_Manager * buf)
 	: database_name(database), m_catalog(catalog), m_buffer(buf) {}
 
-void Record_Manager::select(const std::string & table_name, std::vector<std::string> & list)
+void Record_Manager::select(const std::string & table_name, std::vector<std::string> & list, std::map<std::string, std::pair<int, DMType>> & cond)
 {
 	std::map<std::string, AttrType> & attribute_list = this->m_catalog->get_attributes(table_name);
-	for (int i = 0; i < list.size(); ++i) {
-		if (list[i] == "*") {
-			list.erase(list.begin() + i);
-			for (MapIterator<std::string, AttrType> it = attribute_list.begin(); it != attribute_list.end(); ++it) {
-				list.insert(list.begin() + i, it->first);
-			}
-		}
-		if (attribute_list.find(list[i]) == attribute_list.end())
-			throw Error(701, "Table '" + table_name + "' has no attribute '" + list[i] + "'.");
-		std::cout << '\t' << list[i];
+	for (auto & v : list) {
+		std::cout << '\t' << v;
 	}
 	std::cout << std::endl;
 
 	int size = this->m_catalog->data_block_number(table_name);
 	int record_length = this->m_catalog->get_record_length(table_name);
 	int total = 0;
-	Record * tuple = new Record(attribute_list);
+	Record * tuple = new Record(attribute_list, cond);
 	for (int i = 0; i < size; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
 		int begin = Block::BLOCK_HEAD_SIZE;
@@ -59,13 +75,15 @@ void Record_Manager::select(const std::string & table_name, std::vector<std::str
 		int record_number = (end - begin) / record_length;
 		for (int j = 0; j < record_number; ++j) {
 			tuple->get_value(block->get_data(begin));
-			for (int k = 0; k < list.size(); ++k) {
-				DMType value = (*tuple)[list[k]];
-				std::cout << '\t' << value;
+			if (tuple->is_valid()) {
+				for (int k = 0; k < list.size(); ++k) {
+					DMType value = (*tuple)[list[k]];
+					std::cout << '\t' << value;
+				}
+				std::cout << std::endl;
+				total ++;
 			}
-			std::cout << std::endl;
 			begin += record_length;
-			total ++;
 		}
 	}
 	std::cout << total << " have found." << std::endl;

@@ -18,7 +18,7 @@ private:
 	Record_Manager * m_record;
 
 public:
-	API(void);
+	API();
 	
 	int execute(Statement *);
 	void execute_use_database(Statement *);
@@ -28,7 +28,7 @@ public:
 	void execute_create_table(Statement *);
 	void execute_drop_table(Statement *);
 	void execute_insert(Statement *);
-	~API(void);
+	~API();
 };
 
 

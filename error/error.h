@@ -7,7 +7,7 @@
 
 #include <string>
 
-class Error
+class Error: public std::exception
 {
 private:
 	int code;
