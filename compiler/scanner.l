@@ -162,6 +162,8 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 "INSERT"|"insert"	return yy::parser::make_INSERT(loc);
 "DELETE"|"delete"	return yy::parser::make_DELETE(loc);
 "INTO"|"into"		return yy::parser::make_INTO(loc);
+"INDEX"|"index"		return yy::parser::make_INDEX(loc);
+"UNIQUE"|"unique"	return yy::parser::make_UNIQUE(loc);
 "VALUES"|"values"	return yy::parser::make_VALUES(loc);
 "DROP"|"drop"		return yy::parser::make_DROP(loc);
 "FROM"|"from"		return yy::parser::make_FROM  (loc);

@@ -4,7 +4,7 @@
 
 #include "Condition_Expression.hpp"
 
-Condition_Expression::Condition_Expression(const std::string & _attribute_name, int _compare, DMType _value)
+Condition_Expression::Condition_Expression(const std::string & _attribute_name, CmpType _compare, DMType _value)
 	: attribute_name(_attribute_name), compare(_compare), value(_value) {}
 
 Condition_Expression::~Condition_Expression() = default;

@@ -15,6 +15,7 @@ API::API()
 	this->m_catalog = new Catalog_Manager(this->database_name);
 	this->m_buffer = new Buffer_Manager(this->database_name);
 	this->m_record = new Record_Manager(this->database_name, this->m_catalog, this->m_buffer);
+	this->m_index = new Index_Manager(this->database_name, this->m_catalog, this->m_buffer);
 }
 
 int API::execute(Statement * s)
@@ -113,7 +114,7 @@ void API::execute_select(Statement * s)
 	ExpressionList * select_cond = std::get<ExpressionList *>(s->args(2));
 	std::string table_name = std::get<std::string>(((*table_list)[0])->values());
 	std::vector<std::string> list;
-	std::map<std::string, std::pair<int, DMType>> cond;
+	CmpInfo cond;
 	for (int i = 0; i < select_list->size(); ++i) {
 		std::string str = std::get<std::string>((*select_list)[i]->values());
 		list.push_back(str);
@@ -125,12 +126,12 @@ void API::execute_select(Statement * s)
 		}
 	}
 	if (this->m_catalog->has_table(table_name)) {
-		std::map<std::string, AttrType> & attribute_list = this->m_catalog->get_attributes(table_name);
+		AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 		for (int i = 0; i < list.size(); ++i) {
 			if (list[i] == "*") {
 				list.erase(list.begin() + i);
-				for (MapIterator<std::string, AttrType> it = attribute_list.begin(); it != attribute_list.end(); ++it) {
-					list.insert(list.begin() + i, it->first);
+				for (auto & it : attribute_list) {
+					list.insert(list.begin() + i, it.first);
 				}
 			}
 			if (attribute_list.find(list[i]) == attribute_list.end())
@@ -176,8 +177,8 @@ void API::execute_delete(Statement * s)
 		throw Error(700, "No table named '" + table_name + "'.");
 	}
 
-	std::map<std::string, std::pair<int, DMType>> cond;
-	std::map<std::string, AttrType> & attribute_list = this->m_catalog->get_attributes(table_name);
+	CmpInfo cond;
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 
 	for (size_t i = 0; i < delete_cond->size(); i++) {
 		std::string str = std::get<std::string>(((*delete_cond)[i])->values(0));
@@ -198,16 +199,23 @@ void API::execute_create_table(Statement * s)
 	ExpressionList * attribute_list = std::get<ExpressionList *>(s->args(1));
 	ExpressionList * constrain_list = std::get<ExpressionList *>(s->args(2));
 
-	std::map<std::string, AttrType> attrlist;
-	if (attribute_list)
-		for (size_t i = 0; i < attribute_list->size(); i++)
-		{
+	AttrInfo attrlist;
+	if (attribute_list) {
+		for (size_t i = 0; i < attribute_list->size(); i++) {
 			std::string name = std::get<std::string>(((*attribute_list)[i])->values(0));
 			AttrType type = std::get<int>(((*attribute_list)[i])->values(1));
-			attrlist[name] = type;
+			int other_info = std::get<int>(((*attribute_list)[i])->values(2));
+			attrlist[name].first = type;
+			attrlist[name].second = other_info;
 		}
-	std::string primary_key = std::get<std::string>(((*constrain_list)[0])->values(1));
-	this->m_catalog->create_table(table_name, attrlist, primary_key);
+	}
+	std::string primary_key;
+	if (constrain_list) {
+		primary_key = std::get<std::string>(((*constrain_list)[0])->values(1));
+		attrlist[primary_key].second = 2;
+//		this->m_index->create_index(table_name, primary_key);
+	}
+	this->m_catalog->create_table(table_name, attrlist);
 	std::cout << "Query OK, 0 row(s) affected." << std::endl;
 }
 

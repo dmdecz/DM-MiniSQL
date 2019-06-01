@@ -28,7 +28,7 @@
 %define api.token.prefix {TOK_}
 
 %token <int> NUMBER;
-%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES DELETE
+%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES DELETE INDEX UNIQUE
 %token
 	BLANK
 	END			"eof"
@@ -153,10 +153,10 @@ select_condition_list:
     ;
 
 select_condition_exp:
-    STRING "=" exp { $$ = new Condition_Expression($1, 0, $3->values()); }
-    | STRING "<" exp { $$ = new Condition_Expression($1, 1, $3->values()); }
-    | STRING ">" exp { $$ = new Condition_Expression($1, 2, $3->values()); }
-    | STRING "<>" exp { $$ = new Condition_Expression($1, 3, $3->values()); }
+    STRING "=" exp { $$ = new Condition_Expression($1, EQUAL, $3->values()); }
+    | STRING "<" exp { $$ = new Condition_Expression($1, LESS, $3->values()); }
+    | STRING ">" exp { $$ = new Condition_Expression($1, LARGE, $3->values()); }
+    | STRING "<>" exp { $$ = new Condition_Expression($1, NOT, $3->values()); }
     ;
 
 delete_statement:
@@ -186,7 +186,8 @@ attribute_list:
 	;
 
 attribute_exp:
-	STRING variant_type { $$ = new Attribute_Expression($1, $2); }
+	STRING variant_type { $$ = new Attribute_Expression($1, $2, 0); }
+	| STRING variant_type UNIQUE { $$ = new Attribute_Expression($1, $2, 1); }
 	;
 
 variant_type:

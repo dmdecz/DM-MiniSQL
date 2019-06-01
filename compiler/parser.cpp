@@ -249,44 +249,44 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 57: // select_condition_exp
-      case 59: // exp
-      case 62: // attribute_exp
-      case 65: // constrain_exp
+      case 59: // select_condition_exp
+      case 61: // exp
+      case 64: // attribute_exp
+      case 67: // constrain_exp
         value.YY_MOVE_OR_COPY< Expression * > (YY_MOVE (that.value));
         break;
 
-      case 45: // attr_list
-      case 46: // value_list
-      case 53: // select_list
-      case 54: // table_list
-      case 55: // select_condition
-      case 56: // select_condition_list
-      case 61: // attribute_list
-      case 64: // constrain_list
+      case 47: // attr_list
+      case 48: // value_list
+      case 55: // select_list
+      case 56: // table_list
+      case 57: // select_condition
+      case 58: // select_condition_list
+      case 63: // attribute_list
+      case 66: // constrain_list
         value.YY_MOVE_OR_COPY< ExpressionList * > (YY_MOVE (that.value));
         break;
 
-      case 43: // statement
-      case 44: // insert_statement
-      case 47: // drop_table_statement
-      case 48: // drop_db_statement
-      case 49: // use_statement
-      case 50: // create_db_statement
-      case 52: // select_statement
-      case 58: // delete_statement
-      case 60: // create_table_statement
+      case 45: // statement
+      case 46: // insert_statement
+      case 49: // drop_table_statement
+      case 50: // drop_db_statement
+      case 51: // use_statement
+      case 52: // create_db_statement
+      case 54: // select_statement
+      case 60: // delete_statement
+      case 62: // create_table_statement
         value.YY_MOVE_OR_COPY< Statement * > (YY_MOVE (that.value));
         break;
 
       case 3: // NUMBER
-      case 63: // variant_type
+      case 65: // variant_type
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 39: // STRING
-      case 40: // FILENAME
-      case 51: // source_statement
+      case 41: // STRING
+      case 42: // FILENAME
+      case 53: // source_statement
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -305,44 +305,44 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 57: // select_condition_exp
-      case 59: // exp
-      case 62: // attribute_exp
-      case 65: // constrain_exp
+      case 59: // select_condition_exp
+      case 61: // exp
+      case 64: // attribute_exp
+      case 67: // constrain_exp
         value.move< Expression * > (YY_MOVE (that.value));
         break;
 
-      case 45: // attr_list
-      case 46: // value_list
-      case 53: // select_list
-      case 54: // table_list
-      case 55: // select_condition
-      case 56: // select_condition_list
-      case 61: // attribute_list
-      case 64: // constrain_list
+      case 47: // attr_list
+      case 48: // value_list
+      case 55: // select_list
+      case 56: // table_list
+      case 57: // select_condition
+      case 58: // select_condition_list
+      case 63: // attribute_list
+      case 66: // constrain_list
         value.move< ExpressionList * > (YY_MOVE (that.value));
         break;
 
-      case 43: // statement
-      case 44: // insert_statement
-      case 47: // drop_table_statement
-      case 48: // drop_db_statement
-      case 49: // use_statement
-      case 50: // create_db_statement
-      case 52: // select_statement
-      case 58: // delete_statement
-      case 60: // create_table_statement
+      case 45: // statement
+      case 46: // insert_statement
+      case 49: // drop_table_statement
+      case 50: // drop_db_statement
+      case 51: // use_statement
+      case 52: // create_db_statement
+      case 54: // select_statement
+      case 60: // delete_statement
+      case 62: // create_table_statement
         value.move< Statement * > (YY_MOVE (that.value));
         break;
 
       case 3: // NUMBER
-      case 63: // variant_type
+      case 65: // variant_type
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 39: // STRING
-      case 40: // FILENAME
-      case 51: // source_statement
+      case 41: // STRING
+      case 42: // FILENAME
+      case 53: // source_statement
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -361,44 +361,44 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 57: // select_condition_exp
-      case 59: // exp
-      case 62: // attribute_exp
-      case 65: // constrain_exp
+      case 59: // select_condition_exp
+      case 61: // exp
+      case 64: // attribute_exp
+      case 67: // constrain_exp
         value.move< Expression * > (that.value);
         break;
 
-      case 45: // attr_list
-      case 46: // value_list
-      case 53: // select_list
-      case 54: // table_list
-      case 55: // select_condition
-      case 56: // select_condition_list
-      case 61: // attribute_list
-      case 64: // constrain_list
+      case 47: // attr_list
+      case 48: // value_list
+      case 55: // select_list
+      case 56: // table_list
+      case 57: // select_condition
+      case 58: // select_condition_list
+      case 63: // attribute_list
+      case 66: // constrain_list
         value.move< ExpressionList * > (that.value);
         break;
 
-      case 43: // statement
-      case 44: // insert_statement
-      case 47: // drop_table_statement
-      case 48: // drop_db_statement
-      case 49: // use_statement
-      case 50: // create_db_statement
-      case 52: // select_statement
-      case 58: // delete_statement
-      case 60: // create_table_statement
+      case 45: // statement
+      case 46: // insert_statement
+      case 49: // drop_table_statement
+      case 50: // drop_db_statement
+      case 51: // use_statement
+      case 52: // create_db_statement
+      case 54: // select_statement
+      case 60: // delete_statement
+      case 62: // create_table_statement
         value.move< Statement * > (that.value);
         break;
 
       case 3: // NUMBER
-      case 63: // variant_type
+      case 65: // variant_type
         value.move< int > (that.value);
         break;
 
-      case 39: // STRING
-      case 40: // FILENAME
-      case 51: // source_statement
+      case 41: // STRING
+      case 42: // FILENAME
+      case 53: // source_statement
         value.move< std::string > (that.value);
         break;
 
@@ -447,151 +447,151 @@ namespace yy {
 #line 448 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 39: // STRING
+      case 41: // STRING
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
 #line 454 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 40: // FILENAME
+      case 42: // FILENAME
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
 #line 460 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 43: // statement
+      case 45: // statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 466 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 44: // insert_statement
+      case 46: // insert_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 472 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 45: // attr_list
+      case 47: // attr_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 478 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 46: // value_list
+      case 48: // value_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 484 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 47: // drop_table_statement
+      case 49: // drop_table_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 490 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 48: // drop_db_statement
+      case 50: // drop_db_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 496 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 49: // use_statement
+      case 51: // use_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 502 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 50: // create_db_statement
+      case 52: // create_db_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 508 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 51: // source_statement
+      case 53: // source_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
 #line 514 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 52: // select_statement
+      case 54: // select_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 520 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 53: // select_list
+      case 55: // select_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 526 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 54: // table_list
+      case 56: // table_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 532 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 55: // select_condition
+      case 57: // select_condition
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 538 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 56: // select_condition_list
+      case 58: // select_condition_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 544 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 57: // select_condition_exp
+      case 59: // select_condition_exp
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 550 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 58: // delete_statement
+      case 60: // delete_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 556 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 59: // exp
+      case 61: // exp
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 562 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 60: // create_table_statement
+      case 62: // create_table_statement
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 568 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 61: // attribute_list
+      case 63: // attribute_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 574 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 62: // attribute_exp
+      case 64: // attribute_exp
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 580 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 63: // variant_type
+      case 65: // variant_type
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < int > (); }
 #line 586 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 64: // constrain_list
+      case 66: // constrain_list
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 592 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
-      case 65: // constrain_exp
+      case 67: // constrain_exp
 #line 64 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 598 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
@@ -811,44 +811,44 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 57: // select_condition_exp
-      case 59: // exp
-      case 62: // attribute_exp
-      case 65: // constrain_exp
+      case 59: // select_condition_exp
+      case 61: // exp
+      case 64: // attribute_exp
+      case 67: // constrain_exp
         yylhs.value.emplace< Expression * > ();
         break;
 
-      case 45: // attr_list
-      case 46: // value_list
-      case 53: // select_list
-      case 54: // table_list
-      case 55: // select_condition
-      case 56: // select_condition_list
-      case 61: // attribute_list
-      case 64: // constrain_list
+      case 47: // attr_list
+      case 48: // value_list
+      case 55: // select_list
+      case 56: // table_list
+      case 57: // select_condition
+      case 58: // select_condition_list
+      case 63: // attribute_list
+      case 66: // constrain_list
         yylhs.value.emplace< ExpressionList * > ();
         break;
 
-      case 43: // statement
-      case 44: // insert_statement
-      case 47: // drop_table_statement
-      case 48: // drop_db_statement
-      case 49: // use_statement
-      case 50: // create_db_statement
-      case 52: // select_statement
-      case 58: // delete_statement
-      case 60: // create_table_statement
+      case 45: // statement
+      case 46: // insert_statement
+      case 49: // drop_table_statement
+      case 50: // drop_db_statement
+      case 51: // use_statement
+      case 52: // create_db_statement
+      case 54: // select_statement
+      case 60: // delete_statement
+      case 62: // create_table_statement
         yylhs.value.emplace< Statement * > ();
         break;
 
       case 3: // NUMBER
-      case 63: // variant_type
+      case 65: // variant_type
         yylhs.value.emplace< int > ();
         break;
 
-      case 39: // STRING
-      case 40: // FILENAME
-      case 51: // source_statement
+      case 41: // STRING
+      case 42: // FILENAME
+      case 53: // source_statement
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -1086,25 +1086,25 @@ namespace yy {
 
   case 36:
 #line 156 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), 0, yystack_[0].value.as < Expression * > ()->values()); }
+    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), EQUAL, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1091 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 37:
 #line 157 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), 1, yystack_[0].value.as < Expression * > ()->values()); }
+    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), LESS, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1097 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 38:
 #line 158 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), 2, yystack_[0].value.as < Expression * > ()->values()); }
+    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), LARGE, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1103 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 39:
 #line 159 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), 3, yystack_[0].value.as < Expression * > ()->values()); }
+    { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), NOT, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1109 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
@@ -1153,60 +1153,66 @@ namespace yy {
 
   case 46:
 #line 189 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[1].value.as < std::string > (), yystack_[0].value.as < int > ()); }
+    { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[1].value.as < std::string > (), yystack_[0].value.as < int > (), 0); }
 #line 1158 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 47:
-#line 193 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < int > () = -1; }
+#line 190 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+    { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[2].value.as < std::string > (), yystack_[1].value.as < int > (), 1); }
 #line 1164 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 48:
 #line 194 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < int > () = -2; }
+    { yylhs.value.as < int > () = -1; }
 #line 1170 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 49:
 #line 195 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
+    { yylhs.value.as < int > () = -2; }
 #line 1176 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 50:
-#line 199 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < ExpressionList * > () = nullptr; }
+#line 196 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+    { yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
 #line 1182 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 51:
 #line 200 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
+    { yylhs.value.as < ExpressionList * > () = nullptr; }
 #line 1188 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 52:
 #line 201 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
+    { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1194 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 53:
-#line 205 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Constrain_Expression(0, yystack_[1].value.as < std::string > ()); }
+#line 202 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+    { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
 #line 1200 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 54:
 #line 206 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
-    { yylhs.value.as < Expression * > () = new Constrain_Expression(1, yystack_[1].value.as < std::string > ()); }
+    { yylhs.value.as < Expression * > () = new Constrain_Expression(0, yystack_[1].value.as < std::string > ()); }
 #line 1206 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
+  case 55:
+#line 207 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+    { yylhs.value.as < Expression * > () = new Constrain_Expression(1, yystack_[1].value.as < std::string > ()); }
+#line 1212 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
+    break;
 
-#line 1210 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
+
+#line 1216 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
 
             default:
               break;
@@ -1484,18 +1490,18 @@ namespace yy {
   const signed char
   parser::yypact_[] =
   {
-       1,   -16,    -9,   -27,     7,   -23,    30,    46,    17,   -81,
-     -81,    24,   -81,    19,    42,    43,    44,    45,    47,    48,
-      49,    50,   -81,   -81,    -1,   -81,   -81,    27,    32,   -81,
-      34,    35,    36,    37,   -81,   -81,   -81,   -81,   -81,   -81,
-     -81,   -81,   -81,   -81,   -81,    38,    39,    54,   -81,   -81,
-     -81,    55,    66,   -81,     0,   -81,    51,    52,    53,    53,
-      56,   -81,    21,    57,   -81,   -81,     3,    14,    58,   -81,
-      58,   -81,   -81,   -81,    60,   -81,    15,    29,    65,    59,
-      -3,    -3,    -3,    -3,    53,    79,    61,    62,   -81,   -81,
-     -81,    20,    63,   -81,   -81,   -81,   -81,   -81,   -81,   -81,
-     -81,    68,    64,    67,   -81,    -3,   -81,    70,    71,    33,
-     -81,   -81,   -81,   -81,    -3,   -81
+      32,   -16,   -14,   -22,    -5,   -11,    49,     7,    37,   -81,
+     -81,    10,   -81,    15,    38,    42,    43,    44,    45,    46,
+      47,    48,   -81,   -81,    -1,   -81,   -81,     3,    30,   -81,
+      31,    33,    35,    36,   -81,   -81,   -81,   -81,   -81,   -81,
+     -81,   -81,   -81,   -81,   -81,    39,    40,    51,   -81,   -81,
+     -81,    52,    67,   -81,     0,   -81,    41,    50,    53,    53,
+      54,   -81,   -19,    55,   -81,   -81,   -13,    22,    56,   -81,
+      56,   -81,   -81,   -81,    58,    64,    11,     5,    59,    57,
+      -3,    -3,    -3,    -3,    53,    83,   -81,    60,    61,   -81,
+     -81,   -81,     8,    62,   -81,   -81,   -81,   -81,   -81,   -81,
+     -81,   -81,    68,    63,    65,   -81,    -3,   -81,    69,    71,
+      34,   -81,   -81,   -81,   -81,    -3,   -81
   };
 
   const unsigned char
@@ -1507,88 +1513,92 @@ namespace yy {
        0,     0,     0,     0,     1,     3,    14,     9,    13,    11,
       12,     7,     6,    15,     8,     0,     0,     0,    24,    21,
       22,     0,     0,    30,    32,    29,     0,     0,     0,     0,
-       0,    26,     0,    50,    44,    17,     0,     0,    40,    34,
-      33,    31,    47,    48,     0,    46,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    45,    51,
-      43,     0,     0,    18,    42,    41,    36,    37,    38,    39,
-      35,     0,     0,     0,    52,     0,    49,     0,     0,     0,
-      19,    53,    54,    16,     0,    20
+       0,    26,     0,    51,    44,    17,     0,     0,    40,    34,
+      33,    31,    48,    49,     0,    46,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    47,     0,     0,    45,
+      52,    43,     0,     0,    18,    42,    41,    36,    37,    38,
+      39,    35,     0,     0,     0,    53,     0,    50,     0,     0,
+       0,    19,    54,    55,    16,     0,    20
   };
 
   const signed char
   parser::yypgoto_[] =
   {
-     -81,   -81,    72,   -81,   -81,   -81,   -81,   -81,   -81,   -81,
-     -81,   -81,   -81,   -81,   -81,    40,     5,   -81,   -80,   -81,
-     -81,    25,   -81,   -81,     9
+     -81,   -81,    79,   -81,   -81,   -81,   -81,   -81,   -81,   -81,
+     -81,   -81,   -81,   -81,   -81,    66,    16,   -81,   -80,   -81,
+     -81,    25,   -81,   -81,    13
   };
 
   const signed char
   parser::yydefgoto_[] =
   {
-      -1,    11,    12,    13,    66,   109,    14,    15,    16,    17,
-      18,    19,    24,    54,    61,    68,    69,    20,    96,    21,
-      63,    64,    75,    77,    89
+      -1,    11,    12,    13,    66,   110,    14,    15,    16,    17,
+      18,    19,    24,    54,    61,    68,    69,    20,    97,    21,
+      63,    64,    75,    77,    90
   };
 
   const unsigned char
   parser::yytable_[] =
   {
-      94,    97,    98,    99,    45,     1,    59,    22,     2,     3,
-       4,    25,     5,    26,     6,     7,    29,    27,     8,    28,
-       9,    10,    33,    23,    34,   110,    46,    60,     1,    78,
-      79,     2,     3,     4,   115,     5,    95,     6,     7,    36,
-      30,     8,    31,     9,    10,    80,    81,    82,    83,    72,
-      73,    74,    86,    87,    62,    90,    91,    86,    87,   113,
-     114,    32,    37,    38,    39,    40,    47,    41,    42,    43,
-      44,    48,    58,    49,    50,    51,    52,    53,    55,    56,
-      57,    92,   101,    35,    76,    85,   102,   103,   105,   100,
-      62,    65,    67,    84,   106,    71,   111,   112,    93,    70,
-     104,    88,     0,   107,     0,     0,   108
+      95,    98,    99,   100,    45,    27,    59,    28,    25,    22,
+      34,    72,    73,    74,     1,    78,    79,     2,     3,     4,
+      26,     5,    32,     6,     7,    23,   111,     8,    46,    60,
+      29,     9,    10,    91,    92,   116,     1,    36,    96,     2,
+       3,     4,    33,     5,    47,     6,     7,    87,    88,     8,
+      87,    88,    62,     9,    10,    80,    81,    82,    83,    30,
+      37,    31,   114,   115,    38,    39,    40,    41,    42,    43,
+      44,    48,    49,    58,    50,    93,    51,    52,    56,    57,
+      53,    55,    62,    86,    76,    85,   102,   103,   104,   106,
+      35,    65,     0,    84,    67,    71,   107,   112,    94,   113,
+     101,    89,     0,     0,   108,   105,   109,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    70
   };
 
   const signed char
   parser::yycheck_[] =
   {
-       3,    81,    82,    83,     5,     4,     6,    23,     7,     8,
-       9,    20,    11,    40,    13,    14,    39,    10,    17,    12,
-      19,    20,     5,    39,     0,   105,    27,    27,     4,    26,
-      27,     7,     8,     9,   114,    11,    39,    13,    14,    20,
-      10,    17,    12,    19,    20,    31,    32,    33,    34,    28,
-      29,    30,    37,    38,    39,    26,    27,    37,    38,    26,
-      27,    15,    20,    20,    20,    20,    39,    20,    20,    20,
-      20,    39,     6,    39,    39,    39,    39,    39,    39,    25,
-      25,    16,     3,    11,    27,    25,    25,    25,    25,    84,
-      39,    39,    39,    35,    26,    39,    26,    26,    39,    59,
-      91,    76,    -1,    39,    -1,    -1,    39
+       3,    81,    82,    83,     5,    10,     6,    12,    22,    25,
+       0,    30,    31,    32,     4,    28,    29,     7,     8,     9,
+      42,    11,    15,    13,    14,    41,   106,    17,    29,    29,
+      41,    21,    22,    28,    29,   115,     4,    22,    41,     7,
+       8,     9,     5,    11,    41,    13,    14,    39,    40,    17,
+      39,    40,    41,    21,    22,    33,    34,    35,    36,    10,
+      22,    12,    28,    29,    22,    22,    22,    22,    22,    22,
+      22,    41,    41,     6,    41,    16,    41,    41,    27,    27,
+      41,    41,    41,    19,    29,    27,     3,    27,    27,    27,
+      11,    41,    -1,    37,    41,    41,    28,    28,    41,    28,
+      84,    76,    -1,    -1,    41,    92,    41,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    59
   };
 
   const unsigned char
   parser::yystos_[] =
   {
-       0,     4,     7,     8,     9,    11,    13,    14,    17,    19,
-      20,    42,    43,    44,    47,    48,    49,    50,    51,    52,
-      58,    60,    23,    39,    53,    20,    40,    10,    12,    39,
-      10,    12,    15,     5,     0,    43,    20,    20,    20,    20,
-      20,    20,    20,    20,    20,     5,    27,    39,    39,    39,
-      39,    39,    39,    39,    54,    39,    25,    25,     6,     6,
-      27,    55,    39,    61,    62,    39,    45,    39,    56,    57,
-      56,    39,    28,    29,    30,    63,    27,    64,    26,    27,
-      31,    32,    33,    34,    35,    25,    37,    38,    62,    65,
-      26,    27,    16,    39,     3,    39,    59,    59,    59,    59,
-      57,     3,    25,    25,    65,    25,    26,    39,    39,    46,
-      59,    26,    26,    26,    27,    59
+       0,     4,     7,     8,     9,    11,    13,    14,    17,    21,
+      22,    44,    45,    46,    49,    50,    51,    52,    53,    54,
+      60,    62,    25,    41,    55,    22,    42,    10,    12,    41,
+      10,    12,    15,     5,     0,    45,    22,    22,    22,    22,
+      22,    22,    22,    22,    22,     5,    29,    41,    41,    41,
+      41,    41,    41,    41,    56,    41,    27,    27,     6,     6,
+      29,    57,    41,    63,    64,    41,    47,    41,    58,    59,
+      58,    41,    30,    31,    32,    65,    29,    66,    28,    29,
+      33,    34,    35,    36,    37,    27,    19,    39,    40,    64,
+      67,    28,    29,    16,    41,     3,    41,    61,    61,    61,
+      61,    59,     3,    27,    27,    67,    27,    28,    41,    41,
+      48,    61,    28,    28,    28,    29,    61
   };
 
   const unsigned char
   parser::yyr1_[] =
   {
-       0,    41,    42,    42,    43,    43,    43,    43,    43,    43,
-      43,    43,    43,    43,    43,    43,    44,    45,    45,    46,
-      46,    47,    48,    49,    50,    51,    52,    53,    53,    53,
-      54,    54,    55,    55,    56,    56,    57,    57,    57,    57,
-      58,    59,    59,    60,    61,    61,    62,    63,    63,    63,
-      64,    64,    64,    65,    65
+       0,    43,    44,    44,    45,    45,    45,    45,    45,    45,
+      45,    45,    45,    45,    45,    45,    46,    47,    47,    48,
+      48,    49,    50,    51,    52,    53,    54,    55,    55,    55,
+      56,    56,    57,    57,    58,    58,    59,    59,    59,    59,
+      60,    61,    61,    62,    63,    63,    64,    64,    65,    65,
+      65,    66,    66,    66,    67,    67
   };
 
   const unsigned char
@@ -1598,8 +1608,8 @@ namespace yy {
        2,     2,     2,     2,     2,     2,    10,     1,     3,     1,
        3,     3,     3,     2,     3,     2,     5,     1,     1,     3,
        1,     3,     0,     2,     1,     3,     3,     3,     3,     3,
-       5,     1,     1,     7,     1,     3,     2,     1,     1,     4,
-       0,     2,     3,     4,     4
+       5,     1,     1,     7,     1,     3,     2,     3,     1,     1,
+       4,     0,     2,     3,     4,     4
   };
 
 
@@ -1611,11 +1621,11 @@ namespace yy {
   {
   "$end", "error", "$undefined", "NUMBER", "SELECT", "FROM", "WHERE",
   "QUIT", "SOURCE", "CREATE", "TABLE", "USE", "DATABASE", "DROP", "INSERT",
-  "INTO", "VALUES", "DELETE", "BLANK", "\"eof\"", "\";\"", "\"-\"",
-  "\"+\"", "\"*\"", "\"/\"", "\"(\"", "\")\"", "\",\"", "\"int\"",
-  "\"double\"", "\"char\"", "\"=\"", "\"<\"", "\">\"", "\"<>\"", "\"and\"",
-  "\"or\"", "\"primary key\"", "\"foreign key\"", "STRING", "FILENAME",
-  "$accept", "statement_list", "statement", "insert_statement",
+  "INTO", "VALUES", "DELETE", "INDEX", "UNIQUE", "BLANK", "\"eof\"",
+  "\";\"", "\"-\"", "\"+\"", "\"*\"", "\"/\"", "\"(\"", "\")\"", "\",\"",
+  "\"int\"", "\"double\"", "\"char\"", "\"=\"", "\"<\"", "\">\"", "\"<>\"",
+  "\"and\"", "\"or\"", "\"primary key\"", "\"foreign key\"", "STRING",
+  "FILENAME", "$accept", "statement_list", "statement", "insert_statement",
   "attr_list", "value_list", "drop_table_statement", "drop_db_statement",
   "use_statement", "create_db_statement", "source_statement",
   "select_statement", "select_list", "table_list", "select_condition",
@@ -1632,8 +1642,8 @@ namespace yy {
       80,    81,    82,    83,    84,    85,    89,    95,    96,   100,
      101,   105,   109,   113,   117,   121,   125,   135,   136,   137,
      141,   142,   146,   147,   151,   152,   156,   157,   158,   159,
-     163,   169,   170,   174,   184,   185,   189,   193,   194,   195,
-     199,   200,   201,   205,   206
+     163,   169,   170,   174,   184,   185,   189,   190,   194,   195,
+     196,   200,   201,   202,   206,   207
   };
 
   // Print the state stack on the debug stream.
@@ -1667,9 +1677,9 @@ namespace yy {
 
 
 } // yy
-#line 1671 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
+#line 1681 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
 
-#line 209 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 210 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
 
 
 void

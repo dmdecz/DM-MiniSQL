@@ -5,6 +5,7 @@
 #include "../catalog_manager/catalog_manager.hpp"
 #include "../buffer_manager/buffer_manager.hpp"
 #include "../record_manager/record_manager.hpp"
+#include "../index_manager/index_manager.cpp"
 
 #include <vector>
 #include <string>
@@ -16,6 +17,7 @@ private:
 	Catalog_Manager * m_catalog;
 	Buffer_Manager * m_buffer;
 	Record_Manager * m_record;
+	Index_Manager * m_index;
 
 public:
 	API();

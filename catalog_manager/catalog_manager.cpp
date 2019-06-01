@@ -18,16 +18,11 @@ Table_Message::Table_Message(const std::string & database, const std::string & t
 	this->load();
 }
 
-Table_Message::Table_Message(const std::string & database, const std::string & table, std::map<std::string, AttrType> & attr, const std::string & primary_key)
+Table_Message::Table_Message(const std::string & database, const std::string & table, AttrInfo & attr)
 	: database_name(database), table_name(table), attribute_list(attr), dirty(1), block_number(0)
 {
-	this->index_list[primary_key] = BPLUSTREE;
 	this->write_back();
-	this->record_length = 0;
-	for (MapIterator<std::string, AttrType> it = this->attribute_list.begin(); it != this->attribute_list.end(); ++it) {
-		this->record_length += attrTypeLength(it->second);
-	}
-	this->record_length += Table_Message::RECORD_INFO_SIZE;
+	this->load();
 }
 
 void Table_Message::load()
@@ -41,14 +36,19 @@ void Table_Message::load()
 	fp.read((char*)&size, sizeof(int));
 	char * buffer = new char[ATTRIBUTE_SIZE];
 	AttrType type;
+	int other_info;
 	this->record_length = 0;
 	for (int i = 0; i < size; i++)
 	{
 		fp.read(buffer, sizeof(char) * ATTRIBUTE_SIZE);
 		fp.read((char*)&type, sizeof(AttrType));
-		this->attribute_list[std::string(buffer)] = type;
+		fp.read((char*)&other_info, sizeof(int));
+		this->attribute_list[std::string(buffer)].first = type;
+		this->attribute_list[std::string(buffer)].second = other_info;
+		if (other_info == 2) {
+			this->primary_key = buffer;
+		}
 		this->record_length += attrTypeLength(type);
-		// std::cout << buffer << '\t' << type << std::endl;
 	}
 	this->record_length += Table_Message::RECORD_INFO_SIZE;
 
@@ -90,25 +90,23 @@ void Table_Message::write_back()
 	memset(buffer, 0, sizeof(char) * ATTRIBUTE_SIZE);
 	int zero = 0;
 	fp.write((char*)&size, sizeof(int));
-	for (std::map<std::string, AttrType>::iterator it = this->attribute_list.begin(); it != this->attribute_list.end(); it++)
-	{
-		fp.write(it->first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
-		fp.write((char*)&it->second, sizeof(AttrType));
+	for (auto & it : this->attribute_list) {
+		fp.write(it.first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
+		fp.write((char*)&it.second.first, sizeof(AttrType));
+		fp.write((char*)&it.second.second, sizeof(int));
 	}
 	for (size_t i = 0; i < 32 - size; i++)
 	{
 		fp.write(buffer, sizeof(char) * ATTRIBUTE_SIZE);
 		fp.write((char*)&zero, sizeof(AttrType));
+		fp.write((char*)&zero, sizeof(int));
 	}
 
 	size = this->index_list.size();
-//	std::cout << "::" << size << std::endl;
 	fp.write((char*)&size, sizeof(int));
-	for (std::map<std::string, IndexType>::iterator it = this->index_list.begin(); it != this->index_list.end(); it++)
-	{
-//		std::cout << "index: \n" << it->first.c_str() << std::endl;
-		fp.write(it->first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
-		fp.write((char*)&it->second, sizeof(IndexType));
+	for (auto & it : this->index_list) {
+		fp.write(it.first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
+		fp.write((char*)&it.second, sizeof(IndexType));
 	}
 	for (size_t i = 0; i < 32 - size; i++)
 	{
@@ -128,11 +126,11 @@ AttrType Table_Message::get_attribute_type(const std::string & attr_name)
 {
 	AttrType ret = 0;
 	if (this->has_attribute(attr_name))
-		ret = this->attribute_list[attr_name];
+		ret = this->attribute_list[attr_name].first;
 	return ret;
 }
 
-std::map<std::string, AttrType> & Table_Message::get_attributes()
+AttrInfo & Table_Message::get_attributes()
 {
     return this->attribute_list;
 }
@@ -196,8 +194,9 @@ void Catalog_Manager::clear()
 
 void Catalog_Manager::write_back()
 {
-	for (std::map<std::string, Table_Message *>::iterator it = this->table_list.begin(); it != this->table_list.end(); it++)
-		it->second->write_back();
+	for (auto & it : this->table_list) {
+		it.second->write_back();
+	}
 	if (!this->dirty || this->database_name.empty())
 		return;
 	std::ofstream fp;
@@ -205,9 +204,8 @@ void Catalog_Manager::write_back()
 	fp.open(filename, std::ios::binary);
 	int size = this->table_list.size();
 	fp.write((char*)&size, sizeof(int));
-	for (std::map<std::string, Table_Message *>::iterator it = this->table_list.begin(); it != this->table_list.end(); it++)
-	{
-		fp.write(it->first.c_str(), sizeof(char) * TABLE_NAME_SIZE);
+	for (auto & it : this->table_list) {
+		fp.write(it.first.c_str(), sizeof(char) * TABLE_NAME_SIZE);
 	}
 	fp.close();
 	this->dirty = 0;
@@ -219,13 +217,13 @@ Catalog_Manager::~Catalog_Manager()
 	this->clear();
 }
 
-void Catalog_Manager::create_table(const std::string & table_name, std::map<std::string, AttrType> & attr_list, std::string & primary_key)
+void Catalog_Manager::create_table(const std::string & table_name, AttrInfo & attr_list)
 {
 	std::string table_dir_name = this->database_name + "/" + table_name;
 	if (this->database_name.empty() || this->table_list.find(table_name) != this->table_list.end())
 		return;
 	mkdir(table_dir_name.c_str(), S_IRWXU);
-	this->table_list[table_name] = new Table_Message(this->database_name, table_name, attr_list, primary_key);
+	this->table_list[table_name] = new Table_Message(this->database_name, table_name, attr_list);
 	this->dirty = 1;
 }
 
@@ -278,7 +276,7 @@ void Catalog_Manager::add_data_block(const std::string & table_name)
 		this->table_list[table_name]->block_number++;
 }
 
-std::map<std::string, AttrType> & Catalog_Manager::get_attributes(const std::string & table_name)
+AttrInfo & Catalog_Manager::get_attributes(const std::string & table_name)
 {
     return this->table_list[table_name]->get_attributes();
 }
@@ -288,5 +286,13 @@ int Catalog_Manager::get_record_length(const std::string & table_name)
 	int ret = 0;
 	if (this->has_table(table_name))
 		ret = this->table_list[table_name]->record_length;
+	return ret;
+}
+
+std::string Catalog_Manager::get_primary_key(const std::string & table_name)
+{
+	std::string ret;
+	if (this->has_table(table_name))
+		ret = this->table_list[table_name]->primary_key;
 	return ret;
 }

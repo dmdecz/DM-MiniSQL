@@ -13,10 +13,10 @@ class Condition_Expression: public Expression
 {
 private:
 	std::string attribute_name;
-	int compare;
+	CmpType compare;
 	DMType value;
 public:
-	Condition_Expression(const std::string & attribute_name, int compare, DMType value);
+	Condition_Expression(const std::string & attribute_name, CmpType compare, DMType value);
 	virtual ~Condition_Expression();
 
 	virtual DMType values(int op = 0) const;

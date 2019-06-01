@@ -12,7 +12,7 @@ class Table_Message
 private:
 	const std::string & database_name;
 	std::string table_name;
-	std::map<std::string, AttrType> attribute_list;
+	AttrInfo attribute_list;
 	int record_length;
 	std::string primary_key;
 	bool dirty;
@@ -26,12 +26,12 @@ public:
 	static int RECORD_INFO_SIZE;
 
 	Table_Message(const std::string &, const std::string &);
-	Table_Message(const std::string &, const std::string &, std::map<std::string, AttrType> &, const std::string &);
+	Table_Message(const std::string &, const std::string &, AttrInfo &);
 	void load();
 	void write_back();
 	bool has_attribute(const std::string &);
 	AttrType get_attribute_type(const std::string &);
-    std::map<std::string, AttrType> & get_attributes();
+	AttrInfo & get_attributes();
 	bool has_index(const std::string &);
 	~Table_Message();
 };
@@ -49,7 +49,7 @@ public:
 	void load();
 	void create_database(const std::string &);
 
-	void create_table(const std::string &, std::map<std::string, AttrType> &, std::string &);
+	void create_table(const std::string &, AttrInfo &);
 	void drop_table(const std::string &);
 
 	bool has_table(const std::string &);
@@ -58,8 +58,9 @@ public:
 	bool has_index(const std::string &, const std::string &);
 	int data_block_number(const std::string &);
 	void add_data_block(const std::string &);
-    std::map<std::string, AttrType> & get_attributes(const std::string &);
+    AttrInfo & get_attributes(const std::string &);
 	int get_record_length(const std::string &);
+	std::string get_primary_key(const std::string &);
 
 	void clear();
 	void write_back();
