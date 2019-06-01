@@ -28,7 +28,7 @@
 %define api.token.prefix {TOK_}
 
 %token <int> NUMBER;
-%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES
+%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES DELETE
 %token
 	BLANK
 	END			"eof"
@@ -59,7 +59,7 @@
 %type <Expression *> exp attribute_exp constrain_exp select_condition_exp
 %type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list attr_list value_list select_condition_list
 %type <Statement *> statement use_statement create_db_statement drop_db_statement
-%type <Statement *> select_statement drop_table_statement create_table_statement insert_statement
+%type <Statement *> select_statement drop_table_statement create_table_statement insert_statement delete_statement
 
 %printer { yyo << $$; } <*>;
 
@@ -82,6 +82,7 @@ statement:
 	| create_db_statement ENDL { $$ = $1; }
 	| drop_db_statement ENDL { $$ = $1; }
 	| insert_statement ENDL { $$ = $1; }
+	| delete_statement ENDL { $$ = $1; }
 	;
 
 insert_statement:
@@ -156,6 +157,12 @@ select_condition_exp:
     | STRING "<" exp { $$ = new Condition_Expression($1, 1, $3->values()); }
     | STRING ">" exp { $$ = new Condition_Expression($1, 2, $3->values()); }
     | STRING "<>" exp { $$ = new Condition_Expression($1, 3, $3->values()); }
+    ;
+
+delete_statement:
+    DELETE FROM STRING WHERE select_condition_list {
+        $$ = new Delete_Statement($3, $5);
+    }
     ;
 
 exp:

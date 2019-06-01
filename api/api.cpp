@@ -49,6 +49,9 @@ int API::execute(Statement * s)
 				case INSERT_TYPE:
 					this->execute_insert(s);
 					break;
+				case DELETE_TYPE:
+					this->execute_delete(s);
+					break;
 				default:
 					break;
 			}
@@ -75,12 +78,14 @@ void API::execute_use_database(Statement * s)
 	this->database_name = database_name;
 
 	this->m_catalog->load();
+	std::cout << "Database changed." << std::endl;
 }
 
 void API::execute_create_database(Statement * s)
 {
 	std::string database_name = std::get<std::string>(s->args());
 	this->m_catalog->create_database(database_name);
+	std::cout << "Query OK, 0 row(s) affected." << std::endl;
 }
 
 void API::execute_drop_database(Statement * s)
@@ -98,6 +103,7 @@ void API::execute_drop_database(Statement * s)
 	} else {
 		throw Error(1, "No database named '" + database_name + "'.");
 	}
+	std::cout << "Database '" + database_name + "' has been deleted." << std::endl;
 }
 
 void API::execute_select(Statement * s)
@@ -162,13 +168,36 @@ void API::execute_insert(Statement * s)
 
 }
 
+void API::execute_delete(Statement * s)
+{
+	std::string table_name = std::get<std::string>(s->args(0));
+	ExpressionList * delete_cond = std::get<ExpressionList *>(s->args(1));
+	if (!this->m_catalog->has_table(table_name)) {
+		throw Error(700, "No table named '" + table_name + "'.");
+	}
+
+	std::map<std::string, std::pair<int, DMType>> cond;
+	std::map<std::string, AttrType> & attribute_list = this->m_catalog->get_attributes(table_name);
+
+	for (size_t i = 0; i < delete_cond->size(); i++) {
+		std::string str = std::get<std::string>(((*delete_cond)[i])->values(0));
+		cond[str] = std::make_pair(std::get<int>(((*delete_cond)[i])->values(1)), ((*delete_cond)[i])->values(2));
+	}
+	for (auto & attr : cond) {
+		if (attribute_list.find(attr.first) == attribute_list.end())
+			throw Error(701, "Table '" + table_name + "' has no attribute '" + attr.first + "'.");
+	}
+
+	this->m_record->delete_record(table_name, cond);
+
+}
+
 void API::execute_create_table(Statement * s)
 {
 	std::string table_name = std::get<std::string>(s->args());
 	ExpressionList * attribute_list = std::get<ExpressionList *>(s->args(1));
 	ExpressionList * constrain_list = std::get<ExpressionList *>(s->args(2));
 
-	std::cout << table_name << std::endl;
 	std::map<std::string, AttrType> attrlist;
 	if (attribute_list)
 		for (size_t i = 0; i < attribute_list->size(); i++)
@@ -179,6 +208,7 @@ void API::execute_create_table(Statement * s)
 		}
 	std::string primary_key = std::get<std::string>(((*constrain_list)[0])->values(1));
 	this->m_catalog->create_table(table_name, attrlist, primary_key);
+	std::cout << "Query OK, 0 row(s) affected." << std::endl;
 }
 
 void API::execute_drop_table(Statement * s)
@@ -188,6 +218,7 @@ void API::execute_drop_table(Statement * s)
 		throw Error(700, "No table named '" + table_name + "'.");
 	}
 	this->m_catalog->drop_table(table_name);
+	std::cout << "Table '" + table_name + "' has been deleted." << std::endl;
 }
 
 API::~API()

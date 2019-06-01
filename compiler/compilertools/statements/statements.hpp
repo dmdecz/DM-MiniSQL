@@ -9,5 +9,6 @@
 #include "Drop_Database_Statement.hpp"
 #include "Insert_Statement.hpp"
 #include "Quit_Statement.hpp"
+#include "Delete_Statement.hpp"
 
 #endif // STATEMENTS_HPP

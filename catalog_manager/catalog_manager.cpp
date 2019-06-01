@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 
 int Table_Message::ATTRIBUTE_SIZE = 12;
+int Table_Message::RECORD_INFO_SIZE = sizeof(bool) + sizeof(int);
 
 Table_Message::Table_Message(const std::string & database, const std::string & table)
 	: database_name(database), table_name(table), dirty(0)
@@ -26,6 +27,7 @@ Table_Message::Table_Message(const std::string & database, const std::string & t
 	for (MapIterator<std::string, AttrType> it = this->attribute_list.begin(); it != this->attribute_list.end(); ++it) {
 		this->record_length += attrTypeLength(it->second);
 	}
+	this->record_length += Table_Message::RECORD_INFO_SIZE;
 }
 
 void Table_Message::load()
@@ -48,6 +50,7 @@ void Table_Message::load()
 		this->record_length += attrTypeLength(type);
 		// std::cout << buffer << '\t' << type << std::endl;
 	}
+	this->record_length += Table_Message::RECORD_INFO_SIZE;
 
 	fp.seekg(516, std::ios::beg);
 	fp.read((char*)&size, sizeof(int));
@@ -163,12 +166,12 @@ void Catalog_Manager::load()
 	{
 		fp.read(buffer, sizeof(char) * TABLE_NAME_SIZE);
 		std::string table_name = std::string(buffer);
-		std::cout << table_name << std::endl;
+//		std::cout << table_name << std::endl;
 		this->table_list[table_name] = new Table_Message(this->database_name, table_name);
 	}
 	delete[] buffer;
 	fp.close();
-	std::cout << "table number = " << num << std::endl;
+//	std::cout << "table number = " << num << std::endl;
 	this->dirty = 0;
 }
 
@@ -219,11 +222,9 @@ Catalog_Manager::~Catalog_Manager()
 void Catalog_Manager::create_table(const std::string & table_name, std::map<std::string, AttrType> & attr_list, std::string & primary_key)
 {
 	std::string table_dir_name = this->database_name + "/" + table_name;
-	std::cout << table_dir_name << std::endl;
 	if (this->database_name.empty() || this->table_list.find(table_name) != this->table_list.end())
 		return;
 	mkdir(table_dir_name.c_str(), S_IRWXU);
-	std::cout << "create table_dir/" << std::endl;
 	this->table_list[table_name] = new Table_Message(this->database_name, table_name, attr_list, primary_key);
 	this->dirty = 1;
 }

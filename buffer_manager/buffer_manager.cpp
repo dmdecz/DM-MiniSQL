@@ -6,7 +6,7 @@
 #include <cstring>
 
 int Block::BLOCK_SIZE = 4096;
-int Block::BLOCK_HEAD_SIZE = 4;
+int Block::BLOCK_HEAD_SIZE = sizeof(int) * 2;
 
 Block::Block(const std::string & database, const std::string & table, int number)
 	: database_name(database), table_name(table), block_number(number), dirty(0), locked(0)
@@ -33,9 +33,12 @@ void Block::write_back()
 //	std::cout << this->database_name << " " << this->table_name << " " << this->dirty << std::endl;
 	if (this->database_name.empty() || !this->dirty)
 		return;
-	std::ofstream fp;
+	std::fstream fp;
 	std::string filename = this->database_name + "/" + this->table_name + "/data.dm";
-	fp.open(filename, std::ios::binary | std::ios::app);
+	fp.open(filename, std::ios::binary | std::ios::out | std::ios::in);
+	if (!fp.is_open()) {
+		fp.open(filename, std::ios::binary | std::ios::out);
+	}
 	fp.seekp(Block::BLOCK_SIZE * this->block_number, std::ios::beg);
 	fp.write(this->data, sizeof(char) * Block::BLOCK_SIZE);
 	fp.close();

@@ -16,12 +16,15 @@ private:
 	int record_length;
 	std::string primary_key;
 	bool dirty;
-	static int ATTRIBUTE_SIZE;
+
 	std::map<std::string, IndexType> index_list;
 	int block_number;
 	friend class Catalog_Manager;
 
 public:
+	static int ATTRIBUTE_SIZE;
+	static int RECORD_INFO_SIZE;
+
 	Table_Message(const std::string &, const std::string &);
 	Table_Message(const std::string &, const std::string &, std::map<std::string, AttrType> &, const std::string &);
 	void load();
