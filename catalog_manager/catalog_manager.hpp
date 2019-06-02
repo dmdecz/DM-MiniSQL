@@ -17,8 +17,10 @@ private:
 	std::string primary_key;
 	bool dirty;
 
-	std::map<std::string, IndexType> index_list;
-	int block_number;
+	IndexInfo index_list;
+	std::vector<int> index_fragment;
+	int index_block_number;
+	int data_block_number;
 	friend class Catalog_Manager;
 
 public:
@@ -55,12 +57,15 @@ public:
 	bool has_table(const std::string &);
 	bool has_attribute(const std::string &, const std::string &);
 	AttrType get_attribute_type(const std::string &, const std::string &);
-	bool has_index(const std::string &, const std::string &);
 	int data_block_number(const std::string &);
 	void add_data_block(const std::string &);
     AttrInfo & get_attributes(const std::string &);
 	int get_record_length(const std::string &);
 	std::string get_primary_key(const std::string &);
+
+	bool has_index(const std::string &, const std::string &);
+	void add_index(const std::string & table_name, const std::string & key_name, IndexType index_type);
+	void drop_index(const std::string & table_name, const std::string & key_name);
 
 	void clear();
 	void write_back();

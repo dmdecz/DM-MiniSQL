@@ -13,13 +13,13 @@ int Table_Message::ATTRIBUTE_SIZE = 12;
 int Table_Message::RECORD_INFO_SIZE = sizeof(bool) + sizeof(int);
 
 Table_Message::Table_Message(const std::string & database, const std::string & table)
-	: database_name(database), table_name(table), dirty(0)
+	: database_name(database), table_name(table), dirty(false)
 {
 	this->load();
 }
 
 Table_Message::Table_Message(const std::string & database, const std::string & table, AttrInfo & attr)
-	: database_name(database), table_name(table), attribute_list(attr), dirty(1), block_number(0)
+	: database_name(database), table_name(table), attribute_list(attr), dirty(true), data_block_number(0)
 {
 	this->write_back();
 	this->load();
@@ -32,6 +32,7 @@ void Table_Message::load()
 
 	fp.open(filename, std::ios::binary);
 
+	// load record information
 	int size = 0;
 	fp.read((char*)&size, sizeof(int));
 	char * buffer = new char[ATTRIBUTE_SIZE];
@@ -52,30 +53,53 @@ void Table_Message::load()
 	}
 	this->record_length += Table_Message::RECORD_INFO_SIZE;
 
-	fp.seekg(516, std::ios::beg);
+	// load index information
 	fp.read((char*)&size, sizeof(int));
 	IndexType index_type;
+	int entry_block;
 	for (int i = 0; i < size; i++)
 	{
 		fp.read(buffer, sizeof(char) * ATTRIBUTE_SIZE);
 		fp.read((char*)&index_type, sizeof(IndexType));
-		this->index_list[std::string(buffer)] = index_type;
+		fp.read((char*)&entry_block, sizeof(int));
+		this->index_list[std::string(buffer)].first = index_type;
+		this->index_list[std::string(buffer)].second = entry_block;
 		// std::cout << buffer << '\t' << index_type << std::endl;
+	}
+	// load fragment index block
+	fp.read((char*)&size, sizeof(int));
+	int fragment_block;
+	for (int i = 0; i < size; i++)
+	{
+		fp.read((char*)&fragment_block, sizeof(int));
+		this->index_fragment.push_back(fragment_block);
 	}
 
 	delete[] buffer;
 	fp.close();
 
+	// load number of data block
 	std::string table_filename = this->database_name + "/" + table_name + "/data.dm";
 	fp.open(table_filename, std::ios::binary);
-	this->block_number = 0;
+	this->data_block_number = 0;
 	if (fp.is_open())
 	{
 		fp.seekg(0, std::ios::end);
-		this->block_number = fp.tellg() / Block::BLOCK_SIZE;
+		this->data_block_number = fp.tellg() / Block::BLOCK_SIZE;
 		fp.close();
 	}
-	this->dirty = 0;
+
+	// load number of index block
+	std::string index_filename = this->database_name + "/" + table_name + "/index.dm";
+	fp.open(index_filename, std::ios::binary);
+	this->index_block_number = 0;
+	if (fp.is_open())
+	{
+		fp.seekg(0, std::ios::end);
+		this->index_block_number = fp.tellg() / Block::BLOCK_SIZE;
+		fp.close();
+	}
+	this->dirty = false;
 }
 
 void Table_Message::write_back()
@@ -85,33 +109,28 @@ void Table_Message::write_back()
 	std::ofstream fp;
 	std::string filename = this->database_name + "/" + this->table_name + "/table.info";
 	fp.open(filename, std::ios::binary);
+
+	// write keys
 	int size = this->attribute_list.size();
-	char * buffer = new char[ATTRIBUTE_SIZE];
-	memset(buffer, 0, sizeof(char) * ATTRIBUTE_SIZE);
-	int zero = 0;
 	fp.write((char*)&size, sizeof(int));
 	for (auto & it : this->attribute_list) {
 		fp.write(it.first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
 		fp.write((char*)&it.second.first, sizeof(AttrType));
 		fp.write((char*)&it.second.second, sizeof(int));
 	}
-	for (size_t i = 0; i < 32 - size; i++)
-	{
-		fp.write(buffer, sizeof(char) * ATTRIBUTE_SIZE);
-		fp.write((char*)&zero, sizeof(AttrType));
-		fp.write((char*)&zero, sizeof(int));
-	}
 
+	// write index
 	size = this->index_list.size();
 	fp.write((char*)&size, sizeof(int));
 	for (auto & it : this->index_list) {
 		fp.write(it.first.c_str(), sizeof(char) * ATTRIBUTE_SIZE);
-		fp.write((char*)&it.second, sizeof(IndexType));
+		fp.write((char*)&it.second.first, sizeof(IndexType));
+		fp.write((char*)&it.second.second, sizeof(int));
 	}
-	for (size_t i = 0; i < 32 - size; i++)
-	{
-		fp.write(buffer, sizeof(char) * ATTRIBUTE_SIZE);
-		fp.write((char*)&zero, sizeof(AttrType));
+	size = this->index_fragment.size();
+	fp.write((char*)&size, sizeof(int));
+	for (auto & it : this->index_fragment) {
+		fp.write((char*)&it, sizeof(int));
 	}
 	fp.close();
 	this->dirty = 0;
@@ -266,14 +285,14 @@ int Catalog_Manager::data_block_number(const std::string & table_name)
 {
 	int ret = 0;
 	if (this->has_table(table_name))
-		ret = this->table_list[table_name]->block_number;
+		ret = this->table_list[table_name]->data_block_number;
 	return ret;
 }
 
 void Catalog_Manager::add_data_block(const std::string & table_name)
 {
 	if (this->has_table(table_name))
-		this->table_list[table_name]->block_number++;
+		this->table_list[table_name]->data_block_number++;
 }
 
 AttrInfo & Catalog_Manager::get_attributes(const std::string & table_name)
@@ -295,4 +314,18 @@ std::string Catalog_Manager::get_primary_key(const std::string & table_name)
 	if (this->has_table(table_name))
 		ret = this->table_list[table_name]->primary_key;
 	return ret;
+}
+
+void Catalog_Manager::add_index(const std::string & table_name, const std::string & key_name, IndexType index_type)
+{
+	if (this->has_attribute(table_name, key_name)) {
+		this->table_list[table_name]->index_list[key_name].first = BPLUSTREE;
+	}
+}
+
+void Catalog_Manager::drop_index(const std::string & table_name, const std::string & key_name)
+{
+	if (this->has_index(table_name, key_name)) {
+		this->table_list[table_name]->index_list.erase(key_name);
+	}
 }

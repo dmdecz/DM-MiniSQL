@@ -234,4 +234,5 @@ API::~API()
 	delete this->m_catalog;
 	delete this->m_buffer;
 	delete this->m_record;
+	delete this->m_index;
 }

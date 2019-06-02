@@ -18,6 +18,7 @@ private:
 	int next_offset;
 
 public:
+	Record(AttrInfo & type);
 	Record(AttrInfo & type, CmpInfo & condition);
 	Record(AttrInfo & type, std::map<std::string, DMType> & value, bool empty = 0, int next_offset = 0);
 	void get_value(char * data);

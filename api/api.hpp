@@ -5,7 +5,7 @@
 #include "../catalog_manager/catalog_manager.hpp"
 #include "../buffer_manager/buffer_manager.hpp"
 #include "../record_manager/record_manager.hpp"
-#include "../index_manager/index_manager.cpp"
+#include "../index_manager/index_manager.hpp"
 
 #include <vector>
 #include <string>

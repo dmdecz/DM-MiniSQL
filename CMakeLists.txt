@@ -14,8 +14,9 @@ add_subdirectory(buffer_manager)
 add_subdirectory(common)
 add_subdirectory(record_manager)
 add_subdirectory(error)
+add_subdirectory(index_manager)
 
-target_link_libraries(DM compiler api catalog_manager common buffer_manager record_manager error)
+target_link_libraries(DM compiler api catalog_manager common buffer_manager record_manager index_manager error)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

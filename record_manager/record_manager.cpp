@@ -4,6 +4,9 @@
 #include <iostream>
 #include <cstring>
 
+Record::Record(AttrInfo & _type)
+		: type (_type) {}
+
 Record::Record(AttrInfo & _type, CmpInfo & _condition)
 	: type (_type), condition(_condition) {}
 
@@ -17,10 +20,6 @@ void Record::get_value(char * data)
 		this->value[it.first] = void_pointer_to_DMType(data, it.second.first);
 		data += attrTypeLength(it.second.first);
 	}
-//	for (MapIterator<std::string, AttrType> it = this->type.begin(); it != this->type.end(); ++it) {
-//		this->value[it->first] = void_pointer_to_DMType(data, it->second);
-//		data += attrTypeLength(it->second);
-//	}
 	this->empty = *(bool*)data;
 	data += sizeof(bool);
 	this->next_offset = *(int*)data;

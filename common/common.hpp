@@ -28,6 +28,7 @@ const bool type_match(DMType, AttrType);
 typedef std::map<std::string, std::pair<AttrType, int>> AttrInfo;
 typedef enum {EQUAL, LESS, LARGE, NOT} CmpType;
 typedef std::map<std::string, std::pair<int, DMType>> CmpInfo;
+typedef std::map<std::string, std::pair<IndexType, int>> IndexInfo;
 
 template<class T>
 void delete_ptr_in_vector(std::vector<T *> & v)
