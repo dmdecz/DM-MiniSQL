@@ -98,7 +98,7 @@ void Record_Manager::select(const std::string & table_name, std::vector<std::str
 	int record_length = this->m_catalog->get_record_length(table_name);
 	int total = 0;
 	Record * tuple = new Record(attribute_list, cond);
-	for (int i = 0; i < size; ++i) {
+	for (int i = 1; i <= size; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
 		int begin = Block::BLOCK_HEAD_SIZE;
 		int end = *(int*)block->get_data(0);
@@ -119,8 +119,9 @@ void Record_Manager::select(const std::string & table_name, std::vector<std::str
 	std::cout << "Query OK, " <<  total << " in set." << std::endl;
 }
 
-void Record_Manager::insert(const std::string & table_name, std::map<std::string, DMType> & attr_list)
+int Record_Manager::insert(const std::string & table_name, std::map<std::string, DMType> & attr_list)
 {
+	int ret = 0;
 	int size = this->m_catalog->data_block_number(table_name);
     AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 
@@ -134,37 +135,38 @@ void Record_Manager::insert(const std::string & table_name, std::map<std::string
     }
 
 	if (size == 0) {
-		this->insert_to_new_block(table_name, attr_list, size);
+		ret = this->insert_to_new_block(table_name, attr_list, size);
 	} else {
 		int insert_done = this->insert_to_old_block(table_name, attr_list, size);
 		if (!insert_done) {
-			this->insert_to_new_block(table_name, attr_list, size);
+			ret = this->insert_to_new_block(table_name, attr_list, size);
+		} else {
+			ret = insert_done;
 		}
 	}
 	std::cout << "Query OK, 1 row(s) affected." << std::endl;
+	return ret;
 }
 
-void Record_Manager::insert_to_new_block(const std::string & table_name, std::map<std::string, DMType> & attr_list, int size)
+int Record_Manager::insert_to_new_block(const std::string & table_name, std::map<std::string, DMType> & attr_list, int size)
 {
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
-	char * buffer = new char[Block::BLOCK_SIZE];
 	int offset = Block::BLOCK_HEAD_SIZE;
-	memset(buffer, 0, sizeof(char) * Block::BLOCK_SIZE);
-	Block * block = new Block(this->database_name, table_name, size, buffer);
+	Block * block = this->m_buffer->create_block(table_name, size + 1);
 	Record record(attribute_list, attr_list);
 	offset = record.write_to_block(block, offset);
 	block->datacpy(0, &offset, sizeof(int));
 	block->datacpy(4, &offset, sizeof(int));
 
-	this->m_buffer->put_block(block);
 	this->m_catalog->add_data_block(table_name);
+	return size + 1;
 }
 
 int Record_Manager::insert_to_old_block(const std::string & table_name, std::map<std::string, DMType> & attr_list, int size)
 {
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 	int TotalLength = this->m_catalog->get_record_length(table_name);
-	for (int i = 0; i < size; ++i) {
+	for (int i = 1; i <= size; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
 		int total_offset = *(int*)block->get_data(0);
 		int offset = *(int*)block->get_data(4);
@@ -180,7 +182,7 @@ int Record_Manager::insert_to_old_block(const std::string & table_name, std::map
 			block->datacpy(0, &next_offset, sizeof(int));
 		}
 		block->datacpy(4, &next_offset, sizeof(int));
-		return i + 1;
+		return i;
 	}
 	return 0;
 }
@@ -193,7 +195,7 @@ void Record_Manager::delete_record(const std::string & table_name, CmpInfo & con
 	int record_length = this->m_catalog->get_record_length(table_name);
 	int total = 0;
 	Record * tuple = new Record(attribute_list, cond);
-	for (int i = 0; i < size; ++i) {
+	for (int i = 1; i <= size; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
 		int begin = Block::BLOCK_HEAD_SIZE;
 		int end = *(int*)block->get_data(0);

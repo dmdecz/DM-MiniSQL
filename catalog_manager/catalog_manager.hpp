@@ -64,8 +64,12 @@ public:
 	std::string get_primary_key(const std::string &);
 
 	bool has_index(const std::string &, const std::string &);
-	void add_index(const std::string & table_name, const std::string & key_name, IndexType index_type);
+	void create_index(const std::string &table_name, const std::string &key_name, IndexType index_type, int entry);
 	void drop_index(const std::string & table_name, const std::string & key_name);
+	int index_block_number(const std::string & table_name);
+	void add_index_block(const std::string & table_name);
+	int get_index_fragment(const std::string & table_name);
+	IndexInfo & get_index(const std::string & table_name);
 
 	void clear();
 	void write_back();

@@ -189,7 +189,7 @@ void Catalog_Manager::load()
 	delete[] buffer;
 	fp.close();
 //	std::cout << "table number = " << num << std::endl;
-	this->dirty = 0;
+	this->dirty = false;
 }
 
 void Catalog_Manager::create_database(const std::string & str)
@@ -227,7 +227,7 @@ void Catalog_Manager::write_back()
 		fp.write(it.first.c_str(), sizeof(char) * TABLE_NAME_SIZE);
 	}
 	fp.close();
-	this->dirty = 0;
+	this->dirty = false;
 	// std::cout << "write back done." << std::endl;
 }
 
@@ -243,7 +243,7 @@ void Catalog_Manager::create_table(const std::string & table_name, AttrInfo & at
 		return;
 	mkdir(table_dir_name.c_str(), S_IRWXU);
 	this->table_list[table_name] = new Table_Message(this->database_name, table_name, attr_list);
-	this->dirty = 1;
+	this->dirty = true;
 }
 
 void Catalog_Manager::drop_table(const std::string & table_name)
@@ -255,7 +255,7 @@ void Catalog_Manager::drop_table(const std::string & table_name)
 	system(cmd.c_str());
 	delete this->table_list[table_name];
 	this->table_list.erase(table_name);
-	this->dirty = 1;
+	this->dirty = true;
 }
 
 bool Catalog_Manager::has_table(const std::string & table_name)
@@ -316,10 +316,12 @@ std::string Catalog_Manager::get_primary_key(const std::string & table_name)
 	return ret;
 }
 
-void Catalog_Manager::add_index(const std::string & table_name, const std::string & key_name, IndexType index_type)
+void Catalog_Manager::create_index(const std::string &table_name, const std::string &key_name, IndexType index_type, int entry)
 {
 	if (this->has_attribute(table_name, key_name)) {
 		this->table_list[table_name]->index_list[key_name].first = BPLUSTREE;
+		this->table_list[table_name]->index_list[key_name].second = entry;
+		this->table_list[table_name]->dirty = true;
 	}
 }
 
@@ -327,5 +329,41 @@ void Catalog_Manager::drop_index(const std::string & table_name, const std::stri
 {
 	if (this->has_index(table_name, key_name)) {
 		this->table_list[table_name]->index_list.erase(key_name);
+		this->table_list[table_name]->dirty = true;
 	}
+}
+
+int Catalog_Manager::index_block_number(const std::string & table_name)
+{
+	int ret = 0;
+	if (this->has_table(table_name))
+		ret = this->table_list[table_name]->index_block_number;
+	return ret;
+}
+
+void Catalog_Manager::add_index_block(const std::string & table_name)
+{
+	if (this->has_table(table_name)) {
+		this->table_list[table_name]->index_block_number++;
+		this->table_list[table_name]->dirty = true;
+	}
+}
+
+int Catalog_Manager::get_index_fragment(const std::string & table_name)
+{
+	int ret = 0;
+	if (this->has_table(table_name)) {
+		int size = this->table_list[table_name]->index_fragment.size();
+		if (size) {
+			ret = this->table_list[table_name]->index_fragment[size];
+			this->table_list[table_name]->index_fragment.erase(this->table_list[table_name]->index_fragment.end());
+			this->table_list[table_name]->dirty = true;
+		}
+	}
+	return ret;
+}
+
+IndexInfo & Catalog_Manager::get_index(const std::string & table_name)
+{
+	return this->table_list[table_name]->index_list;
 }

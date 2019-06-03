@@ -165,7 +165,8 @@ void API::execute_insert(Statement * s)
 		attr_value[attr] = (*value_list)[i]->values();
 	}
 
-	this->m_record->insert(table_name, attr_value);
+	int block_number = this->m_record->insert(table_name, attr_value);
+	this->m_index->insert_record(table_name, attr_value, block_number);
 
 }
 
@@ -209,13 +210,17 @@ void API::execute_create_table(Statement * s)
 			attrlist[name].second = other_info;
 		}
 	}
+
 	std::string primary_key;
 	if (constrain_list) {
 		primary_key = std::get<std::string>(((*constrain_list)[0])->values(1));
 		attrlist[primary_key].second = 2;
-//		this->m_index->create_index(table_name, primary_key);
 	}
 	this->m_catalog->create_table(table_name, attrlist);
+
+	if (!primary_key.empty()) {
+		this->m_index->create_index(table_name, primary_key);
+	}
 	std::cout << "Query OK, 0 row(s) affected." << std::endl;
 }
 

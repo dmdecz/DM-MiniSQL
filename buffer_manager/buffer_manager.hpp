@@ -26,6 +26,7 @@ public:
 	void unlock();
 	bool is_hit(const std::string &, int);
 	void datacpy(int, const void *, size_t);
+	void zero(int begin = 0, int end = Block::BLOCK_SIZE);
 	char * get_data(int);
 	~Block();
 };
@@ -43,6 +44,8 @@ public:
 
 	Block * get_block(const std::string &, int);
 	void put_block(Block *);
+
+	Block * create_block(const std::string & table_name, int block_num);
 
 	void clear();
 	~Buffer_Manager();

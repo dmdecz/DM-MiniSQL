@@ -18,27 +18,31 @@ private:
 
 //	int block_number;
 
-	NodeType type;
+	bool valid;
+	bool leaf;
+	Node * parent;
+	int index;
 	std::vector<DMType> key;
 	std::vector<int> pointer;
 	friend class BPlusTree;
 public:
-	Node(NodeType type);
-	Node(Block * block, AttrType key_type);
+	Node(bool leaf, Node * parent = nullptr, int index = 0);
+	Node(Block * block, AttrType key_type, Node * parent = nullptr, int index = 0);
 	void load(Block * block, AttrType key_type);
-	bool is_valid(int degree);
+	void write_back_to_block(Block * block, AttrType key_type);
+
 	bool is_full(int degree);
 	bool is_half(int degree);
-	void write_back_to_block(Block * block, AttrType key_type);
 //	int insert_key(DMType key, int position_or_pointer_1, int position_or_pointer_2);
-	int insert_key(DMType key, int position);
-	int delete_key(DMType key);
-	int search_key(DMType key);
+//	int insert_key(DMType key, int position);
+//	int delete_key(DMType key);
+//	int search_key(DMType key);
 };
 
 class BPlusTree
 {
 private:
+	Catalog_Manager * m_catalog;
 	Buffer_Manager * m_buffer;
 	const std::string & table_name;
 	int entry;
@@ -48,16 +52,21 @@ private:
 
 	int allocate_block();
 	Block * get_block(int block_number);
-	int insert_key(Node * node, DMType key, int position);
-	int search_key(Node * node, DMType key);
-	int delete_key(Node * node, DMType key);
-public:
-	BPlusTree(Buffer_Manager * buffer_manager, const std::string & table_name, int entry, AttrType key_type);
 
-	int insert_key(DMType key, int position);
-	int search_key(DMType key);
-	int delete_key(DMType key);
-	bool is_empty();
+	void fix_insert(Node * node);
+	int insert_key(Node * node, DMType & key, int position);
+//	int search_key(Node * node, DMType & key);
+//	int delete_key(Node * node, DMType & key);
+
+	friend class Index_Manager;
+public:
+	BPlusTree(Catalog_Manager * catalog_manager, Buffer_Manager * buffer_manager, const std::string & table_name, AttrType key_type);
+	BPlusTree(Catalog_Manager * catalog_manager, Buffer_Manager * buffer_manager, const std::string & table_name, int entry, AttrType key_type);
+
+	int insert_key(DMType & key, int position);
+//	int search_key(DMType & key);
+//	int delete_key(DMType & key);
+//	bool is_empty();
 };
 
 class Index_Manager
@@ -71,6 +80,7 @@ public:
 	~Index_Manager();
 
 	void create_index(const std::string & table_name, const std::string & key_name);
+	void insert_record(const std::string & table_name, std::map<std::string, DMType> & keys, int block_number);
 };
 
 #endif //DM_INDEX_MANAGER_HPP
