@@ -70,6 +70,7 @@ public:
 	void add_index_block(const std::string & table_name);
 	int get_index_fragment(const std::string & table_name);
 	IndexInfo & get_index(const std::string & table_name);
+	void update_index_entry(const std::string & table_name, const std::string & key_name, int entry);
 
 	void clear();
 	void write_back();

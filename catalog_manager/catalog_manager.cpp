@@ -367,3 +367,11 @@ IndexInfo & Catalog_Manager::get_index(const std::string & table_name)
 {
 	return this->table_list[table_name]->index_list;
 }
+
+void Catalog_Manager::update_index_entry(const std::string & table_name, const std::string & key_name, int entry)
+{
+	if (this->table_list[table_name]->index_list[key_name].second != entry) {
+		this->table_list[table_name]->index_list[key_name].second = entry;
+		this->table_list[table_name]->dirty = true;
+	}
+}

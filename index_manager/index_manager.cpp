@@ -84,6 +84,8 @@ BPlusTree::BPlusTree(Catalog_Manager * catalog_manager, Buffer_Manager * buffer_
 {
 	int key_length = attrTypeLength(this->key_type);
 	this->degree = (Block::BLOCK_SIZE - Node::NODE_HEAD_SIZE + key_length) / (key_length + sizeof(int));
+//	std::cout << "key_length " << key_length << std::endl;
+//	std::cout << "degree " << this->degree << std::endl;
 	this->entry = this->allocate_block();
 	Node root(true, nullptr, 0);
 	root.write_back_to_block(this->get_block(this->entry), this->key_type);
@@ -127,7 +129,6 @@ int BPlusTree::insert_key(DMType & key, int position)
 int BPlusTree::insert_key(Node * node, DMType & key, int position)
 {
 //	std::cout << "insert " << key << std::endl;
-
 	int index = 0;
 	for (auto & it : node->key) {
 //		std::cout << "key[" << index << "] = " << it << std::endl;
@@ -143,6 +144,7 @@ int BPlusTree::insert_key(Node * node, DMType & key, int position)
 		node->pointer.insert(node->pointer.begin() + index, position);
 	} else {
 		int child_block_number = node->pointer[index];
+//		std::cout << child_block_number << std::endl;
 		Block * child_block = this->get_block(child_block_number);
 		Node * child = new Node(child_block, this->key_type, node, index);
 		this->insert_key(child, key, position);
@@ -150,6 +152,7 @@ int BPlusTree::insert_key(Node * node, DMType & key, int position)
 		delete child;
 	}
 	if (node->is_full(this->degree)) {
+//		std::cout << "split" << std::endl;
 		this->fix_insert(node);
 	}
 }
@@ -161,6 +164,7 @@ void BPlusTree::fix_insert(Node * node)
 	bool change_root = false;
 
 	if (!node->parent) {
+//		std::cout << "split root" << std::endl;
 		int old_entry = this->entry;
 		this->entry = this->allocate_block();
 		Block *new_root_block = this->get_block(this->entry);
@@ -185,9 +189,25 @@ void BPlusTree::fix_insert(Node * node)
 		node->pointer.push_back(new_block_number);
 		node->parent->key.insert(node->parent->key.begin() + node->index, new_node->key[0]);
 		node->parent->pointer.insert(node->parent->pointer.begin() + new_node->index, new_block_number);
+//		std::cout << "new root" << std::endl;
+//		for (auto & it : node->parent->key) {
+//			std::cout << it << '\t';
+//		}
+//		std::cout << std::endl;
+//		std::cout << "left" << std::endl;
+//		for (auto & it : node->key) {
+//			std::cout << it << '\t';
+//		}
+//		std::cout << std::endl;
+//		std::cout << "right" << std::endl;
+//		for (auto & it : new_node->key) {
+//			std::cout << it << '\t';
+//		}
 	} else {
 		int pivot = right;
+//		std::cout << "pivot " << pivot << std::endl;
 		for (int i = pivot + 1; i < this->degree; ++i) {
+//			std::cout << "move " << node->key[i] << std::endl;
 			new_node->key.push_back(node->key[i]);
 			new_node->pointer.push_back(node->pointer[i]);
 		}
@@ -251,6 +271,7 @@ void Index_Manager::insert_record(const std::string & table_name, std::map<std::
 		if (it.second.first == BPLUSTREE) {
 			BPlusTree tree(this->m_catalog, this->m_buffer, table_name, it.second.second, attribute_list[it.first].first);
 			tree.insert_key(keys[it.first], block_number);
+			this->m_catalog->update_index_entry(table_name, it.first, tree.entry);
 		}
 	}
 }
