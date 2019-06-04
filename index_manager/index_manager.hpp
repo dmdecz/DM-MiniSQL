@@ -54,9 +54,10 @@ private:
 	Block * get_block(int block_number);
 
 	void fix_insert(Node * node);
+	void fix_delete(Node * node);
 	int insert_key(Node * node, DMType & key, int position);
-//	int search_key(Node * node, DMType & key);
-//	int delete_key(Node * node, DMType & key);
+	int search_key(Node * node, DMType & key);
+	int delete_key(Node * node, DMType & key);
 
 	friend class Index_Manager;
 public:
@@ -64,9 +65,8 @@ public:
 	BPlusTree(Catalog_Manager * catalog_manager, Buffer_Manager * buffer_manager, const std::string & table_name, int entry, AttrType key_type);
 
 	int insert_key(DMType & key, int position);
-//	int search_key(DMType & key);
-//	int delete_key(DMType & key);
-//	bool is_empty();
+	int search_key(DMType & key);
+	int delete_key(DMType & key);
 };
 
 class Index_Manager
@@ -80,7 +80,8 @@ public:
 	~Index_Manager();
 
 	void create_index(const std::string & table_name, const std::string & key_name);
-	void insert_record(const std::string & table_name, std::map<std::string, DMType> & keys, int block_number);
+	void insert_key(const std::string &table_name, std::map<std::string, DMType> &keys, int block_number);
+	int search_key(const std::string &table_name, const std::string &key_name, DMType & key);
 };
 
 #endif //DM_INDEX_MANAGER_HPP

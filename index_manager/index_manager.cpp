@@ -52,7 +52,7 @@ bool Node::is_full(int degree)
 
 bool Node::is_half(int degree)
 {
-	return this->key.size() >= (degree - 1)/2;
+	return this->key.size() < (degree - 1)/2;
 }
 
 void Node::write_back_to_block(Block * block, AttrType key_type)
@@ -230,6 +230,87 @@ void BPlusTree::fix_insert(Node * node)
 
 }
 
+int BPlusTree::search_key(DMType & key)
+{
+	int ret = 0;
+	Block * root_block = this->get_block(this->entry);
+	Node * root = new Node(root_block, this->key_type);
+	ret = this->search_key(root, key);
+//	root->write_back_to_block(root_block, this->key_type);
+	delete root;
+	return ret;
+}
+
+int BPlusTree::search_key(Node * node, DMType & key)
+{
+	int ret = 0;
+	int index = 0;
+	for (auto & it : node->key) {
+		if (key > it) {
+			index ++;
+		}
+	}
+
+	if (node->leaf) {
+		if (node->key[index] == key) {
+			ret = node->pointer[index];
+		}
+	} else {
+		int child_block_number = node->pointer[index];
+		Block * child_block = this->get_block(child_block_number);
+		Node * child = new Node(child_block, this->key_type, node, index);
+		ret = this->search_key(child, key);
+		delete child;
+	}
+	return ret;
+}
+
+int BPlusTree::delete_key(DMType & key)
+{
+	int ret = 0;
+	Block * root_block = this->get_block(this->entry);
+	Node * root = new Node(root_block, this->key_type);
+	ret = this->delete_key(root, key);
+	root->write_back_to_block(root_block, this->key_type);
+	delete root;
+	return ret;
+}
+
+int BPlusTree::delete_key(Node * node, DMType & key)
+{
+	int ret = 0;
+	int index = 0;
+	for (auto & it : node->key) {
+		if (key > it) {
+			index ++;
+		}
+	}
+
+	if (node->leaf) {
+		if (node->key[index] == key) {
+			node->key.erase(node->key.begin() + index);
+			node->pointer.erase(node->pointer.begin() + index);
+		}
+	} else {
+		int child_block_number = node->pointer[index];
+		Block * child_block = this->get_block(child_block_number);
+		Node * child = new Node(child_block, this->key_type, node, index);
+		ret = this->delete_key(child, key);
+		child->write_back_to_block(child_block, this->key_type);
+		delete child;
+	}
+	if (node->is_half(this->degree)) {
+//		std::cout << "split" << std::endl;
+		this->fix_delete(node);
+	}
+	return ret;
+}
+
+void BPlusTree::fix_delete(Node * node)
+{
+
+}
+
 
 Index_Manager::Index_Manager(const std::string &_database_name, Catalog_Manager *catalog_manager, Buffer_Manager *buffer_manager)
 	: database_name(_database_name), m_catalog(catalog_manager), m_buffer(buffer_manager) {}
@@ -238,32 +319,32 @@ Index_Manager::~Index_Manager() = default;
 
 void Index_Manager::create_index(const std::string & table_name, const std::string & key_name)
 {
-//	int block_number = this->m_catalog->data_block_number(table_name);
-//	int record_length = this->m_catalog->get_record_length(table_name);
+	int block_number = this->m_catalog->data_block_number(table_name);
+	int record_length = this->m_catalog->get_record_length(table_name);
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 	AttrType key_type = attribute_list[key_name].first;
 
 	BPlusTree * tree = new BPlusTree(this->m_catalog, this->m_buffer, table_name, key_type);
 
-//	Record * tuple = new Record(attribute_list);
-//	for (int i = 0; i < block_number; ++i) {
-//		Block * block = this->m_buffer->get_block(table_name, i);
-//		int begin = Block::BLOCK_HEAD_SIZE;
-//		int end = *(int*)block->get_data(0);
-//		int record_number = (end - begin) / record_length;
-//		for (int j = 0; j < record_number; ++j) {
-//			tuple->get_value(block->get_data(begin));
-//			if (tuple->is_valid()) {
-//				tree->insert_key((*tuple)[key_name], i);
-//			}
-//		}
-//	}
+	Record * tuple = new Record(attribute_list);
+	for (int i = 1; i <= block_number; ++i) {
+		Block * block = this->m_buffer->get_block(table_name, i);
+		int begin = Block::BLOCK_HEAD_SIZE;
+		int end = *(int*)block->get_data(0);
+		int record_number = (end - begin) / record_length;
+		for (int j = 0; j < record_number; ++j) {
+			tuple->get_value(block->get_data(begin));
+			if (tuple->is_valid()) {
+				DMType data = (*tuple)[key_name];
+				tree->insert_key(data, i);
+			}
+		}
+	}
 	this->m_catalog->create_index(table_name, key_name, BPLUSTREE, tree->entry);
 	delete tree;
-
 }
 
-void Index_Manager::insert_record(const std::string & table_name, std::map<std::string, DMType> & keys, int block_number)
+void Index_Manager::insert_key(const std::string &table_name, std::map<std::string, DMType> &keys, int block_number)
 {
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 	IndexInfo & indices = this->m_catalog->get_index(table_name);
@@ -274,4 +355,14 @@ void Index_Manager::insert_record(const std::string & table_name, std::map<std::
 			this->m_catalog->update_index_entry(table_name, it.first, tree.entry);
 		}
 	}
+}
+
+int Index_Manager::search_key(const std::string &table_name, const std::string &key_name, DMType & key)
+{
+	int ret = 0;
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	BPlusTree tree(this->m_catalog, this->m_buffer, table_name, indices[key_name].second, attribute_list[key_name].first);
+	ret = tree.search_key(key);
+	return ret;
 }

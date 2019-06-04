@@ -40,6 +40,7 @@ private:
 public:
 	Record_Manager(const std::string &, Catalog_Manager *, Buffer_Manager *);
 	void select(const std::string &, std::vector<std::string> &, CmpInfo &);
+	void select(const std::string &, std::vector<std::string> &, CmpInfo &, int block_number);
 	int insert(const std::string &, std::map<std::string, DMType> &);
 	int insert_to_new_block(const std::string &, std::map<std::string, DMType> &, int);
 	int insert_to_old_block(const std::string &, std::map<std::string, DMType> &, int);

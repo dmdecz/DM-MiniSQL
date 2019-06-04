@@ -37,6 +37,7 @@ int API::execute(Statement * s)
 			if (this->database_name.empty()) {
 				throw Error(7, "Please use database first.");
 			}
+			int begin = clock();
 			switch (s->type()) {
 				case SELECT_TYPE:
 					this->execute_select(s);
@@ -56,6 +57,8 @@ int API::execute(Statement * s)
 				default:
 					break;
 			}
+			int end = clock();
+			std::cout << "Query cost " << (double)(end - begin) / CLOCKS_PER_SEC << "s." << std::endl;
 		}
 		delete s;
 	} catch (Error & e) {
@@ -137,10 +140,25 @@ void API::execute_select(Statement * s)
 			if (attribute_list.find(list[i]) == attribute_list.end())
 				throw Error(701, "Table '" + table_name + "' has no attribute '" + list[i] + "'.");
 		}
+		int block_number = 0;
 		for (auto & attr : cond) {
-			if (attribute_list.find(attr.first) == attribute_list.end())
+			if (attribute_list.find(attr.first) == attribute_list.end()) {
 				throw Error(701, "Table '" + table_name + "' has no attribute '" + attr.first + "'.");
+			}
+			if (attr.second.first == EQUAL && this->m_catalog->has_index(table_name, attr.first)) {
+				int temp_block_number = this->m_index->search_key(table_name, attr.first, attr.second.second);
+				if (temp_block_number == 0) {
+					block_number = 0;
+					break;
+				} else if (block_number == 0) {
+					block_number = temp_block_number;
+				} else if (block_number != temp_block_number) {
+					block_number = 0;
+					break;
+				}
+			}
 		}
+//		std::cout << block_number << std::endl;
 		this->m_record->select(table_name, list, cond);
 	} else {
 		throw Error(700, "No table named '" + table_name + "'.");
@@ -166,7 +184,7 @@ void API::execute_insert(Statement * s)
 	}
 
 	int block_number = this->m_record->insert(table_name, attr_value);
-	this->m_index->insert_record(table_name, attr_value, block_number);
+	this->m_index->insert_key(table_name, attr_value, block_number);
 
 }
 

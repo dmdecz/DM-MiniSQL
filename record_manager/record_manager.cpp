@@ -119,6 +119,38 @@ void Record_Manager::select(const std::string & table_name, std::vector<std::str
 	std::cout << "Query OK, " <<  total << " in set." << std::endl;
 }
 
+void Record_Manager::select(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond, int block_number)
+{
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+	for (auto & v : list) {
+		std::cout << '\t' << v;
+	}
+	std::cout << std::endl;
+
+	int record_length = this->m_catalog->get_record_length(table_name);
+	int total = 0;
+	Record * tuple = new Record(attribute_list, cond);
+	if (block_number) {
+		Block *block = this->m_buffer->get_block(table_name, block_number);
+		int begin = Block::BLOCK_HEAD_SIZE;
+		int end = *(int *) block->get_data(0);
+		int record_number = (end - begin) / record_length;
+		for (int j = 0; j < record_number; ++j) {
+			tuple->get_value(block->get_data(begin));
+			if (tuple->is_valid()) {
+				for (int k = 0; k < list.size(); ++k) {
+					DMType value = (*tuple)[list[k]];
+					std::cout << '\t' << value;
+				}
+				std::cout << std::endl;
+				total++;
+			}
+			begin += record_length;
+		}
+	}
+	std::cout << "Query OK, " <<  total << " in set." << std::endl;
+}
+
 int Record_Manager::insert(const std::string & table_name, std::map<std::string, DMType> & attr_list)
 {
 	int ret = 0;
