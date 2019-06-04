@@ -269,7 +269,6 @@ void API::execute_delete(Statement * s)
 
 	for (auto & it : keys_to_be_deleted) {
 		if (this->m_catalog->has_index(table_name, it.first)) {
-//			std::cout << "delete index " << it.first << std::endl;
 			this->m_index->delete_key(table_name, it.first, it.second);
 		}
 	}

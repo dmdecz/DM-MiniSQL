@@ -53,7 +53,11 @@ bool Node::is_full(int degree)
 bool Node::is_half(int degree)
 {
 	if (this->parent) {
-		return this->key.size() < (degree - 1)/2;
+		if (this->leaf) {
+			return this->key.size() < (degree - 1) / 2 + (degree - 1) % 2;
+		} else {
+			return this->pointer.size() < degree / 2 + degree % 2;
+		}
 	} else {
 		return this->key.empty();
 	}
@@ -61,7 +65,11 @@ bool Node::is_half(int degree)
 
 bool Node::is_enough(int degree)
 {
-	return this->key.size() > (degree - 1)/2;
+	if (this->leaf) {
+		return this->key.size() > (degree - 1) / 2 + (degree - 1) % 2;
+	} else {
+		return this->pointer.size() > degree / 2 + degree % 2;
+	}
 }
 
 void Node::drop()
@@ -102,10 +110,9 @@ BPlusTree::BPlusTree(Catalog_Manager * catalog_manager, Buffer_Manager * buffer_
 {
 	int key_length = attrTypeLength(this->key_type);
 	this->degree = (Block::BLOCK_SIZE - Node::NODE_HEAD_SIZE + key_length) / (key_length + sizeof(int));
-//	std::cout << "key_length " << key_length << std::endl;
 //	std::cout << "degree " << this->degree << std::endl;
 	this->entry = this->allocate_block();
-	std::cout << "new entry " << this->entry << std::endl;
+//	std::cout << "new entry " << this->entry << std::endl;
 	Node root(true, nullptr, 0);
 	root.write_back_to_block(this->get_block(this->entry), this->key_type);
 }
@@ -126,7 +133,7 @@ int BPlusTree::allocate_block()
 {
 	int ret = 0;
 	int index_fragment = this->m_catalog->get_index_fragment(this->table_name);
-	std::cout << index_fragment << std::endl;
+//	std::cout << index_fragment << std::endl;
 	if (index_fragment < 0) {
 		ret = index_fragment;
 	} else {
@@ -212,6 +219,21 @@ void BPlusTree::fix_insert(Node * node)
 		node->pointer.push_back(new_block_number);
 		node->parent->key.insert(node->parent->key.begin() + node->index, new_node->key[0]);
 		node->parent->pointer.insert(node->parent->pointer.begin() + new_node->index, new_block_number);
+//		std::cout << "root" << std::endl;
+//		for (auto & it : node->parent->key) {
+//			std::cout << "\t" << it;
+//		}
+//		std::cout << std::endl;
+//		std::cout << "left" << std::endl;
+//		for (auto & it : node->key) {
+//			std::cout << "\t" << it;
+//		}
+//		std::cout << std::endl;
+//		std::cout << "right" << std::endl;
+//		for (auto & it : new_node->key) {
+//			std::cout << "\t" << it;
+//		}
+//		std::cout << std::endl;
 	} else {
 		int pivot = right;
 //		std::cout << "pivot " << pivot << std::endl;
@@ -254,14 +276,14 @@ int BPlusTree::search_key(Node * node, DMType & key)
 	int ret = 0;
 	int index = 0;
 	for (auto & it : node->key) {
-		if (key > it) {
+		if (key >= it) {
 			index ++;
 		}
 	}
 
 	if (node->leaf) {
-		if (node->key.size() != index && node->key[index] == key) {
-			ret = node->pointer[index];
+		if (index && node->key[index - 1] == key) {
+			ret = node->pointer[index - 1];
 		}
 	} else {
 		int child_block_number = node->pointer[index];
@@ -293,17 +315,18 @@ int BPlusTree::delete_key(Node * node, DMType & key)
 	int ret = 0;
 	int index = 0;
 	for (auto & it : node->key) {
-		if (key > it) {
+		if (key >= it) {
 			index ++;
 		}
 	}
 
 	if (node->leaf) {
-		if (node->key.size() && node->key[index] == key) {
-			ret = node->pointer[index];
-			node->key.erase(node->key.begin() + index);
-			node->pointer.erase(node->pointer.begin() + index);
+		if (node->key.size() && node->key[index-1] == key) {
+			ret = node->pointer[index - 1];
+			node->key.erase(node->key.begin() + index - 1);
+			node->pointer.erase(node->pointer.begin() + index - 1);
 		}
+		std::cout << node->key.size() << std::endl;
 	} else {
 		int child_block_number = node->pointer[index];
 		Block * child_block = this->get_block(child_block_number);
