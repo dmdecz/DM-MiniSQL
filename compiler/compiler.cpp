@@ -18,7 +18,13 @@ int Compiler::parse()
 	scan_begin();
 	yy::parser parse(*this);
 	parse.set_debug_level(trace_parsing);
-	int res = parse();
+	int res = 0;
+	try {
+		res = parse();
+	} catch (Error & e) {
+		e.diagnose();
+		res = 0;
+	}
 	scan_end();
 	if (!file.empty())
 		res = this->parse();

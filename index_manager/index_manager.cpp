@@ -492,7 +492,7 @@ void Index_Manager::create_index(const std::string & table_name, const std::stri
 	AttrType key_type = attribute_list[key_name].first;
 
 	BPlusTree * tree = new BPlusTree(this->m_catalog, this->m_buffer, table_name, key_type);
-	std::cout << "create a tree" << std::endl;
+//	std::cout << "create a tree" << std::endl;
 	Record * tuple = new Record(attribute_list);
 	for (int i = 1; i <= block_number; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
@@ -503,7 +503,7 @@ void Index_Manager::create_index(const std::string & table_name, const std::stri
 			tuple->get_value(block->get_data(begin));
 			if (tuple->is_valid()) {
 				DMType data = (*tuple)[key_name];
-				std::cout << "insert " << data << std::endl;
+//				std::cout << "insert " << data << std::endl;
 				tree->insert_key(data, i);
 			}
 			begin += record_length;

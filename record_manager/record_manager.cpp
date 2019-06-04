@@ -1,6 +1,9 @@
 #include "record_manager.hpp"
 #include "../error/error.h"
 
+#include "../table/CppConsoleTable.hpp"
+using ConsoleTable = samilton::ConsoleTable;
+
 #include <iostream>
 #include <cstring>
 
@@ -88,15 +91,29 @@ Record_Manager::Record_Manager(const std::string & database, Catalog_Manager * c
 
 void Record_Manager::select_record(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond)
 {
+	ConsoleTable table(samilton::Alignment::centre);
+	ConsoleTable::TableChars chars;
+	chars.topDownSimple = '-';
+	chars.leftRightSimple = '|';
+	chars.centreSeparation = '+';
+	chars.leftSeparation = '+';
+	chars.rightSeparation = '+';
+	chars.topSeparation = '+';
+	chars.topLeft = '+';
+	chars.topRight = '+';
+	chars.downSeparation = '+';
+	chars.downLeft = '+';
+	chars.downRight = '+';
+	table.setTableChars(chars);
+
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
-	for (auto & v : list) {
-		std::cout << '\t' << v;
-	}
-	std::cout << std::endl;
+
+	table.addRow(list);
 
 	int size = this->m_catalog->data_block_number(table_name);
 	int record_length = this->m_catalog->get_record_length(table_name);
 	int total = 0;
+
 	Record * tuple = new Record(attribute_list, cond);
 	for (int i = 1; i <= size; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
@@ -106,26 +123,41 @@ void Record_Manager::select_record(const std::string & table_name, std::vector<s
 		for (int j = 0; j < record_number; ++j) {
 			tuple->get_value(block->get_data(begin));
 			if (tuple->is_valid()) {
-				for (int k = 0; k < list.size(); ++k) {
-					DMType value = (*tuple)[list[k]];
-					std::cout << '\t' << value;
+				std::vector<std::string> row;
+				for (auto & it : list) {
+					row.push_back(DMType_to_string((*tuple)[it]));
 				}
-				std::cout << std::endl;
+				table.addRow(row);
 				total ++;
 			}
 			begin += record_length;
 		}
+	}
+	if (total) {
+		std::cout << table;
 	}
 	std::cout << "Query OK, " <<  total << " in set." << std::endl;
 }
 
 void Record_Manager::select_record(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond, int block_number)
 {
+	ConsoleTable table(samilton::Alignment::centre);
+	ConsoleTable::TableChars chars;
+	chars.topDownSimple = '-';
+	chars.leftRightSimple = '|';
+	chars.centreSeparation = '+';
+	chars.leftSeparation = '+';
+	chars.rightSeparation = '+';
+	chars.topSeparation = '+';
+	chars.topLeft = '+';
+	chars.topRight = '+';
+	chars.downSeparation = '+';
+	chars.downLeft = '+';
+	chars.downRight = '+';
+	table.setTableChars(chars);
+
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
-	for (auto & v : list) {
-		std::cout << '\t' << v;
-	}
-	std::cout << std::endl;
+	table.addRow(list);
 
 	int record_length = this->m_catalog->get_record_length(table_name);
 	int total = 0;
@@ -138,12 +170,12 @@ void Record_Manager::select_record(const std::string & table_name, std::vector<s
 		for (int j = 0; j < record_number; ++j) {
 			tuple->get_value(block->get_data(begin));
 			if (tuple->is_valid()) {
-				for (int k = 0; k < list.size(); ++k) {
-					DMType value = (*tuple)[list[k]];
-					std::cout << '\t' << value;
+				std::vector<std::string> row;
+				for (auto & it : list) {
+					row.push_back(DMType_to_string((*tuple)[it]));
 				}
-				std::cout << std::endl;
-				total++;
+				table.addRow(row);
+				total ++;
 			}
 			begin += record_length;
 		}

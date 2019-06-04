@@ -41,7 +41,7 @@
 
 
 // Unqualified %code blocks.
-#line 23 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 25 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
 
 # include "compiler.hpp"
 # include "compilertools/compilertools.hpp"
@@ -451,175 +451,175 @@ namespace yy {
     switch (yytype)
     {
       case 3: // NUMBER
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < int > (); }
 #line 457 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 43: // STRING
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
 #line 463 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 44: // FILENAME
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
 #line 469 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 47: // statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 475 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 48: // show_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 481 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 49: // create_index_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 487 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 50: // drop_index_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 493 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 51: // insert_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 499 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 52: // attr_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 505 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 53: // value_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 511 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 54: // drop_table_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 517 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 55: // drop_db_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 523 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 56: // use_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 529 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 57: // create_db_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 535 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 58: // source_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < std::string > (); }
 #line 541 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 59: // select_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 547 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 60: // select_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 553 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 61: // table_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 559 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 62: // select_condition
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 565 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 63: // select_condition_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 571 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 64: // select_condition_exp
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 577 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 65: // delete_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 583 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 66: // exp
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 589 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 67: // create_table_statement
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Statement * > (); }
 #line 595 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 68: // attribute_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 601 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 69: // attribute_exp
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 607 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 70: // variant_type
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < int > (); }
 #line 613 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 71: // constrain_list
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < ExpressionList * > (); }
 #line 619 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
 
       case 72: // constrain_exp
-#line 65 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 67 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
         { yyo << yysym.value.template as < Expression * > (); }
 #line 625 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
         break;
@@ -903,121 +903,121 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 70 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 72 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { drv.execute_statement(yystack_[0].value.as < Statement * > ()); }
 #line 909 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 3:
-#line 71 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 73 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { drv.execute_statement(yystack_[0].value.as < Statement * > ()); }
 #line 915 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 4:
-#line 75 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 77 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = nullptr; }
 #line 921 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 5:
-#line 76 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 78 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = nullptr; }
 #line 927 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 6:
-#line 77 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 79 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 933 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 7:
-#line 78 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 80 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = nullptr; Compiler::file = yystack_[1].value.as < std::string > (); return 0; }
 #line 939 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 8:
-#line 79 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 81 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 945 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 9:
-#line 80 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 82 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 951 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 10:
-#line 81 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 83 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Quit_Statement; drv.execute_statement(yylhs.value.as < Statement * > ()); return -1; }
 #line 957 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 11:
-#line 82 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 84 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 963 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 12:
-#line 83 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 85 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 969 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 13:
-#line 84 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 86 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 975 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 14:
-#line 85 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 87 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 981 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 15:
-#line 86 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 88 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 987 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 16:
-#line 87 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 89 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 993 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 17:
-#line 88 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 90 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 999 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 18:
-#line 89 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 91 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = yystack_[1].value.as < Statement * > (); }
 #line 1005 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 19:
-#line 93 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 95 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Show_Statement(0); }
 #line 1011 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 20:
-#line 94 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 96 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Show_Statement(1); }
 #line 1017 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 21:
-#line 98 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 100 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     {
         yylhs.value.as < Statement * > () = new Create_Index_Statement(yystack_[1].value.as < std::string > (), yystack_[0].value.as < std::string > ());
     }
@@ -1025,7 +1025,7 @@ namespace yy {
     break;
 
   case 22:
-#line 104 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 106 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     {
         yylhs.value.as < Statement * > () = new Drop_Index_Statement(yystack_[1].value.as < std::string > (), yystack_[0].value.as < std::string > ());
     }
@@ -1033,7 +1033,7 @@ namespace yy {
     break;
 
   case 23:
-#line 110 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 112 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     {
 		yylhs.value.as < Statement * > () = new Insert_Statement(yystack_[7].value.as < std::string > (), yystack_[5].value.as < ExpressionList * > (), yystack_[1].value.as < ExpressionList * > ());
 	}
@@ -1041,61 +1041,61 @@ namespace yy {
     break;
 
   case 24:
-#line 116 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 118 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
 #line 1047 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 25:
-#line 117 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 119 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
 #line 1053 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 26:
-#line 121 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 123 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1059 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 27:
-#line 122 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 124 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1065 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 28:
-#line 126 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 128 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Drop_Table_Statement(yystack_[0].value.as < std::string > ()); }
 #line 1071 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 29:
-#line 130 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 132 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Drop_Database_Statement(yystack_[0].value.as < std::string > ()); }
 #line 1077 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 30:
-#line 134 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 136 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Use_Statement(yystack_[0].value.as < std::string > ()); }
 #line 1083 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 31:
-#line 138 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 140 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Statement * > () = new Create_Database_Statement(yystack_[0].value.as < std::string > ()); }
 #line 1089 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 32:
-#line 142 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 144 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 1095 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 33:
-#line 146 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 148 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     {
 		Select_Statement * select = new Select_Statement;
 		select->set_select(yystack_[3].value.as < ExpressionList * > ());
@@ -1107,85 +1107,85 @@ namespace yy {
     break;
 
   case 34:
-#line 156 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 158 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression("*")); }
 #line 1113 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 35:
-#line 157 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 159 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
 #line 1119 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 36:
-#line 158 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 160 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
 #line 1125 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 37:
-#line 162 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 164 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
 #line 1131 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 38:
-#line 163 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 165 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(new String_Expression(yystack_[0].value.as < std::string > ())); }
 #line 1137 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 39:
-#line 167 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 169 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = nullptr; }
 #line 1143 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 40:
-#line 168 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 170 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = yystack_[0].value.as < ExpressionList * > (); }
 #line 1149 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 41:
-#line 172 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 174 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList; yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1155 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 42:
-#line 173 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 175 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1161 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 43:
-#line 177 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 179 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), EQUAL, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1167 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 44:
-#line 178 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 180 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), LESS, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1173 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 45:
-#line 179 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 181 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), LARGE, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1179 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 46:
-#line 180 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 182 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Condition_Expression(yystack_[2].value.as < std::string > (), NOT, yystack_[0].value.as < Expression * > ()->values()); }
 #line 1185 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 47:
-#line 184 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 186 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     {
         yylhs.value.as < Statement * > () = new Delete_Statement(yystack_[2].value.as < std::string > (), yystack_[0].value.as < ExpressionList * > ());
     }
@@ -1193,19 +1193,19 @@ namespace yy {
     break;
 
   case 48:
-#line 190 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 192 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new DMType_Expression(std::string(yystack_[0].value.as < std::string > ())); }
 #line 1199 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 49:
-#line 191 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 193 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new DMType_Expression(yystack_[0].value.as < int > ()); }
 #line 1205 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 50:
-#line 196 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 198 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     {
 		Create_Table_Statement * create = new Create_Table_Statement(yystack_[4].value.as < std::string > ());
 		create->set_attribute(yystack_[2].value.as < ExpressionList * > ());
@@ -1216,73 +1216,73 @@ namespace yy {
     break;
 
   case 51:
-#line 205 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 207 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1222 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 52:
-#line 206 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 208 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
 #line 1228 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 53:
-#line 210 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 212 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[1].value.as < std::string > (), yystack_[0].value.as < int > (), 0); }
 #line 1234 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 54:
-#line 211 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 213 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Attribute_Expression(yystack_[2].value.as < std::string > (), yystack_[1].value.as < int > (), 1); }
 #line 1240 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 55:
-#line 215 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 217 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < int > () = -1; }
 #line 1246 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 56:
-#line 216 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 218 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < int > () = -2; }
 #line 1252 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 57:
-#line 217 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 219 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
 #line 1258 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 58:
-#line 221 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 223 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = nullptr; }
 #line 1264 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 59:
-#line 222 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 224 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < ExpressionList * > () = new ExpressionList(); yylhs.value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); }
 #line 1270 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 60:
-#line 223 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 225 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yystack_[2].value.as < ExpressionList * > ()->push_back(yystack_[0].value.as < Expression * > ()); yylhs.value.as < ExpressionList * > () = yystack_[2].value.as < ExpressionList * > (); }
 #line 1276 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 61:
-#line 227 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 229 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Constrain_Expression(0, yystack_[1].value.as < std::string > ()); }
 #line 1282 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
 
   case 62:
-#line 228 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 230 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
     { yylhs.value.as < Expression * > () = new Constrain_Expression(1, yystack_[1].value.as < std::string > ()); }
 #line 1288 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
     break;
@@ -1721,13 +1721,13 @@ namespace yy {
   const unsigned char
   parser::yyrline_[] =
   {
-       0,    70,    70,    71,    75,    76,    77,    78,    79,    80,
-      81,    82,    83,    84,    85,    86,    87,    88,    89,    93,
-      94,    98,   104,   110,   116,   117,   121,   122,   126,   130,
-     134,   138,   142,   146,   156,   157,   158,   162,   163,   167,
-     168,   172,   173,   177,   178,   179,   180,   184,   190,   191,
-     195,   205,   206,   210,   211,   215,   216,   217,   221,   222,
-     223,   227,   228
+       0,    72,    72,    73,    77,    78,    79,    80,    81,    82,
+      83,    84,    85,    86,    87,    88,    89,    90,    91,    95,
+      96,   100,   106,   112,   118,   119,   123,   124,   128,   132,
+     136,   140,   144,   148,   158,   159,   160,   164,   165,   169,
+     170,   174,   175,   179,   180,   181,   182,   186,   192,   193,
+     197,   207,   208,   212,   213,   217,   218,   219,   223,   224,
+     225,   229,   230
   };
 
   // Print the state stack on the debug stream.
@@ -1763,11 +1763,12 @@ namespace yy {
 } // yy
 #line 1765 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.cpp"
 
-#line 231 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
+#line 233 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
 
 
 void
 yy::parser::error (const location_type& l, const std::string& m)
 {
-  std::cerr << l << ": " << m << "\n";
+    throw Error(0, "Syntax Error: " + m);
+  //std::cerr << l << ": " << m << "\n";
 }

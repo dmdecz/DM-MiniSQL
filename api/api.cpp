@@ -70,11 +70,11 @@ int API::execute(Statement * s)
 			std::cout << "Query cost " << (double)(end - begin) / CLOCKS_PER_SEC << "s." << std::endl;
 		}
 		delete s;
+		std::cout << std::endl;
 	} catch (Error & e) {
 		e.diagnose();
 	}
 
-	std::cout << std::endl;
 	return ret;
 }
 

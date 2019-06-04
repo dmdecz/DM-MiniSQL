@@ -47,10 +47,12 @@
 #line 9 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.y"
 
   #include "compilertools/compilertools.hpp"
+  #include "../error/error.h"
+
   #include <string>
   class Compiler;
 
-#line 54 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+#line 56 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -165,7 +167,7 @@
 #endif
 
 namespace yy {
-#line 169 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+#line 171 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 
 
@@ -2086,7 +2088,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2090 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+#line 2092 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 
 

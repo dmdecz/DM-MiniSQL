@@ -14,5 +14,5 @@ Error::~Error() {}
 void Error::diagnose()
 {
 	std::cerr << "Error " << code << ":" << std::endl;
-	std::cerr << message << std::endl;
+	std::cerr << message << std::endl << std::endl;
 }

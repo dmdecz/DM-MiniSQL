@@ -8,6 +8,8 @@
 
 %code requires {
   #include "compilertools/compilertools.hpp"
+  #include "../error/error.h"
+
   #include <string>
   class Compiler;
 }
@@ -233,5 +235,5 @@ constrain_exp:
 void
 yy::parser::error (const location_type& l, const std::string& m)
 {
-  std::cerr << l << ": " << m << "\n";
+    throw Error(0, "Syntax Error: " + m);
 }

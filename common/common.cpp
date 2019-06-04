@@ -80,6 +80,29 @@ DMType void_pointer_to_DMType(void * p, AttrType a)
 	}
 }
 
+std::string DMType_to_string(DMType v)
+{
+	std::string ret;
+	size_t type = v.index();
+	switch (type) {
+		case 0:
+			ret = std::to_string(std::get<int>(v));
+			break;
+		case 1:
+			ret = std::to_string(std::get<double>(v));
+			break;
+		case 2:
+			ret = std::to_string(std::get<char>(v));
+			break;
+		case 3:
+			ret = std::get<std::string>(v);
+			break;
+		default:
+			break;
+	}
+	return ret;
+}
+
 const int attrTypeLength(AttrType a)
 {
 	switch (a) {

@@ -21,6 +21,7 @@ std::ostream& operator<<(std::ostream & output, DMType & v);
 typedef int AttrType;
 const void * DMType_to_void_pointer(DMType);
 DMType void_pointer_to_DMType(void *, AttrType);
+std::string DMType_to_string(DMType);
 const int attrTypeLength(AttrType);
 const bool type_match(AttrType, DMType);
 const bool type_match(DMType, AttrType);
