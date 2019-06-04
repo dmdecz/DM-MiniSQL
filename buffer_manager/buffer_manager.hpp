@@ -13,7 +13,7 @@ private:
 	char * data;
 	bool locked;
 	bool dirty;
-
+	friend class Buffer_Manager;
 public:
 	static int BLOCK_SIZE;
 	static int BLOCK_HEAD_SIZE;

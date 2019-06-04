@@ -139,15 +139,19 @@ int BPlusTree::allocate_block()
 
 int BPlusTree::insert_key(DMType & key, int position)
 {
+	int ret = 0;
+	int old_entry = this->entry;
 	Block * root_block = this->get_block(this->entry);
 	Node * root = new Node(root_block, this->key_type);
-	this->insert_key(root, key, position);
-	root->write_back_to_block(root_block, this->key_type);
+	ret = this->insert_key(root, key, position);
+	root->write_back_to_block(this->get_block(old_entry), this->key_type);
 	delete root;
+	return ret;
 }
 
 int BPlusTree::insert_key(Node * node, DMType & key, int position)
 {
+	int ret = 0;
 //	std::cout << "insert_record " << key << std::endl;
 	int index = 0;
 	for (auto & it : node->key) {
@@ -167,14 +171,15 @@ int BPlusTree::insert_key(Node * node, DMType & key, int position)
 //		std::cout << child_block_number << std::endl;
 		Block * child_block = this->get_block(child_block_number);
 		Node * child = new Node(child_block, this->key_type, node, index);
-		this->insert_key(child, key, position);
-		child->write_back_to_block(child_block, this->key_type);
+		ret = this->insert_key(child, key, position);
+		child->write_back_to_block(this->get_block(child_block_number), this->key_type);
 		delete child;
 	}
 	if (node->is_full(this->degree)) {
 //		std::cout << "split" << std::endl;
 		this->fix_insert(node);
 	}
+	return ret;
 }
 
 void BPlusTree::fix_insert(Node * node)
@@ -187,7 +192,6 @@ void BPlusTree::fix_insert(Node * node)
 //		std::cout << "split root" << std::endl;
 		int old_entry = this->entry;
 		this->entry = this->allocate_block();
-		Block *new_root_block = this->get_block(this->entry);
 		Node *new_root = new Node(false);
 		new_root->pointer.insert(new_root->pointer.begin(), old_entry);
 		node->parent = new_root;
@@ -196,7 +200,6 @@ void BPlusTree::fix_insert(Node * node)
 	}
 
 	int new_block_number = this->allocate_block();
-	Block *new_block = this->get_block(new_block_number);
 	Node *new_node = new Node(node->leaf, node->parent, node->index + 1);
 
 	if (node->leaf) {
@@ -226,7 +229,7 @@ void BPlusTree::fix_insert(Node * node)
 		node->pointer.erase(node->pointer.begin() + pivot + 1, node->pointer.end());
 	}
 
-	new_node->write_back_to_block(new_block, this->key_type);
+	new_node->write_back_to_block(this->get_block(new_block_number), this->key_type);
 	delete new_node;
 
 	if (change_root) {
@@ -242,7 +245,6 @@ int BPlusTree::search_key(DMType & key)
 	Block * root_block = this->get_block(this->entry);
 	Node * root = new Node(root_block, this->key_type);
 	ret = this->search_key(root, key);
-//	root->write_back_to_block(root_block, this->key_type);
 	delete root;
 	return ret;
 }
@@ -258,7 +260,7 @@ int BPlusTree::search_key(Node * node, DMType & key)
 	}
 
 	if (node->leaf) {
-		if (node->key.size() && node->key[index] == key) {
+		if (node->key.size() != index && node->key[index] == key) {
 			ret = node->pointer[index];
 		}
 	} else {
@@ -281,7 +283,7 @@ int BPlusTree::delete_key(DMType & key)
 	if (this->entry != old_entry) {
 		this->m_catalog->add_index_fragment(this->table_name, old_entry);
 	}
-	root->write_back_to_block(root_block, this->key_type);
+	root->write_back_to_block(this->get_block(old_entry), this->key_type);
 	delete root;
 	return ret;
 }
@@ -307,7 +309,7 @@ int BPlusTree::delete_key(Node * node, DMType & key)
 		Block * child_block = this->get_block(child_block_number);
 		Node * child = new Node(child_block, this->key_type, node, index);
 		ret = this->delete_key(child, key);
-		child->write_back_to_block(child_block, this->key_type);
+		child->write_back_to_block(this->get_block(child_block_number), this->key_type);
 		delete child;
 	}
 	if (!(!node->parent && node->leaf) && node->is_half(this->degree)) {
@@ -423,7 +425,7 @@ void BPlusTree::fix_delete(Node * node)
 			this->m_catalog->add_index_fragment(this->table_name, sibling_block_number);
 		}
 	}
-	sibling->write_back_to_block(sibling_block, this->key_type);
+	sibling->write_back_to_block(this->get_block(sibling_block_number), this->key_type);
 	delete sibling;
 }
 
@@ -433,7 +435,7 @@ void BPlusTree::drop()
 	Node * root = new Node(root_block, this->key_type);
 	this->drop(root);
 	this->m_catalog->add_index_fragment(this->table_name, this->entry);
-	root->write_back_to_block(root_block, this->key_type);
+	root->write_back_to_block(this->get_block(this->entry), this->key_type);
 	delete root;
 }
 
@@ -447,7 +449,7 @@ void BPlusTree::drop(Node * node)
 			Node * child = new Node(child_block, this->key_type);
 			this->drop(child);
 			this->m_catalog->add_index_fragment(this->table_name, it);
-			child->write_back_to_block(child_block, this->key_type);
+			child->write_back_to_block(this->get_block(it), this->key_type);
 			delete child;
 		}
 	}

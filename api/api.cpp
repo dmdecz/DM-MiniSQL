@@ -218,7 +218,6 @@ void API::execute_insert(Statement * s)
 			throw Error(102, "Duplicated value of " + it.first);
 		}
 	}
-
 	int block_number = this->m_record->insert_record(table_name, attr_value);
 	this->m_index->insert_key(table_name, attr_value, block_number);
 

@@ -97,22 +97,31 @@ Block::~Block()
 	delete[] this->data;
 }
 
-int Buffer_Manager::BUFFER_SIZE = 64;
+int Buffer_Manager::BUFFER_SIZE = 3;
 
 Buffer_Manager::Buffer_Manager(const std::string & database)
 	: database_name(database) {}
 
 Block * Buffer_Manager::get_block(const std::string & table_name, int block_num)
 {
+//	std::cout << "get block " << block_num << std::endl;
 	Block * ret = nullptr;
 	if (block_num == 0) {
 		return ret;
 	}
+//	std::cout << "before:";
+//	for (size_t i = 0; i < this->block_pool.size(); i++)
+//	{
+//		std::cout << " " << this->block_pool[i]->block_number;
+//	}
+//	std::cout << std::endl;
 	for (size_t i = 0; i < this->block_pool.size(); i++)
 	{
 		if (this->block_pool[i]->is_hit(table_name, block_num))
 		{
 			ret = this->block_pool[i];
+			this->block_pool.erase(this->block_pool.begin() + i);
+			this->block_pool.insert(this->block_pool.begin(), ret);
 			break;
 		}
 	}
@@ -121,12 +130,22 @@ Block * Buffer_Manager::get_block(const std::string & table_name, int block_num)
 		ret = new Block(this->database_name, table_name, block_num);
 		this->put_block(ret);
 	}
+//	std::cout << "after:";
+//	for (size_t i = 0; i < this->block_pool.size(); i++)
+//	{
+//		std::cout << " " << this->block_pool[i]->block_number;
+//	}
+//	std::cout << std::endl;
 	return ret;
 }
 
 void Buffer_Manager::put_block(Block * block)
 {
-	this->block_pool.push_back(block);
+	if (this->block_pool.size() == Buffer_Manager::BUFFER_SIZE) {
+		delete this->block_pool[BUFFER_SIZE - 1];
+		this->block_pool.pop_back();
+	}
+	this->block_pool.insert(this->block_pool.begin(), block);
 }
 
 void Buffer_Manager::clear()
