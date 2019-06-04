@@ -363,6 +363,12 @@ int Catalog_Manager::get_index_fragment(const std::string & table_name)
 	return ret;
 }
 
+void Catalog_Manager::add_index_fragment(const std::string & table_name, int fragment_block_number)
+{
+	this->table_list[table_name]->index_fragment.push_back(fragment_block_number);
+	this->table_list[table_name]->dirty = true;
+}
+
 IndexInfo & Catalog_Manager::get_index(const std::string & table_name)
 {
 	return this->table_list[table_name]->index_list;

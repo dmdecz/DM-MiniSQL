@@ -219,8 +219,9 @@ int Record_Manager::insert_to_old_block(const std::string & table_name, std::map
 	return 0;
 }
 
-void Record_Manager::delete_record(const std::string & table_name, CmpInfo & cond)
+std::map<std::string, std::vector<DMType>> Record_Manager::delete_record(const std::string & table_name, CmpInfo & cond)
 {
+	std::map<std::string, std::vector<DMType>> ret;
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 
 	int size = this->m_catalog->data_block_number(table_name);
@@ -235,16 +236,50 @@ void Record_Manager::delete_record(const std::string & table_name, CmpInfo & con
 		for (int j = 0; j < record_number; ++j) {
 			tuple->get_value(block->get_data(begin));
 			if (tuple->is_valid()) {
+				for (auto & it : attribute_list) {
+					ret[it.first].push_back((*tuple)[it.first]);
+				}
 				tuple->delete_record(*(int*)block->get_data(4));
 				tuple->write_to_block(block, begin);
 				block->datacpy(4, &begin, sizeof(int));
-//				std::cout << '\t' << *(int*)block->get_data(4) << '\t' << *(bool*)block->get_data(begin + record_length - 5) << '\t' << *(int*)block->get_data(begin + record_length - 4) << std::endl;
 				total ++;
 			}
 			begin += record_length;
 		}
 	}
 	std::cout << "Query OK, " << total << " row(s) affected." << std::endl;
+	return ret;
+}
+
+std::map<std::string, std::vector<DMType>> Record_Manager::delete_record(const std::string & table_name, CmpInfo & cond, int block_number)
+{
+	std::map<std::string, std::vector<DMType>> ret;
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+
+	int record_length = this->m_catalog->get_record_length(table_name);
+	int total = 0;
+	Record * tuple = new Record(attribute_list, cond);
+	if (block_number) {
+		Block * block = this->m_buffer->get_block(table_name, block_number);
+		int begin = Block::BLOCK_HEAD_SIZE;
+		int end = *(int*)block->get_data(0);
+		int record_number = (end - begin) / record_length;
+		for (int j = 0; j < record_number; ++j) {
+			tuple->get_value(block->get_data(begin));
+			if (tuple->is_valid()) {
+				for (auto & it : attribute_list) {
+					ret[it.first].push_back((*tuple)[it.first]);
+				}
+				tuple->delete_record(*(int*)block->get_data(4));
+				tuple->write_to_block(block, begin);
+				block->datacpy(4, &begin, sizeof(int));
+				total ++;
+			}
+			begin += record_length;
+		}
+	}
+	std::cout << "Query OK, " << total << " row(s) affected." << std::endl;
+	return ret;
 }
 
 Record_Manager::~Record_Manager() = default;

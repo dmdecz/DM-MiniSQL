@@ -52,7 +52,23 @@ bool Node::is_full(int degree)
 
 bool Node::is_half(int degree)
 {
-	return this->key.size() < (degree - 1)/2;
+	if (this->parent) {
+		return this->key.size() < (degree - 1)/2;
+	} else {
+		return this->key.empty();
+	}
+}
+
+bool Node::is_enough(int degree)
+{
+	return this->key.size() > (degree - 1)/2;
+}
+
+void Node::drop()
+{
+	this->valid = false;
+	this->key.clear();
+	this->pointer.clear();
 }
 
 void Node::write_back_to_block(Block * block, AttrType key_type)
@@ -61,19 +77,21 @@ void Node::write_back_to_block(Block * block, AttrType key_type)
 	int p = 0;
 	block->datacpy(p, &this->valid, sizeof(bool));
 	p += sizeof(bool);
-	block->datacpy(p, &this->leaf, sizeof(bool));
-	p += sizeof(bool);
-	int number = this->key.size();
-	block->datacpy(p, &number, sizeof(int));
-	p += sizeof(int);
-	for (auto & it : this->key) {
-//		std::cout << "write " << it << std::endl;
-		block->datacpy(p, DMType_to_void_pointer(it), sizeof(char) * key_length);
-		p += key_length;
-	}
-	for (auto & it : this->pointer) {
-		block->datacpy(p, &it, sizeof(int));
+	if (this->valid) {
+		block->datacpy(p, &this->leaf, sizeof(bool));
+		p += sizeof(bool);
+		int number = this->key.size();
+		block->datacpy(p, &number, sizeof(int));
 		p += sizeof(int);
+		for (auto &it : this->key) {
+			//		std::cout << "write " << it << std::endl;
+			block->datacpy(p, DMType_to_void_pointer(it), sizeof(char) * key_length);
+			p += key_length;
+		}
+		for (auto &it : this->pointer) {
+			block->datacpy(p, &it, sizeof(int));
+			p += sizeof(int);
+		}
 	}
 	block->zero(p);
 }
@@ -268,9 +286,13 @@ int BPlusTree::search_key(Node * node, DMType & key)
 int BPlusTree::delete_key(DMType & key)
 {
 	int ret = 0;
-	Block * root_block = this->get_block(this->entry);
+	int old_entry = this->entry;
+	Block * root_block = this->get_block(old_entry);
 	Node * root = new Node(root_block, this->key_type);
 	ret = this->delete_key(root, key);
+	if (this->entry != old_entry) {
+		this->m_catalog->add_index_fragment(this->table_name, old_entry);
+	}
 	root->write_back_to_block(root_block, this->key_type);
 	delete root;
 	return ret;
@@ -288,6 +310,7 @@ int BPlusTree::delete_key(Node * node, DMType & key)
 
 	if (node->leaf) {
 		if (node->key[index] == key) {
+			ret = node->pointer[index];
 			node->key.erase(node->key.begin() + index);
 			node->pointer.erase(node->pointer.begin() + index);
 		}
@@ -299,16 +322,119 @@ int BPlusTree::delete_key(Node * node, DMType & key)
 		child->write_back_to_block(child_block, this->key_type);
 		delete child;
 	}
-	if (node->is_half(this->degree)) {
-//		std::cout << "split" << std::endl;
+	if (!(!node->parent && node->leaf) && node->is_half(this->degree)) {
+//		std::cout << "fix delete" << std::endl;
 		this->fix_delete(node);
+//		std::cout << "fix delete done" << std::endl;
 	}
 	return ret;
 }
 
 void BPlusTree::fix_delete(Node * node)
 {
-
+	if (!node->parent) {
+		this->entry = node->pointer[0];
+		node->drop();
+		return;
+	}
+//	std::cout << "not root" << std::endl;
+	bool right = node->index == 0;
+	int sibling_index;
+	if (right) {
+		sibling_index = node->index + 1;
+	} else {
+		sibling_index = node->index - 1;
+	}
+	int sibling_block_number = node->parent->pointer[sibling_index];
+	Block * sibling_block = this->get_block(sibling_block_number);
+	Node * sibling = new Node(sibling_block, this->key_type, node->parent, sibling_index);
+	if (node->leaf) {
+		if (sibling->is_enough(this->degree)) {
+			if (right) {
+				node->key.push_back(sibling->key[0]);
+				node->pointer.insert(node->pointer.end() - 1, sibling->pointer[0]);
+				node->parent->key[node->index] = sibling->key[1];
+				sibling->key.erase(sibling->key.begin());
+				sibling->pointer.erase(sibling->pointer.begin());
+			} else {
+				int end = sibling->key.size();
+				node->key.insert(node->key.begin(), sibling->key[end-1]);
+				node->pointer.insert(node->pointer.begin(), sibling->pointer[end-1]);
+				node->parent->key[node->index] = sibling->key[end-1];
+				sibling->key.erase(sibling->key.end() - 1);
+				sibling->pointer.erase(sibling->pointer.end() - 2);
+			}
+		} else {
+			if (right){
+				node->pointer.erase(node->pointer.end() - 1);
+				for (auto & it : sibling->key) {
+					node->key.push_back(it);
+				}
+				for (auto & it : sibling->pointer) {
+					node->pointer.push_back(it);
+				}
+				node->parent->key.erase(node->parent->key.begin() + node->index);
+				node->parent->pointer.erase(node->parent->pointer.begin() + node->index + 1);
+			} else {
+				sibling->pointer.erase(sibling->pointer.end() - 1);
+				int i = 0;
+				for (auto & it : sibling->key) {
+					node->key.insert(node->key.begin() + i, it);
+					i ++;
+				}
+				i = 0;
+				for (auto & it : sibling->pointer) {
+					node->pointer.insert(node->pointer.begin() + i, it);
+					i ++;
+				}
+				node->parent->key.erase(node->parent->key.begin() + node->index - 1);
+				node->parent->pointer.erase(node->parent->pointer.begin() + node->index - 1);
+			}
+			sibling->drop();
+			this->m_catalog->add_index_fragment(this->table_name, sibling_block_number);
+		}
+	} else {
+		if (sibling->is_enough(this->degree)) {
+			if (right) {
+				node->key.push_back(node->parent->key[node->index]);
+				node->pointer.push_back(sibling->pointer[0]);
+				node->parent->key[node->index] = sibling->key[0];
+				sibling->key.erase(sibling->key.begin());
+				sibling->pointer.erase(sibling->pointer.begin());
+			} else {
+				node->key.insert(node->key.begin(), node->parent->key[node->index - 1]);
+				node->pointer.insert(node->pointer.begin(), sibling->pointer[sibling->pointer.size()-1]);
+				node->parent->key[node->index - 1] = sibling->key[sibling->key.size()-1];
+				sibling->key.erase(sibling->key.end() - 1);
+				sibling->pointer.erase(sibling->pointer.end() - 1);
+			}
+		} else {
+			if (right) {
+				node->key.push_back(node->parent->key[node->index]);
+				for (auto & it : sibling->key) {
+					node->key.push_back(it);
+				}
+				for (auto & it : sibling->pointer) {
+					node->pointer.push_back(it);
+				}
+				node->parent->key.erase(node->parent->key.begin() + node->index);
+				node->parent->pointer.erase(node->parent->pointer.begin() + node->index + 1);
+			} else {
+				sibling->key.push_back(node->parent->key[node->index - 1]);
+				int size = sibling->key.size();
+				for (int i = 0; i < size; ++i) {
+					node->key.insert(node->key.begin() + i, sibling->key[i]);
+					node->pointer.insert(node->pointer.begin() + i, sibling->pointer[i]);
+				}
+				node->parent->key.erase(node->parent->key.begin() + node->index - 1);
+				node->parent->pointer.erase(node->parent->pointer.begin() + node->index - 1);
+			}
+			sibling->drop();
+			this->m_catalog->add_index_fragment(this->table_name, sibling_block_number);
+		}
+	}
+	sibling->write_back_to_block(sibling_block, this->key_type);
+	delete sibling;
 }
 
 
@@ -365,4 +491,26 @@ int Index_Manager::search_key(const std::string &table_name, const std::string &
 	BPlusTree tree(this->m_catalog, this->m_buffer, table_name, indices[key_name].second, attribute_list[key_name].first);
 	ret = tree.search_key(key);
 	return ret;
+}
+
+int Index_Manager::delete_key(const std::string &table_name, const std::string &key_name, DMType & key)
+{
+	int ret = 0;
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	BPlusTree tree(this->m_catalog, this->m_buffer, table_name, indices[key_name].second, attribute_list[key_name].first);
+	ret = tree.delete_key(key);
+	this->m_catalog->update_index_entry(table_name, key_name, tree.entry);
+	return ret;
+}
+
+void Index_Manager::delete_key(const std::string &table_name, const std::string &key_name, std::vector<DMType> & key)
+{
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	BPlusTree tree(this->m_catalog, this->m_buffer, table_name, indices[key_name].second, attribute_list[key_name].first);
+	for (auto & it : key) {
+		tree.delete_key(it);
+	}
+	this->m_catalog->update_index_entry(table_name, key_name, tree.entry);
 }

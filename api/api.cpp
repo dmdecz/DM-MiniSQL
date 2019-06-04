@@ -141,11 +141,13 @@ void API::execute_select(Statement * s)
 				throw Error(701, "Table '" + table_name + "' has no attribute '" + list[i] + "'.");
 		}
 		int block_number = 0;
+		bool index = false;
 		for (auto & attr : cond) {
 			if (attribute_list.find(attr.first) == attribute_list.end()) {
 				throw Error(701, "Table '" + table_name + "' has no attribute '" + attr.first + "'.");
 			}
 			if (attr.second.first == EQUAL && this->m_catalog->has_index(table_name, attr.first)) {
+				index = true;
 				int temp_block_number = this->m_index->search_key(table_name, attr.first, attr.second.second);
 				if (temp_block_number == 0) {
 					block_number = 0;
@@ -159,7 +161,11 @@ void API::execute_select(Statement * s)
 			}
 		}
 //		std::cout << block_number << std::endl;
-		this->m_record->select(table_name, list, cond);
+		if (index) {
+			this->m_record->select(table_name, list, cond, block_number);
+		} else {
+			this->m_record->select(table_name, list, cond);
+		}
 	} else {
 		throw Error(700, "No table named '" + table_name + "'.");
 	}
@@ -198,18 +204,46 @@ void API::execute_delete(Statement * s)
 
 	CmpInfo cond;
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
 
 	for (size_t i = 0; i < delete_cond->size(); i++) {
 		std::string str = std::get<std::string>(((*delete_cond)[i])->values(0));
 		cond[str] = std::make_pair(std::get<int>(((*delete_cond)[i])->values(1)), ((*delete_cond)[i])->values(2));
 	}
-	for (auto & attr : cond) {
-		if (attribute_list.find(attr.first) == attribute_list.end())
-			throw Error(701, "Table '" + table_name + "' has no attribute '" + attr.first + "'.");
+	int block_number = 0;
+	bool index = false;
+	std::map<std::string, std::vector<DMType>> keys_to_be_deleted;
+	for (auto & it : cond) {
+		if (attribute_list.find(it.first) == attribute_list.end()) {
+			throw Error(701, "Table '" + table_name + "' has no attribute '" + it.first + "'.");
+		}
+		if (this->m_catalog->has_index(table_name, it.first) && it.second.first == EQUAL) {
+			index = true;
+			int temp_block_number = this->m_index->search_key(table_name, it.first, it.second.second);
+			if (temp_block_number == 0) {
+				block_number = 0;
+				break;
+			} else if (block_number == 0) {
+				block_number = temp_block_number;
+			} else if (block_number != temp_block_number) {
+				block_number = 0;
+				break;
+			}
+		}
 	}
 
-	this->m_record->delete_record(table_name, cond);
+	if (index) {
+		keys_to_be_deleted = this->m_record->delete_record(table_name, cond, block_number);
+	} else {
+		keys_to_be_deleted = this->m_record->delete_record(table_name, cond);
+	}
 
+	for (auto & it : keys_to_be_deleted) {
+		if (this->m_catalog->has_index(table_name, it.first)) {
+//			std::cout << "delete index " << it.first << std::endl;
+			this->m_index->delete_key(table_name, it.first, it.second);
+		}
+	}
 }
 
 void API::execute_create_table(Statement * s)

@@ -69,6 +69,7 @@ public:
 	int index_block_number(const std::string & table_name);
 	void add_index_block(const std::string & table_name);
 	int get_index_fragment(const std::string & table_name);
+	void add_index_fragment(const std::string & table_name, int fragment_block_number);
 	IndexInfo & get_index(const std::string & table_name);
 	void update_index_entry(const std::string & table_name, const std::string & key_name, int entry);
 

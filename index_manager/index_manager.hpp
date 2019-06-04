@@ -33,6 +33,9 @@ public:
 
 	bool is_full(int degree);
 	bool is_half(int degree);
+	bool is_enough(int degree);
+
+	void drop();
 //	int insert_key(DMType key, int position_or_pointer_1, int position_or_pointer_2);
 //	int insert_key(DMType key, int position);
 //	int delete_key(DMType key);
@@ -82,6 +85,8 @@ public:
 	void create_index(const std::string & table_name, const std::string & key_name);
 	void insert_key(const std::string &table_name, std::map<std::string, DMType> &keys, int block_number);
 	int search_key(const std::string &table_name, const std::string &key_name, DMType & key);
+	int delete_key(const std::string &table_name, const std::string &key_name, DMType & key);
+	void delete_key(const std::string &table_name, const std::string &key_name, std::vector<DMType> & key);
 };
 
 #endif //DM_INDEX_MANAGER_HPP

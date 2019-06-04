@@ -44,7 +44,8 @@ public:
 	int insert(const std::string &, std::map<std::string, DMType> &);
 	int insert_to_new_block(const std::string &, std::map<std::string, DMType> &, int);
 	int insert_to_old_block(const std::string &, std::map<std::string, DMType> &, int);
-	void delete_record(const std::string & table_name, CmpInfo & cond);
+	std::map<std::string, std::vector<DMType>> delete_record(const std::string & table_name, CmpInfo & cond);
+	std::map<std::string, std::vector<DMType>> delete_record(const std::string & table_name, CmpInfo & cond, int block_number);
 	~Record_Manager();
 };
 
