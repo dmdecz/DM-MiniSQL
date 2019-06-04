@@ -158,11 +158,13 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 \n+        			loc.lines (yyleng); loc.step ();
 {int}				return make_NUMBER (yytext, loc);
 ";"					return yy::parser::make_ENDL  (loc);
-"SELECT"|"select_record"	return yy::parser::make_SELECT(loc);
-"INSERT"|"insert_record"	return yy::parser::make_INSERT(loc);
+"SHOW"|"show"	    return yy::parser::make_SHOW(loc);
+"SELECT"|"select"	return yy::parser::make_SELECT(loc);
+"INSERT"|"insert"	return yy::parser::make_INSERT(loc);
 "DELETE"|"delete"	return yy::parser::make_DELETE(loc);
 "INTO"|"into"		return yy::parser::make_INTO(loc);
 "INDEX"|"index"		return yy::parser::make_INDEX(loc);
+"ON"|"on"	    	return yy::parser::make_ON(loc);
 "UNIQUE"|"unique"	return yy::parser::make_UNIQUE(loc);
 "VALUES"|"values"	return yy::parser::make_VALUES(loc);
 "DROP"|"drop"		return yy::parser::make_DROP(loc);

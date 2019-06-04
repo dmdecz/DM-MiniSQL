@@ -23,6 +23,7 @@ public:
 	API();
 	
 	int execute(Statement * s);
+	void execute_show(Statement * s);
 	void execute_use_database(Statement * s);
 	void execute_create_database(Statement * s);
 	void execute_drop_database(Statement * s);
@@ -31,6 +32,9 @@ public:
 	void execute_drop_table(Statement * s);
 	void execute_insert(Statement * s);
 	void execute_delete(Statement * s);
+	void execute_create_index(Statement * s);
+	void execute_drop_index(Statement * s);
+
 	~API();
 };
 

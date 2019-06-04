@@ -38,11 +38,13 @@ public:
 	~Table_Message();
 };
 
+typedef std::map<std::string, Table_Message *> TableInfo;
+
 class Catalog_Manager
 {
 private:
 	const std::string & database_name;
-	std::map<std::string, Table_Message *> table_list;
+	TableInfo table_list;
 	bool dirty;
 	static int TABLE_NAME_SIZE;
 
@@ -72,6 +74,8 @@ public:
 	void add_index_fragment(const std::string & table_name, int fragment_block_number);
 	IndexInfo & get_index(const std::string & table_name);
 	void update_index_entry(const std::string & table_name, const std::string & key_name, int entry);
+
+	TableInfo & get_all_tables();
 
 	void clear();
 	void write_back();

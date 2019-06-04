@@ -11,4 +11,9 @@
 #include "Quit_Statement.hpp"
 #include "Delete_Statement.hpp"
 
+#include "Create_Index_Statement.hpp"
+#include "Drop_Index_Statement.hpp"
+
+#include "Show_Statement.hpp"
+
 #endif // STATEMENTS_HPP

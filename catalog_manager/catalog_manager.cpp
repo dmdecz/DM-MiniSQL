@@ -205,6 +205,11 @@ void Catalog_Manager::create_database(const std::string & str)
 	}
 }
 
+TableInfo & Catalog_Manager::get_all_tables()
+{
+	return this->table_list;
+}
+
 void Catalog_Manager::clear()
 {
 	this->write_back();
@@ -355,8 +360,8 @@ int Catalog_Manager::get_index_fragment(const std::string & table_name)
 	if (this->has_table(table_name)) {
 		int size = this->table_list[table_name]->index_fragment.size();
 		if (size) {
-			ret = this->table_list[table_name]->index_fragment[size];
-			this->table_list[table_name]->index_fragment.erase(this->table_list[table_name]->index_fragment.end());
+			ret = this->table_list[table_name]->index_fragment[size - 1];
+			this->table_list[table_name]->index_fragment.erase(this->table_list[table_name]->index_fragment.end() - 1);
 			this->table_list[table_name]->dirty = true;
 		}
 	}

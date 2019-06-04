@@ -17,7 +17,6 @@ public:
 	void set_attribute(ExpressionList *);
 	void set_constrain(ExpressionList *);
 	virtual StatementType type(void) const;
-	const std::string & args() const;
 	virtual DMType args(int op = 0) const;
 	virtual ~Create_Table_Statement();
 };

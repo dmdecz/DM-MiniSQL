@@ -105,6 +105,7 @@ BPlusTree::BPlusTree(Catalog_Manager * catalog_manager, Buffer_Manager * buffer_
 //	std::cout << "key_length " << key_length << std::endl;
 //	std::cout << "degree " << this->degree << std::endl;
 	this->entry = this->allocate_block();
+	std::cout << "new entry " << this->entry << std::endl;
 	Node root(true, nullptr, 0);
 	root.write_back_to_block(this->get_block(this->entry), this->key_type);
 }
@@ -125,6 +126,7 @@ int BPlusTree::allocate_block()
 {
 	int ret = 0;
 	int index_fragment = this->m_catalog->get_index_fragment(this->table_name);
+	std::cout << index_fragment << std::endl;
 	if (index_fragment < 0) {
 		ret = index_fragment;
 	} else {
@@ -425,6 +427,32 @@ void BPlusTree::fix_delete(Node * node)
 	delete sibling;
 }
 
+void BPlusTree::drop()
+{
+	Block * root_block = this->get_block(this->entry);
+	Node * root = new Node(root_block, this->key_type);
+	this->drop(root);
+	this->m_catalog->add_index_fragment(this->table_name, this->entry);
+	root->write_back_to_block(root_block, this->key_type);
+	delete root;
+}
+
+void BPlusTree::drop(Node * node)
+{
+	if (node->leaf) {
+		node->drop();
+	} else {
+		for (auto & it : node->pointer) {
+			Block * child_block = this->get_block(it);
+			Node * child = new Node(child_block, this->key_type);
+			this->drop(child);
+			this->m_catalog->add_index_fragment(this->table_name, it);
+			child->write_back_to_block(child_block, this->key_type);
+			delete child;
+		}
+	}
+}
+
 
 Index_Manager::Index_Manager(const std::string &_database_name, Catalog_Manager *catalog_manager, Buffer_Manager *buffer_manager)
 	: database_name(_database_name), m_catalog(catalog_manager), m_buffer(buffer_manager) {}
@@ -439,7 +467,7 @@ void Index_Manager::create_index(const std::string & table_name, const std::stri
 	AttrType key_type = attribute_list[key_name].first;
 
 	BPlusTree * tree = new BPlusTree(this->m_catalog, this->m_buffer, table_name, key_type);
-
+	std::cout << "create a tree" << std::endl;
 	Record * tuple = new Record(attribute_list);
 	for (int i = 1; i <= block_number; ++i) {
 		Block * block = this->m_buffer->get_block(table_name, i);
@@ -450,12 +478,23 @@ void Index_Manager::create_index(const std::string & table_name, const std::stri
 			tuple->get_value(block->get_data(begin));
 			if (tuple->is_valid()) {
 				DMType data = (*tuple)[key_name];
+				std::cout << "insert " << data << std::endl;
 				tree->insert_key(data, i);
 			}
+			begin += record_length;
 		}
 	}
 	this->m_catalog->create_index(table_name, key_name, BPLUSTREE, tree->entry);
 	delete tree;
+}
+
+void Index_Manager::drop_index(const std::string & table_name, const std::string & key_name)
+{
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	BPlusTree tree(this->m_catalog, this->m_buffer, table_name, indices[key_name].second, attribute_list[key_name].first);
+	tree.drop();
+	this->m_catalog->drop_index(table_name, key_name);
 }
 
 void Index_Manager::insert_key(const std::string &table_name, std::map<std::string, DMType> &keys, int block_number)

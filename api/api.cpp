@@ -39,6 +39,9 @@ int API::execute(Statement * s)
 			}
 			int begin = clock();
 			switch (s->type()) {
+				case SHOW_TYPE:
+					this->execute_show(s);
+					break;
 				case SELECT_TYPE:
 					this->execute_select(s);
 					break;
@@ -53,6 +56,12 @@ int API::execute(Statement * s)
 					break;
 				case DELETE_TYPE:
 					this->execute_delete(s);
+					break;
+				case CREATE_INDEX_TYPE:
+					this->execute_create_index(s);
+					break;
+				case DROP_INDEX_TYPE:
+					this->execute_drop_index(s);
 					break;
 				default:
 					break;
@@ -307,9 +316,53 @@ void API::execute_drop_table(Statement * s)
 	std::cout << "Table '" + table_name + "' has been deleted." << std::endl;
 }
 
+void API::execute_show(Statement * s)
+{
+	int content = std::get<int>(s->args());
+	TableInfo & table_list = this->m_catalog->get_all_tables();
+
+	if (content == 0) {
+		for (auto & it : table_list) {
+			std::cout << '\t' << it.first << std::endl;
+		}
+	} else if (content == 1) {
+		for (auto & it : table_list) {
+			IndexInfo & indices = this->m_catalog->get_index(it.first);
+			for (auto & it_in: indices) {
+				std::cout << '\t' << it.first << '.' << it_in.first << std::endl;
+			}
+		}
+	}
+}
+
+void API::execute_create_index(Statement *s)
+{
+	const std::string & table_name = std::get<std::string>(s->args(0));
+	const std::string & key_name = std::get<std::string>(s->args(1));
+//	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	AttrInfo & key_list = this->m_catalog->get_attributes(table_name);
+	if (key_list[key_name].second == 0) {
+		throw Error(150, "Attribute '" + key_name + "' is not unique.");
+	}
+	this->m_index->create_index(table_name, key_name);
+}
+
+void API::execute_drop_index(Statement *s)
+{
+	const std::string & table_name = std::get<std::string>(s->args(0));
+	const std::string & key_name = std::get<std::string>(s->args(1));
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
+
+	if (this->m_catalog->has_index(table_name, key_name)) {
+		this->m_index->drop_index(table_name, key_name);
+	} else {
+		throw Error(151, "Attribute '" + key_name + "' does not have an index.");
+	}
+
+}
+
 API::~API()
 {
-//	std::cout << "~API" << std::endl;
 	delete this->m_catalog;
 	delete this->m_buffer;
 	delete this->m_record;

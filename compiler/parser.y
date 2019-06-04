@@ -28,7 +28,7 @@
 %define api.token.prefix {TOK_}
 
 %token <int> NUMBER;
-%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES DELETE INDEX UNIQUE
+%token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES DELETE INDEX UNIQUE ON SHOW
 %token
 	BLANK
 	END			"eof"
@@ -60,6 +60,7 @@
 %type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list attr_list value_list select_condition_list
 %type <Statement *> statement use_statement create_db_statement drop_db_statement
 %type <Statement *> select_statement drop_table_statement create_table_statement insert_statement delete_statement
+%type <Statement *> create_index_statement drop_index_statement show_statement
 
 %printer { yyo << $$; } <*>;
 
@@ -83,7 +84,27 @@ statement:
 	| drop_db_statement ENDL { $$ = $1; }
 	| insert_statement ENDL { $$ = $1; }
 	| delete_statement ENDL { $$ = $1; }
+	| create_index_statement ENDL { $$ = $1; }
+	| drop_index_statement ENDL { $$ = $1; }
+	| show_statement ENDL { $$ = $1; }
 	;
+
+show_statement:
+    SHOW TABLE { $$ = new Show_Statement(0); }
+    | SHOW INDEX { $$ = new Show_Statement(1); }
+    ;
+
+create_index_statement:
+    CREATE INDEX ON STRING STRING {
+        $$ = new Create_Index_Statement($4, $5);
+    }
+    ;
+
+drop_index_statement:
+    DROP INDEX STRING STRING {
+        $$ = new Drop_Index_Statement($3, $4);
+    }
+    ;
 
 insert_statement:
 	INSERT INTO STRING "(" attr_list ")" VALUES "("  value_list ")" {
@@ -126,8 +147,8 @@ select_statement:
 		Select_Statement * select = new Select_Statement;
 		select->set_select($2);
 		select->set_table($4);
-		select_record->set_condition($5);
-		$$ = select_record;
+		select->set_condition($5);
+		$$ = select;
 	}
 	;
 

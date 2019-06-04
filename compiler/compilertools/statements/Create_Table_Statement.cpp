@@ -18,11 +18,6 @@ StatementType Create_Table_Statement::type(void) const
 	return CREATE_TABLE_TYPE;
 }
 
-const std::string & Create_Table_Statement::args() const
-{
-	return this->table_name;
-}
-
 DMType Create_Table_Statement::args(int op) const
 {
 	switch (op)
