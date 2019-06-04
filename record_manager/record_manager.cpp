@@ -86,7 +86,7 @@ Record::~Record() = default;
 Record_Manager::Record_Manager(const std::string & database, Catalog_Manager * catalog, Buffer_Manager * buf)
 	: database_name(database), m_catalog(catalog), m_buffer(buf) {}
 
-void Record_Manager::select(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond)
+void Record_Manager::select_record(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond)
 {
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 	for (auto & v : list) {
@@ -119,7 +119,7 @@ void Record_Manager::select(const std::string & table_name, std::vector<std::str
 	std::cout << "Query OK, " <<  total << " in set." << std::endl;
 }
 
-void Record_Manager::select(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond, int block_number)
+void Record_Manager::select_record(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond, int block_number)
 {
 	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
 	for (auto & v : list) {
@@ -151,20 +151,10 @@ void Record_Manager::select(const std::string & table_name, std::vector<std::str
 	std::cout << "Query OK, " <<  total << " in set." << std::endl;
 }
 
-int Record_Manager::insert(const std::string & table_name, std::map<std::string, DMType> & attr_list)
+int Record_Manager::insert_record(const std::string & table_name, std::map<std::string, DMType> & attr_list)
 {
 	int ret = 0;
 	int size = this->m_catalog->data_block_number(table_name);
-    AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
-
-    for (auto & it : attribute_list) {
-	    if (attr_list.find(it.first) == attr_list.end()) {
-		    throw Error(757, "Part of attributes.");
-	    }
-	    if (!type_match(it.second.first, attr_list[it.first])) {
-		    throw Error(758, "Attributes don't match.");
-	    }
-    }
 
 	if (size == 0) {
 		ret = this->insert_to_new_block(table_name, attr_list, size);
@@ -279,6 +269,33 @@ std::map<std::string, std::vector<DMType>> Record_Manager::delete_record(const s
 		}
 	}
 	std::cout << "Query OK, " << total << " row(s) affected." << std::endl;
+	return ret;
+}
+
+int Record_Manager::search_key(const std::string & table_name, const std::string & key_name, DMType & key)
+{
+	int ret = 0;
+	AttrInfo & attribute_list = this->m_catalog->get_attributes(table_name);
+
+	int size = this->m_catalog->data_block_number(table_name);
+	int record_length = this->m_catalog->get_record_length(table_name);
+	CmpInfo cond;
+	cond[key_name] = std::make_pair(EQUAL, key);
+	Record * tuple = new Record(attribute_list, cond);
+	for (int i = 1; i <= size; ++i) {
+		Block * block = this->m_buffer->get_block(table_name, i);
+		int begin = Block::BLOCK_HEAD_SIZE;
+		int end = *(int*)block->get_data(0);
+		int record_number = (end - begin) / record_length;
+		for (int j = 0; j < record_number; ++j) {
+			tuple->get_value(block->get_data(begin));
+			if (tuple->is_valid()) {
+				ret = i;
+				return ret;
+			}
+			begin += record_length;
+		}
+	}
 	return ret;
 }
 

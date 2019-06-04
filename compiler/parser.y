@@ -126,8 +126,8 @@ select_statement:
 		Select_Statement * select = new Select_Statement;
 		select->set_select($2);
 		select->set_table($4);
-		select->set_condition($5);
-		$$ = select;
+		select_record->set_condition($5);
+		$$ = select_record;
 	}
 	;
 

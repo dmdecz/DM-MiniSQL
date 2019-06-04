@@ -38,14 +38,17 @@ private:
 	Buffer_Manager * m_buffer;
 
 public:
-	Record_Manager(const std::string &, Catalog_Manager *, Buffer_Manager *);
-	void select(const std::string &, std::vector<std::string> &, CmpInfo &);
-	void select(const std::string &, std::vector<std::string> &, CmpInfo &, int block_number);
-	int insert(const std::string &, std::map<std::string, DMType> &);
-	int insert_to_new_block(const std::string &, std::map<std::string, DMType> &, int);
-	int insert_to_old_block(const std::string &, std::map<std::string, DMType> &, int);
+	Record_Manager(const std::string & database_name, Catalog_Manager * catalog_manager, Buffer_Manager * buffer_manager);
+	void select_record(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond);
+	void select_record(const std::string & table_name, std::vector<std::string> & list, CmpInfo & cond, int block_number);
+	int insert_record(const std::string & table_name, std::map<std::string, DMType> & attr_list);
+	int insert_to_new_block(const std::string & table_name, std::map<std::string, DMType> & attr_list, int size);
+	int insert_to_old_block(const std::string & table_name, std::map<std::string, DMType> & attr_list, int size);
 	std::map<std::string, std::vector<DMType>> delete_record(const std::string & table_name, CmpInfo & cond);
 	std::map<std::string, std::vector<DMType>> delete_record(const std::string & table_name, CmpInfo & cond, int block_number);
+
+	int search_key(const std::string & table_name, const std::string & key_name, DMType & key);
+
 	~Record_Manager();
 };
 

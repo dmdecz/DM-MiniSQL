@@ -162,9 +162,9 @@ void API::execute_select(Statement * s)
 		}
 //		std::cout << block_number << std::endl;
 		if (index) {
-			this->m_record->select(table_name, list, cond, block_number);
+			this->m_record->select_record(table_name, list, cond, block_number);
 		} else {
-			this->m_record->select(table_name, list, cond);
+			this->m_record->select_record(table_name, list, cond);
 		}
 	} else {
 		throw Error(700, "No table named '" + table_name + "'.");
@@ -189,7 +189,28 @@ void API::execute_insert(Statement * s)
 		attr_value[attr] = (*value_list)[i]->values();
 	}
 
-	int block_number = this->m_record->insert(table_name, attr_value);
+	AttrInfo & key_list = this->m_catalog->get_attributes(table_name);
+	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	std::vector<std::string> check_list;
+	for (auto & it : key_list) {
+		if (attr_value.find(it.first) == attr_value.end()) {
+			throw Error(757, "Part of attributes.");
+		}
+		if (!type_match(it.second.first, attr_value[it.first])) {
+			throw Error(758, "Attributes don't match.");
+		}
+		int search = 0;
+		if (this->m_catalog->has_index(table_name, it.first)) {
+			search = this->m_index->search_key(table_name, it.first, attr_value[it.first]);
+		} else if (it.second.second > 0) {
+			search = this->m_record->search_key(table_name, it.first, attr_value[it.first]);
+		}
+		if (search) {
+			throw Error(102, "Duplicated value of " + it.first);
+		}
+	}
+
+	int block_number = this->m_record->insert_record(table_name, attr_value);
 	this->m_index->insert_key(table_name, attr_value, block_number);
 
 }
@@ -288,6 +309,7 @@ void API::execute_drop_table(Statement * s)
 
 API::~API()
 {
+//	std::cout << "~API" << std::endl;
 	delete this->m_catalog;
 	delete this->m_buffer;
 	delete this->m_record;
