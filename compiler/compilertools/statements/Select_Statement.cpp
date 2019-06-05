@@ -27,10 +27,10 @@ DMType Select_Statement::args(int op) const
 {
 	switch (op)
 	{
-	case 0: return this->select_list;
-	case 1: return this->table_list;
-	case 2: return this->select_cond;
-	default: return this->select_list;
+	case 0: return DMType(this->select_list);
+	case 1: return DMType(this->table_list);
+	case 2: return DMType(this->select_cond);
+	default: return DMType(this->select_list);
 	}
 }
 

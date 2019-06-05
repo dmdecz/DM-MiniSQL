@@ -10,7 +10,7 @@ StatementType Show_Statement::type(void) const
 
 DMType Show_Statement::args(int op) const
 {
-	return this->content;
+	return DMType(this->content);
 }
 
 Show_Statement::~Show_Statement() = default;

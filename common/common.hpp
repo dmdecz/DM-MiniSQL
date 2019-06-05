@@ -12,19 +12,59 @@ class Expression;
 class ExpressionList;
 
 typedef enum {SELECT_TYPE, CREATE_TABLE_TYPE, DROP_TABLE_TYPE, USE_TYPE, CREATE_DB_TYPE, DROP_DB_TYPE,
-			  INSERT_TYPE, QUIT_TYPE, DELETE_TYPE, CREATE_INDEX_TYPE, DROP_INDEX_TYPE, SHOW_TYPE} StatementType;
+			  INSERT_TYPE, QUIT_TYPE, DELETE_TYPE, CREATE_INDEX_TYPE, DROP_INDEX_TYPE, SHOW_TYPE,
+				SOURCE_TYPE} StatementType;
 typedef enum {BPLUSTREE, HASH} IndexType;
 
-typedef std::variant<int, double, char, std::string, ExpressionList *> DMType;
-std::ostream& operator<<(std::ostream & output, DMType & v);
+typedef std::variant<int, double, char, std::string, ExpressionList *> _DMType;
 
 typedef int AttrType;
-const void * DMType_to_void_pointer(DMType);
-DMType void_pointer_to_DMType(void *, AttrType);
-std::string DMType_to_string(DMType);
+const void * DMType_to_void_pointer(_DMType);
+_DMType void_pointer_to_DMType(const void *, AttrType);
+std::string DMType_to_string(_DMType);
 const int attrTypeLength(AttrType);
-const bool type_match(AttrType, DMType);
-const bool type_match(DMType, AttrType);
+const bool type_match(AttrType, _DMType);
+const bool type_match(_DMType, AttrType);
+
+class DMType {
+private:
+	_DMType data;
+public:
+	DMType() {}
+	DMType(const void * p, AttrType a) { data = ::void_pointer_to_DMType(p, a); }
+	explicit DMType(const _DMType & d): data(d) {}
+
+	explicit DMType(int d): data(d) {}
+	explicit DMType(double d): data(d) {}
+	explicit DMType(char d): data(d) {}
+	explicit DMType(ExpressionList *d): data(d) {}
+	explicit DMType(const std::string & d): data(d) {}
+
+	DMType &operator=(int d) { data = d; return *this;}
+	DMType &operator=(double d) { data = d; return *this;}
+	DMType &operator=(char d) { data = d; return *this;}
+	DMType &operator=(ExpressionList *d) { data = d; return *this;}
+	DMType &operator=(const std::string & d) { data = d; return *this;}
+
+	int to_int() { return std::get<int>(data); }
+	double to_double() { return std::get<double>(data); }
+	char to_char() { return std::get<char>(data); }
+	std::string to_string() { return ::DMType_to_string(data); }
+	ExpressionList * to_expression_list() { return std::get<ExpressionList*>(data); }
+	const void * data_address() { return ::DMType_to_void_pointer(data); }
+	bool type_match(AttrType a) { return ::type_match(a, data); }
+
+	bool operator==(DMType & d) const { return data == d.data; }
+	bool operator<(DMType & d) const { return data < d.data; }
+	bool operator>(DMType & d) const { return data > d.data; }
+	bool operator<=(DMType & d) const { return data <= d.data; }
+	bool operator>=(DMType & d) const { return data >= d.data; }
+	bool operator!=(DMType & d) const { return data != d.data; }
+
+	int index() { return data.index(); }
+};
+
+std::ostream& operator<<(std::ostream & output, DMType & v);
 
 typedef std::map<std::string, std::pair<AttrType, int>> AttrInfo;
 typedef enum {EQUAL, LESS, LARGE, NOT} CmpType;

@@ -9,13 +9,10 @@ int main(int argc, char const *argv[])
 	std::cout << "***********************" << std::endl;
 	API * api = new API;
 	Compiler drv(api);
-	int res = 0;
-//	int i = 0;
 	do
 	{
-		res = drv.parse();
-//		std::cout << drv.result << std::endl;
-	} while (res != -1);
+		drv.parse();
+	} while (!drv.quit());
 
 	delete api;
 	

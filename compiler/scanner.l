@@ -7,74 +7,9 @@
 # include <iostream>
 # include <fstream>
 # include <sstream>
-# include <readline/readline.h>
-# include <readline/history.h>
+
 # include "compiler.hpp"
 # include "parser.hpp"
-
-#define YY_INPUT(buf,result,max_size) result = mygetinput(buf, max_size);
-
-
-char getLastNotSpace(const char * s)
-{
-	const char * p = s + strlen(s);
-	while (p != s && *--p == ' ');
-	return *p;
-}
-
-char * getCmd(int size)
-{
-	char * str = readline("DM> ");
-	while (!str || strlen(str) == 0) {
-		str = readline("DM> ");
-	}
-	
-	char * ret = (char*)malloc(sizeof(char)*size);
-	strcpy(ret, str);
-	add_history(str);
-
-	while (getLastNotSpace(str) != ';' && strlen(ret) < size) {
-		free(str);
-		str = readline("  > ");
-		strcat(ret, " ");
-		strcat(ret, str);
-		add_history(str);
-	}
-	free(str);
-	// printf("string: %s\n", ret);
-	return ret;
-}
-
-char * getFile(std::string & f)
-{
-	std::ifstream in(f);
-	if(!in) {
-		std::cerr << "ERROR\nCannot open file ''" << f << "'': " << strerror(errno) << '\n';
-	}
-	f.clear();
-	std::ostringstream tmp;
-	tmp << in.rdbuf();
-	std::string ret = tmp.str();
-	char * buf = (char *)malloc(sizeof(char) * (ret.size()+2));
-	char endl[] = ";";
-	strcpy(buf, ret.c_str());
-	strcat(buf, endl);
-	return buf;
-}
-
-static int mygetinput(char *buf, int size) {
-	// printf("***input***\n");
-	char * line;
-	if (feof(yyin))  return YY_NULL;
-	if (Compiler::file.empty())
-		line = getCmd(size);
-	else
-		line = getFile(Compiler::file);
-	if(!line)	return YY_NULL;
-	sprintf(buf,"%s\n",line);
-	free(line);
-	return strlen(buf);
-}
 
 %}
 
@@ -211,14 +146,14 @@ make_NUMBER (const std::string &s, const yy::parser::location_type& loc)
 }
 
 void
-Compiler::scan_begin ()
+Compiler::scan_begin (FILE * fp)
 {
-	yy_flex_debug = trace_scanning;
-    yyin = stdin;
+  yy_flex_debug = trace_scanning;
+  yyin = fp;
 }
 
 void
 Compiler::scan_end ()
 {
-	YY_FLUSH_BUFFER;
+  fclose (yyin);
 }

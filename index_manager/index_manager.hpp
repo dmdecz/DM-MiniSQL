@@ -36,10 +36,6 @@ public:
 	bool is_enough(int degree);
 
 	void drop();
-//	int insert_key(DMType key, int position_or_pointer_1, int position_or_pointer_2);
-//	int insert_key(DMType key, int position);
-//	int delete_key(DMType key);
-//	int search_key(DMType key);
 };
 
 class BPlusTree

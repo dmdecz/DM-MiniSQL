@@ -9,8 +9,8 @@ DMType Constrain_Expression::values(int op) const
 {
 	switch (op)
 	{
-	case 0: return this->constrain_type;
-	case 1: return this->constrain_name;
-	default: return this->constrain_type;
+	case 0: return DMType(this->constrain_type);
+	case 1: return DMType(this->constrain_name);
+	default: return DMType(this->constrain_type);
 	}
 }

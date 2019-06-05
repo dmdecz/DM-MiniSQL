@@ -5,13 +5,13 @@ Attribute_Expression::Attribute_Expression(const std::string str, int d, int _in
 
 Attribute_Expression::~Attribute_Expression(void) {}
 
-DMType Attribute_Expression::values(int op) const 
+DMType Attribute_Expression::values(int op) const
 {
 	switch (op)
 	{
-	case 0: return this->name;
-	case 1: return this->type;
-	case 2: return this->info;
-	default: return this->name;
+	case 0: return DMType(this->name);
+	case 1: return DMType(this->type);
+	case 2: return DMType(this->info);
+	default: return DMType(this->name);
 	}
 }

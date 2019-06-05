@@ -13,23 +13,33 @@ YY_DECL;
 
 class Compiler
 {
-public:
-	static std::string file;
+private:
+	std::string file;
+	std::string instructions;
 
 	bool trace_scanning;
-  	yy::location location;
 
 	API * api;
+
 	int result;
-	Compiler(API *);
+
+public:
+	yy::location location;
+
+	explicit Compiler(API *);
+	Compiler(API *, const std::string & file_name);
 	void execute_statement(Statement *);
+	void execute_statement(std::vector<Statement *> &);
 	virtual ~Compiler();
 
 	// parser
 	int parse ();
 	bool trace_parsing;
-	void scan_begin ();
-  	void scan_end ();
+	void scan_begin(FILE * fp);
+  	void scan_end();
+  	void scan_string();
+
+  	bool quit();
 };
 
 #endif // __COMPILER_HPP__

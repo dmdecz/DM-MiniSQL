@@ -80,7 +80,7 @@ int API::execute(Statement * s)
 
 void API::execute_use_database(Statement * s)
 {
-	std::string database_name = std::get<std::string>(s->args());
+	std::string database_name = s->args().to_string();
 	if (database_name == this->database_name)
 		return;
 	if (!opendir(database_name.c_str()))
@@ -96,14 +96,14 @@ void API::execute_use_database(Statement * s)
 
 void API::execute_create_database(Statement * s)
 {
-	std::string database_name = std::get<std::string>(s->args());
+	std::string database_name = s->args().to_string();
 	this->m_catalog->create_database(database_name);
 	std::cout << "Query OK, 0 row(s) affected." << std::endl;
 }
 
 void API::execute_drop_database(Statement * s)
 {
-	std::string database_name = std::get<std::string>(s->args());
+	std::string database_name = s->args().to_string();
 	if (opendir(database_name.c_str())) {
 		if (database_name == this->database_name)
 		{
@@ -121,20 +121,20 @@ void API::execute_drop_database(Statement * s)
 
 void API::execute_select(Statement * s)
 {
-	ExpressionList * select_list = std::get<ExpressionList *>(s->args(0));
-	ExpressionList * table_list = std::get<ExpressionList *>(s->args(1));
-	ExpressionList * select_cond = std::get<ExpressionList *>(s->args(2));
-	std::string table_name = std::get<std::string>(((*table_list)[0])->values());
+	ExpressionList * select_list = s->args(0).to_expression_list();
+	ExpressionList * table_list = s->args(1).to_expression_list();
+	ExpressionList * select_cond = s->args(2).to_expression_list();
+	std::string table_name = (*table_list)[0]->values().to_string();
 	std::vector<std::string> list;
 	CmpInfo cond;
 	for (int i = 0; i < select_list->size(); ++i) {
-		std::string str = std::get<std::string>((*select_list)[i]->values());
+		std::string str = (*select_list)[i]->values().to_string();
 		list.push_back(str);
 	}
 	if (select_cond) {
 		for (size_t i = 0; i < select_cond->size(); i++) {
-			std::string str = std::get<std::string>(((*select_cond)[i])->values(0));
-			cond[str] = std::make_pair(std::get<int>(((*select_cond)[i])->values(1)), ((*select_cond)[i])->values(2));
+			std::string str = (*select_cond)[i]->values(0).to_string();
+			cond[str] = std::make_pair((*select_cond)[i]->values(1).to_int(), (*select_cond)[i]->values(2));
 		}
 	}
 	if (this->m_catalog->has_table(table_name)) {
@@ -169,7 +169,7 @@ void API::execute_select(Statement * s)
 				}
 			}
 		}
-//		std::cout << block_number << std::endl;
+
 		if (index) {
 			this->m_record->select_record(table_name, list, cond, block_number);
 		} else {
@@ -183,9 +183,9 @@ void API::execute_select(Statement * s)
 
 void API::execute_insert(Statement * s)
 {
-	std::string table_name = std::get<std::string>(s->args(0));
-	ExpressionList * attribute_list = std::get<ExpressionList *>(s->args(1));
-	ExpressionList * value_list = std::get<ExpressionList *>(s->args(2));
+	std::string table_name = s->args(0).to_string();
+	ExpressionList * attribute_list = s->args(1).to_expression_list();
+	ExpressionList * value_list = s->args(2).to_expression_list();
 	std::map<std::string, DMType> attr_value;
 	if (!this->m_catalog->has_table(table_name)) {
 		throw Error(700, "No table named '" + table_name + "'.");
@@ -194,7 +194,7 @@ void API::execute_insert(Statement * s)
 		throw Error(756, "The values are incompleted.");
 	for (size_t i = 0; i < attribute_list->size(); i++)
 	{
-		std::string attr = std::get<std::string>((*attribute_list)[i]->values());
+		std::string attr = (*attribute_list)[i]->values().to_string();
 		attr_value[attr] = (*value_list)[i]->values();
 	}
 
@@ -205,7 +205,7 @@ void API::execute_insert(Statement * s)
 		if (attr_value.find(it.first) == attr_value.end()) {
 			throw Error(757, "Part of attributes.");
 		}
-		if (!type_match(it.second.first, attr_value[it.first])) {
+		if (!attr_value[it.first].type_match(it.second.first)) {
 			throw Error(758, "Attributes don't match.");
 		}
 		int search = 0;
@@ -225,8 +225,8 @@ void API::execute_insert(Statement * s)
 
 void API::execute_delete(Statement * s)
 {
-	std::string table_name = std::get<std::string>(s->args(0));
-	ExpressionList * delete_cond = std::get<ExpressionList *>(s->args(1));
+	std::string table_name = s->args(0).to_string();
+	ExpressionList * delete_cond = s->args(1).to_expression_list();
 	if (!this->m_catalog->has_table(table_name)) {
 		throw Error(700, "No table named '" + table_name + "'.");
 	}
@@ -236,8 +236,8 @@ void API::execute_delete(Statement * s)
 	IndexInfo & indices = this->m_catalog->get_index(table_name);
 
 	for (size_t i = 0; i < delete_cond->size(); i++) {
-		std::string str = std::get<std::string>(((*delete_cond)[i])->values(0));
-		cond[str] = std::make_pair(std::get<int>(((*delete_cond)[i])->values(1)), ((*delete_cond)[i])->values(2));
+		std::string str = (*delete_cond)[i]->values(0).to_string();
+		cond[str] = std::make_pair((*delete_cond)[i]->values(1).to_int(), (*delete_cond)[i]->values(2));
 	}
 	int block_number = 0;
 	bool index = false;
@@ -276,16 +276,16 @@ void API::execute_delete(Statement * s)
 
 void API::execute_create_table(Statement * s)
 {
-	std::string table_name = std::get<std::string>(s->args());
-	ExpressionList * attribute_list = std::get<ExpressionList *>(s->args(1));
-	ExpressionList * constrain_list = std::get<ExpressionList *>(s->args(2));
+	std::string table_name = s->args().to_string();
+	ExpressionList * attribute_list = s->args(1).to_expression_list();
+	ExpressionList * constrain_list = s->args(2).to_expression_list();
 
 	AttrInfo attrlist;
 	if (attribute_list) {
 		for (size_t i = 0; i < attribute_list->size(); i++) {
-			std::string name = std::get<std::string>(((*attribute_list)[i])->values(0));
-			AttrType type = std::get<int>(((*attribute_list)[i])->values(1));
-			int other_info = std::get<int>(((*attribute_list)[i])->values(2));
+			std::string name = (*attribute_list)[i]->values(0).to_string();
+			AttrType type = (*attribute_list)[i]->values(1).to_int();
+			int other_info = (*attribute_list)[i]->values(2).to_int();
 			attrlist[name].first = type;
 			attrlist[name].second = other_info;
 		}
@@ -293,7 +293,7 @@ void API::execute_create_table(Statement * s)
 
 	std::string primary_key;
 	if (constrain_list) {
-		primary_key = std::get<std::string>(((*constrain_list)[0])->values(1));
+		primary_key = (*constrain_list)[0]->values(1).to_string();
 		attrlist[primary_key].second = 2;
 	}
 	this->m_catalog->create_table(table_name, attrlist);
@@ -306,7 +306,7 @@ void API::execute_create_table(Statement * s)
 
 void API::execute_drop_table(Statement * s)
 {
-	std::string table_name = std::get<std::string>(s->args());
+	std::string table_name = s->args().to_string();
 	if (!this->m_catalog->has_table(table_name)) {
 		throw Error(700, "No table named '" + table_name + "'.");
 	}
@@ -316,7 +316,7 @@ void API::execute_drop_table(Statement * s)
 
 void API::execute_show(Statement * s)
 {
-	int content = std::get<int>(s->args());
+	int content = s->args().to_int();
 	TableInfo & table_list = this->m_catalog->get_all_tables();
 
 	if (content == 0) {
@@ -335,9 +335,8 @@ void API::execute_show(Statement * s)
 
 void API::execute_create_index(Statement *s)
 {
-	const std::string & table_name = std::get<std::string>(s->args(0));
-	const std::string & key_name = std::get<std::string>(s->args(1));
-//	IndexInfo & indices = this->m_catalog->get_index(table_name);
+	const std::string & table_name = s->args(0).to_string();
+	const std::string & key_name = s->args(1).to_string();
 	AttrInfo & key_list = this->m_catalog->get_attributes(table_name);
 	if (key_list[key_name].second == 0) {
 		throw Error(150, "Attribute '" + key_name + "' is not unique.");
@@ -347,8 +346,8 @@ void API::execute_create_index(Statement *s)
 
 void API::execute_drop_index(Statement *s)
 {
-	const std::string & table_name = std::get<std::string>(s->args(0));
-	const std::string & key_name = std::get<std::string>(s->args(1));
+	const std::string & table_name = s->args(0).to_string();
+	const std::string & key_name = s->args(1).to_string();
 	IndexInfo & indices = this->m_catalog->get_index(table_name);
 
 	if (this->m_catalog->has_index(table_name, key_name)) {

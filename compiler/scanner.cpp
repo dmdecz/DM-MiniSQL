@@ -711,11 +711,11 @@ int yy_flex_debug = 1;
 
 static yyconst flex_int16_t yy_rule_linenum[44] =
     {   0,
-      157,  158,  159,  160,  161,  162,  163,  164,  165,  166,
-      167,  168,  169,  170,  171,  172,  173,  174,  175,  176,
-      177,  178,  179,  180,  181,  182,  183,  184,  185,  186,
-      187,  188,  189,  190,  191,  192,  193,  194,  195,  196,
-      197,  198,  199
+       92,   93,   94,   95,   96,   97,   98,   99,  100,  101,
+      102,  103,  104,  105,  106,  107,  108,  109,  110,  111,
+      112,  113,  114,  115,  116,  117,  118,  119,  120,  121,
+      122,  123,  124,  125,  126,  127,  128,  129,  130,  131,
+      132,  133,  134
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -736,76 +736,11 @@ char *yytext;
 # include <iostream>
 # include <fstream>
 # include <sstream>
-# include <readline/readline.h>
-# include <readline/history.h>
+
 # include "compiler.hpp"
 # include "parser.hpp"
 
-#define YY_INPUT(buf,result,max_size) result = mygetinput(buf, max_size);
-
-
-char getLastNotSpace(const char * s)
-{
-	const char * p = s + strlen(s);
-	while (p != s && *--p == ' ');
-	return *p;
-}
-
-char * getCmd(int size)
-{
-	char * str = readline("DM> ");
-	while (!str || strlen(str) == 0) {
-		str = readline("DM> ");
-	}
-	
-	char * ret = (char*)malloc(sizeof(char)*size);
-	strcpy(ret, str);
-	add_history(str);
-
-	while (getLastNotSpace(str) != ';' && strlen(ret) < size) {
-		free(str);
-		str = readline("  > ");
-		strcat(ret, " ");
-		strcat(ret, str);
-		add_history(str);
-	}
-	free(str);
-	// printf("string: %s\n", ret);
-	return ret;
-}
-
-char * getFile(std::string & f)
-{
-	std::ifstream in(f);
-	if(!in) {
-		std::cerr << "ERROR\nCannot open file ''" << f << "'': " << strerror(errno) << '\n';
-	}
-	f.clear();
-	std::ostringstream tmp;
-	tmp << in.rdbuf();
-	std::string ret = tmp.str();
-	char * buf = (char *)malloc(sizeof(char) * (ret.size()+2));
-	char endl[] = ";";
-	strcpy(buf, ret.c_str());
-	strcat(buf, endl);
-	return buf;
-}
-
-static int mygetinput(char *buf, int size) {
-	// printf("***input***\n");
-	char * line;
-	if (feof(yyin))  return YY_NULL;
-	if (Compiler::file.empty())
-		line = getCmd(size);
-	else
-		line = getFile(Compiler::file);
-	if(!line)	return YY_NULL;
-	sprintf(buf,"%s\n",line);
-	free(line);
-	return strlen(buf);
-}
-
-#line 82 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 17 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 // Pacify warnings in yy_init_buffer (observed with Flex 2.6.4)
 // and GCC 6.4.0, 7.3.0.
 #if defined __GNUC__ && !defined __clang__ && 6 <= __GNUC__
@@ -855,14 +790,14 @@ static int mygetinput(char *buf, int size) {
 # endif
 #endif
 #define YY_NO_INPUT 1
-#line 135 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 70 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 	// A number symbol corresponding to the value in S.
 	yy::parser::symbol_type
 	make_NUMBER (const std::string &s, const yy::parser::location_type& loc);
-#line 146 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 81 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 	// Code run each time a pattern is matched.
 	# define YY_USER_ACTION  loc.columns (yyleng);
-#line 866 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.cpp"
+#line 801 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.cpp"
 
 #define INITIAL 0
 
@@ -1102,7 +1037,7 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 150 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 85 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 
 
 	// A handy shortcut to the location held by the driver.
@@ -1110,7 +1045,7 @@ YY_DECL
 	// Code run each time yylex is called.
 	loc.step ();
 
-#line 1114 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.cpp"
+#line 1049 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -1222,230 +1157,230 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 157 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 92 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 loc.step ();
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 158 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 93 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 loc.lines (yyleng); loc.step ();
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 159 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 94 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return make_NUMBER (yytext, loc);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 160 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 95 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_ENDL  (loc);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 161 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 96 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_SHOW(loc);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 162 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 97 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_SELECT(loc);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 163 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 98 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_INSERT(loc);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 164 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 99 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_DELETE(loc);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 165 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 100 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_INTO(loc);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 166 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 101 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_INDEX(loc);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 167 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 102 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_ON(loc);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 168 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 103 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_UNIQUE(loc);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 169 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 104 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_VALUES(loc);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 170 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 105 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_DROP(loc);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 171 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 106 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_FROM  (loc);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 172 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 107 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_WHERE (loc);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 173 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 108 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_QUIT  (loc);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 174 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 109 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_SOURCE(loc);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 175 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 110 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_CREATE(loc);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 176 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 111 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_TABLE (loc);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 177 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 112 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_USE (loc);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 178 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 113 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_DATABASE (loc);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 179 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 114 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_INT (loc);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 180 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 115 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_DOUBLE (loc);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 181 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 116 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_CHAR (loc);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 182 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 117 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_PRIMARY_KEY (loc);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 183 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 118 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_FOREIGN_KEY (loc);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 184 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 119 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_MINUS  (loc);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 185 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 120 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_PLUS   (loc);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 186 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 121 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_STAR   (loc);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 187 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 122 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_SLASH  (loc);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 188 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 123 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_LPAREN (loc);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 189 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 124 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_RPAREN (loc);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 190 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 125 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_COMMA (loc);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 191 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 126 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_EQUAL (loc);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 192 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 127 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_LESS  (loc);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 193 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 128 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_LARGE (loc);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 194 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 129 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_NOT   (loc);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 195 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 130 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_AND   (loc);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 196 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 131 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_OR    (loc);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 197 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 132 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_FILENAME(std::string(yytext), loc);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 198 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 133 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_STRING(std::string(yytext), loc);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 199 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 134 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 /*std::cout << loc << ": invalid character: " + std::string(yytext) << std::endl*/;
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 200 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 135 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 return yy::parser::make_END (loc);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 201 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 136 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 ECHO;
 	YY_BREAK
-#line 1449 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.cpp"
+#line 1384 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2535,7 +2470,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 201 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
+#line 136 "/Users/chenzhuo/Desktop/Working/DM/compiler/scanner.l"
 
 
 
@@ -2550,15 +2485,14 @@ make_NUMBER (const std::string &s, const yy::parser::location_type& loc)
 }
 
 void
-Compiler::scan_begin ()
+Compiler::scan_begin (FILE * fp)
 {
-	yy_flex_debug = trace_scanning;
-    yyin = stdin;
+  yy_flex_debug = trace_scanning;
+  yyin = fp;
 }
 
 void
 Compiler::scan_end ()
 {
-	YY_FLUSH_BUFFER;
+  fclose (yyin);
 }
-

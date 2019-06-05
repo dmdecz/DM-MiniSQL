@@ -10,7 +10,7 @@ StatementType Drop_Table_Statement::type(void) const
 
 DMType Drop_Table_Statement::args(int op) const
 {
-	return this->table_name;
+	return DMType(this->table_name);
 }
 
 Drop_Table_Statement::~Drop_Table_Statement() {}

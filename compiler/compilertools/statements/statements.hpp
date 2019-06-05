@@ -15,5 +15,6 @@
 #include "Drop_Index_Statement.hpp"
 
 #include "Show_Statement.hpp"
+#include "Source_Statement.hpp"
 
 #endif // STATEMENTS_HPP

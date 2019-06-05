@@ -22,10 +22,10 @@ DMType Create_Table_Statement::args(int op) const
 {
 	switch (op)
 	{
-	case 0: return this->table_name;
-	case 1: return this->attribute_list;
-	case 2: return this->constrain_list;
-	default: return this->attribute_list;
+	case 0: return DMType(this->table_name);
+	case 1: return DMType(this->attribute_list);
+	case 2: return DMType(this->constrain_list);
+	default: return DMType(this->attribute_list);
 	}
 }
 

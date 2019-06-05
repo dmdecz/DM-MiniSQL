@@ -36,7 +36,6 @@ void Block::load()
 
 void Block::write_back()
 {
-//	std::cout << this->database_name << " " << this->table_name << " " << this->dirty << std::endl;
 	if (this->database_name.empty() || !this->dirty || !this->block_number)
 		return;
 	std::fstream fp;
@@ -64,6 +63,12 @@ void Block::datacpy(int offset, const void * s, size_t length)
 	this->dirty = true;
 }
 
+void Block::datacpy(int offset, DMType & d, size_t length)
+{
+	memcpy(this->data + offset, d.data_address(), length);
+	this->dirty = true;
+}
+
 void Block::zero(int begin, int end)
 {
 	memset(this->data + begin, 0, sizeof(char) * (end - begin));
@@ -77,12 +82,12 @@ char * Block::get_data(int offset)
 
 void Block::lock()
 {
-	this->locked = 1;
+	this->locked = true;
 }
 
 void Block::unlock()
 {
-	this->locked = 0;
+	this->locked = false;
 }
 
 bool Block::is_hit(const std::string & table, int number)
@@ -92,7 +97,6 @@ bool Block::is_hit(const std::string & table, int number)
 
 Block::~Block()
 {
-//	std::cout << "~Block" << std::endl;
 	this->write_back();
 	delete[] this->data;
 }
@@ -104,17 +108,11 @@ Buffer_Manager::Buffer_Manager(const std::string & database)
 
 Block * Buffer_Manager::get_block(const std::string & table_name, int block_num)
 {
-//	std::cout << "get block " << block_num << std::endl;
 	Block * ret = nullptr;
 	if (block_num == 0) {
 		return ret;
 	}
-//	std::cout << "before:";
-//	for (size_t i = 0; i < this->block_pool.size(); i++)
-//	{
-//		std::cout << " " << this->block_pool[i]->block_number;
-//	}
-//	std::cout << std::endl;
+
 	for (size_t i = 0; i < this->block_pool.size(); i++)
 	{
 		if (this->block_pool[i]->is_hit(table_name, block_num))
@@ -130,12 +128,7 @@ Block * Buffer_Manager::get_block(const std::string & table_name, int block_num)
 		ret = new Block(this->database_name, table_name, block_num);
 		this->put_block(ret);
 	}
-//	std::cout << "after:";
-//	for (size_t i = 0; i < this->block_pool.size(); i++)
-//	{
-//		std::cout << " " << this->block_pool[i]->block_number;
-//	}
-//	std::cout << std::endl;
+
 	return ret;
 }
 
@@ -164,7 +157,5 @@ Block * Buffer_Manager::create_block(const std::string & table_name, int block_n
 
 Buffer_Manager::~Buffer_Manager()
 {
-//	std::cout << "~Buffer_Manager" << std::endl;
-//	std::cout << this->block_pool.size() << std::endl;
 	this->clear();
 }

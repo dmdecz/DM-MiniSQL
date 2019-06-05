@@ -10,7 +10,7 @@ StatementType Drop_Database_Statement::type(void) const
 
 DMType Drop_Database_Statement::args(int op) const
 {
-	return this->database_name;
+	return DMType(this->database_name);
 }
 
 Drop_Database_Statement::~Drop_Database_Statement() {}

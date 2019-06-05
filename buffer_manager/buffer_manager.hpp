@@ -1,6 +1,8 @@
 #if !defined(BUFFER_MANAGER_HPP)
 #define BUFFER_MANAGER_HPP
 
+#include "../common/common.hpp"
+
 #include <string>
 #include <vector>
 
@@ -26,6 +28,7 @@ public:
 	void unlock();
 	bool is_hit(const std::string &, int);
 	void datacpy(int, const void *, size_t);
+	void datacpy(int, DMType &, size_t);
 	void zero(int begin = 0, int end = Block::BLOCK_SIZE);
 	char * get_data(int);
 	~Block();

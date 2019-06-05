@@ -12,6 +12,8 @@
 
   #include <string>
   class Compiler;
+
+
 }
 
 // The parsing context.
@@ -25,6 +27,7 @@
 %code {
 # include "compiler.hpp"
 # include "compilertools/compilertools.hpp"
+
 }
 
 %define api.token.prefix {TOK_}
@@ -57,30 +60,29 @@
 %token <std::string> STRING FILENAME
 
 %type <int> variant_type
-%type <std::string> source_statement
+
 %type <Expression *> exp attribute_exp constrain_exp select_condition_exp
 %type <ExpressionList *> select_list table_list select_condition attribute_list constrain_list attr_list value_list select_condition_list
+%type <std::vector<Statement*>> statement_list
 %type <Statement *> statement use_statement create_db_statement drop_db_statement
 %type <Statement *> select_statement drop_table_statement create_table_statement insert_statement delete_statement
 %type <Statement *> create_index_statement drop_index_statement show_statement
 
-%printer { yyo << $$; } <*>;
-
 %%
 
 statement_list:
-	statement { drv.execute_statement($1); }
-	| statement_list statement { drv.execute_statement($2); }
+    statement_list statement { drv.execute_statement($2); }
+	| statement { drv.execute_statement($1); }
+	| statement_list END { return 1; }
 	;
 
 statement:
-	END { $$ = nullptr; }
-	| ENDL { $$ = nullptr; }
+	ENDL { $$ = nullptr; }
 	| select_statement ENDL { $$ = $1; }
-	| source_statement ENDL { $$ = nullptr; Compiler::file = $1; return 0; }
+	| SOURCE FILENAME ENDL { $$ = new Source_Statement($2); }
 	| create_table_statement ENDL { $$ = $1; }
 	| drop_table_statement ENDL { $$ = $1; }
-	| QUIT ENDL { $$ = new Quit_Statement; drv.execute_statement($$); return -1; }
+	| QUIT ENDL { $$ = new Quit_Statement; }
 	| use_statement ENDL { $$ = $1; }
 	| create_db_statement ENDL { $$ = $1; }
 	| drop_db_statement ENDL { $$ = $1; }
@@ -138,10 +140,6 @@ use_statement:
 
 create_db_statement:
 	CREATE DATABASE STRING { $$ = new Create_Database_Statement($3); }
-	;
-
-source_statement:
-	SOURCE FILENAME { $$ = $2; }
 	;
 
 select_statement:
@@ -235,5 +233,8 @@ constrain_exp:
 void
 yy::parser::error (const location_type& l, const std::string& m)
 {
-    throw Error(0, "Syntax Error: " + m);
+    Error e(0, "Syntax Error: " + m);
+    e.diagnose();
 }
+
+

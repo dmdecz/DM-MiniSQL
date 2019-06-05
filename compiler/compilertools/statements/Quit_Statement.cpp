@@ -15,5 +15,5 @@ StatementType Quit_Statement::type(void) const
 
 DMType Quit_Statement::args(int op) const
 {
-	return 0;
+	return DMType(0);
 }

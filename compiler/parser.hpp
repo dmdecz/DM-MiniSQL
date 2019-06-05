@@ -52,7 +52,9 @@
   #include <string>
   class Compiler;
 
-#line 56 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+
+
+#line 58 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -167,7 +169,7 @@
 #endif
 
 namespace yy {
-#line 171 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+#line 173 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 
 
@@ -407,8 +409,10 @@ namespace yy {
 
       // STRING
       // FILENAME
-      // source_statement
       char dummy5[sizeof (std::string)];
+
+      // statement_list
+      char dummy6[sizeof (std::vector<Statement*>)];
     };
 
     /// The size of the largest semantic type.
@@ -616,6 +620,19 @@ namespace yy {
         , location (l)
       {}
 #endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::vector<Statement*>&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::vector<Statement*>& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
 
       /// Destroy the symbol.
       ~basic_symbol ()
@@ -639,21 +656,21 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 64: // select_condition_exp
-      case 66: // exp
-      case 69: // attribute_exp
-      case 72: // constrain_exp
+      case 63: // select_condition_exp
+      case 65: // exp
+      case 68: // attribute_exp
+      case 71: // constrain_exp
         value.template destroy< Expression * > ();
         break;
 
       case 52: // attr_list
       case 53: // value_list
-      case 60: // select_list
-      case 61: // table_list
-      case 62: // select_condition
-      case 63: // select_condition_list
-      case 68: // attribute_list
-      case 71: // constrain_list
+      case 59: // select_list
+      case 60: // table_list
+      case 61: // select_condition
+      case 62: // select_condition_list
+      case 67: // attribute_list
+      case 70: // constrain_list
         value.template destroy< ExpressionList * > ();
         break;
 
@@ -666,21 +683,24 @@ switch (yytype)
       case 55: // drop_db_statement
       case 56: // use_statement
       case 57: // create_db_statement
-      case 59: // select_statement
-      case 65: // delete_statement
-      case 67: // create_table_statement
+      case 58: // select_statement
+      case 64: // delete_statement
+      case 66: // create_table_statement
         value.template destroy< Statement * > ();
         break;
 
       case 3: // NUMBER
-      case 70: // variant_type
+      case 69: // variant_type
         value.template destroy< int > ();
         break;
 
       case 43: // STRING
       case 44: // FILENAME
-      case 58: // source_statement
         value.template destroy< std::string > ();
+        break;
+
+      case 46: // statement_list
+        value.template destroy< std::vector<Statement*> > ();
         break;
 
       default:
@@ -1520,7 +1540,7 @@ switch (yytype)
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const unsigned char yycheck_[];
+  static const short yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -1770,9 +1790,9 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 118,     ///< Last index in yytable_.
-      yynnts_ = 28,  ///< Number of nonterminal symbols.
-      yyfinal_ = 42, ///< Termination state number.
+      yylast_ = 120,     ///< Last index in yytable_.
+      yynnts_ = 27,  ///< Number of nonterminal symbols.
+      yyfinal_ = 40, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
       yyntokens_ = 45  ///< Number of tokens.
@@ -1845,21 +1865,21 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 64: // select_condition_exp
-      case 66: // exp
-      case 69: // attribute_exp
-      case 72: // constrain_exp
+      case 63: // select_condition_exp
+      case 65: // exp
+      case 68: // attribute_exp
+      case 71: // constrain_exp
         value.move< Expression * > (std::move (that.value));
         break;
 
       case 52: // attr_list
       case 53: // value_list
-      case 60: // select_list
-      case 61: // table_list
-      case 62: // select_condition
-      case 63: // select_condition_list
-      case 68: // attribute_list
-      case 71: // constrain_list
+      case 59: // select_list
+      case 60: // table_list
+      case 61: // select_condition
+      case 62: // select_condition_list
+      case 67: // attribute_list
+      case 70: // constrain_list
         value.move< ExpressionList * > (std::move (that.value));
         break;
 
@@ -1872,21 +1892,24 @@ switch (yytype)
       case 55: // drop_db_statement
       case 56: // use_statement
       case 57: // create_db_statement
-      case 59: // select_statement
-      case 65: // delete_statement
-      case 67: // create_table_statement
+      case 58: // select_statement
+      case 64: // delete_statement
+      case 66: // create_table_statement
         value.move< Statement * > (std::move (that.value));
         break;
 
       case 3: // NUMBER
-      case 70: // variant_type
+      case 69: // variant_type
         value.move< int > (std::move (that.value));
         break;
 
       case 43: // STRING
       case 44: // FILENAME
-      case 58: // source_statement
         value.move< std::string > (std::move (that.value));
+        break;
+
+      case 46: // statement_list
+        value.move< std::vector<Statement*> > (std::move (that.value));
         break;
 
       default:
@@ -1904,21 +1927,21 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 64: // select_condition_exp
-      case 66: // exp
-      case 69: // attribute_exp
-      case 72: // constrain_exp
+      case 63: // select_condition_exp
+      case 65: // exp
+      case 68: // attribute_exp
+      case 71: // constrain_exp
         value.copy< Expression * > (YY_MOVE (that.value));
         break;
 
       case 52: // attr_list
       case 53: // value_list
-      case 60: // select_list
-      case 61: // table_list
-      case 62: // select_condition
-      case 63: // select_condition_list
-      case 68: // attribute_list
-      case 71: // constrain_list
+      case 59: // select_list
+      case 60: // table_list
+      case 61: // select_condition
+      case 62: // select_condition_list
+      case 67: // attribute_list
+      case 70: // constrain_list
         value.copy< ExpressionList * > (YY_MOVE (that.value));
         break;
 
@@ -1931,21 +1954,24 @@ switch (yytype)
       case 55: // drop_db_statement
       case 56: // use_statement
       case 57: // create_db_statement
-      case 59: // select_statement
-      case 65: // delete_statement
-      case 67: // create_table_statement
+      case 58: // select_statement
+      case 64: // delete_statement
+      case 66: // create_table_statement
         value.copy< Statement * > (YY_MOVE (that.value));
         break;
 
       case 3: // NUMBER
-      case 70: // variant_type
+      case 69: // variant_type
         value.copy< int > (YY_MOVE (that.value));
         break;
 
       case 43: // STRING
       case 44: // FILENAME
-      case 58: // source_statement
         value.copy< std::string > (YY_MOVE (that.value));
+        break;
+
+      case 46: // statement_list
+        value.copy< std::vector<Statement*> > (YY_MOVE (that.value));
         break;
 
       default:
@@ -1970,21 +1996,21 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 64: // select_condition_exp
-      case 66: // exp
-      case 69: // attribute_exp
-      case 72: // constrain_exp
+      case 63: // select_condition_exp
+      case 65: // exp
+      case 68: // attribute_exp
+      case 71: // constrain_exp
         value.move< Expression * > (YY_MOVE (s.value));
         break;
 
       case 52: // attr_list
       case 53: // value_list
-      case 60: // select_list
-      case 61: // table_list
-      case 62: // select_condition
-      case 63: // select_condition_list
-      case 68: // attribute_list
-      case 71: // constrain_list
+      case 59: // select_list
+      case 60: // table_list
+      case 61: // select_condition
+      case 62: // select_condition_list
+      case 67: // attribute_list
+      case 70: // constrain_list
         value.move< ExpressionList * > (YY_MOVE (s.value));
         break;
 
@@ -1997,21 +2023,24 @@ switch (yytype)
       case 55: // drop_db_statement
       case 56: // use_statement
       case 57: // create_db_statement
-      case 59: // select_statement
-      case 65: // delete_statement
-      case 67: // create_table_statement
+      case 58: // select_statement
+      case 64: // delete_statement
+      case 66: // create_table_statement
         value.move< Statement * > (YY_MOVE (s.value));
         break;
 
       case 3: // NUMBER
-      case 70: // variant_type
+      case 69: // variant_type
         value.move< int > (YY_MOVE (s.value));
         break;
 
       case 43: // STRING
       case 44: // FILENAME
-      case 58: // source_statement
         value.move< std::string > (YY_MOVE (s.value));
+        break;
+
+      case 46: // statement_list
+        value.move< std::vector<Statement*> > (YY_MOVE (s.value));
         break;
 
       default:
@@ -2088,7 +2117,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2092 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+#line 2121 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 
 

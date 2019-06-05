@@ -32,25 +32,25 @@ std::ostream& operator<<(std::ostream & output, DMType & v)
 	size_t type = v.index();
 	switch (type) {
 		case 0:
-			output << std::get<int>(v);
+			output << v.to_int();
 			break;
 		case 1:
-			output << std::get<double>(v);
+			output << v.to_double();
 			break;
 		case 2:
-			output << std::get<char>(v);
+			output << v.to_char();
 			break;
 		case 3:
-			output << std::get<std::string>(v);
+			output << v.to_string();
 			break;
 		case 4:
-			output << std::get<ExpressionList *>(v);
+			output << v.to_expression_list();
 			break;
 	}
 	return output;
 }
 
-const void * DMType_to_void_pointer(DMType v)
+const void * DMType_to_void_pointer(_DMType v)
 {
     size_t type = v.index();
     switch (type) {
@@ -68,7 +68,7 @@ const void * DMType_to_void_pointer(DMType v)
 	return nullptr;
 }
 
-DMType void_pointer_to_DMType(void * p, AttrType a)
+_DMType void_pointer_to_DMType(const void * p, AttrType a)
 {
 	switch (a) {
 		case -1:
@@ -80,7 +80,7 @@ DMType void_pointer_to_DMType(void * p, AttrType a)
 	}
 }
 
-std::string DMType_to_string(DMType v)
+std::string DMType_to_string(_DMType v)
 {
 	std::string ret;
 	size_t type = v.index();
@@ -115,7 +115,7 @@ const int attrTypeLength(AttrType a)
 	}
 }
 
-const bool type_match(AttrType a, DMType d)
+const bool type_match(AttrType a, _DMType d)
 {
 	bool _int = a == -1 && d.index() == 0;
 	bool _double = a == -2 && d.index() == 1;
@@ -123,7 +123,7 @@ const bool type_match(AttrType a, DMType d)
 	return _int || _double || _string;
 }
 
-const bool type_match(DMType d, AttrType a)
+const bool type_match(_DMType d, AttrType a)
 {
 	return type_match(a, d);
 }

@@ -10,7 +10,7 @@ StatementType Create_Database_Statement::type(void) const
 
 DMType Create_Database_Statement::args(int op) const
 {
-	return this->database_name;
+	return DMType(this->database_name);
 }
 
 Create_Database_Statement::~Create_Database_Statement() {}

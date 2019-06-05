@@ -13,12 +13,12 @@ DMType Condition_Expression::values(int op) const
 {
 	switch (op) {
 		case 0:
-			return this->attribute_name;
+			return DMType(this->attribute_name);
 		case 1:
-			return this->compare;
+			return DMType(this->compare);
 		case 2:
-			return this->value;
+			return DMType(this->value);
 		default:
-			return this->attribute_name;
+			return DMType(this->attribute_name);
 	}
 }

@@ -10,7 +10,7 @@ StatementType Use_Statement::type(void) const
 
 DMType Use_Statement::args(int op) const
 {
-	return this->database_name;
+	return DMType(this->database_name);
 }
 
 Use_Statement::~Use_Statement() {}

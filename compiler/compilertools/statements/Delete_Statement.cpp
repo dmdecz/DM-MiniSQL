@@ -16,11 +16,11 @@ DMType Delete_Statement::args(int op) const
 {
 	switch (op) {
 		case 0:
-			return this->table_name;
+			return DMType(this->table_name);
 		case 1:
-			return this->delete_cond;
+			return DMType(this->delete_cond);
 		default:
-			return this->table_name;
+			return DMType(this->table_name);
 	}
 }
 

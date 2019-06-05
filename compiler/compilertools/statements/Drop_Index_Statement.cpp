@@ -12,11 +12,11 @@ DMType Drop_Index_Statement::args(int op) const
 {
 	switch (op) {
 		case 0:
-			return this->table_name;
+			return DMType(this->table_name);
 		case 1:
-			return this->key_name;
+			return DMType(this->key_name);
 		default:
-			return this->table_name;
+			return DMType(this->table_name);
 	}
 }
 

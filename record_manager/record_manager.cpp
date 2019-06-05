@@ -20,7 +20,7 @@ Record::Record(AttrInfo & _type, std::map<std::string, DMType> & _value, bool _e
 void Record::get_value(char * data)
 {
 	for (auto & it : this->type) {
-		this->value[it.first] = void_pointer_to_DMType(data, it.second.first);
+		this->value[it.first] = DMType(data, it.second.first);
 		data += attrTypeLength(it.second.first);
 	}
 	this->empty = *(bool*)data;
@@ -61,7 +61,7 @@ int Record::write_to_block(Block * block, int offset)
 {
 	for (auto & it : this->type) {
 		int length = attrTypeLength(it.second.first);
-		block->datacpy(offset, DMType_to_void_pointer(this->value[it.first]), sizeof(char) * length);
+		block->datacpy(offset, this->value[it.first], sizeof(char) * length);
 		offset += length;
 	}
 
@@ -74,7 +74,7 @@ int Record::write_to_block(Block * block, int offset)
 
 void Record::delete_record(int _next_offset)
 {
-	this->empty = 1;
+	this->empty = true;
 	this->next_offset = _next_offset;
 }
 
@@ -125,7 +125,7 @@ void Record_Manager::select_record(const std::string & table_name, std::vector<s
 			if (tuple->is_valid()) {
 				std::vector<std::string> row;
 				for (auto & it : list) {
-					row.push_back(DMType_to_string((*tuple)[it]));
+					row.push_back((*tuple)[it].to_string());
 				}
 				table.addRow(row);
 				total ++;
@@ -172,7 +172,7 @@ void Record_Manager::select_record(const std::string & table_name, std::vector<s
 			if (tuple->is_valid()) {
 				std::vector<std::string> row;
 				for (auto & it : list) {
-					row.push_back(DMType_to_string((*tuple)[it]));
+					row.push_back((*tuple)[it].to_string());
 				}
 				table.addRow(row);
 				total ++;

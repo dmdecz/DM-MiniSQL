@@ -7,5 +7,5 @@ String_Expression::~String_Expression(void) {}
 
 DMType String_Expression::values(int) const
 {
-	return this->exp;
+	return DMType(this->exp);
 }

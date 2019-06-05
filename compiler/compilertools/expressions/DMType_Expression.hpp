@@ -6,10 +6,10 @@
 class DMType_Expression: public Expression
 {
 private:
-	DMType data;
+	_DMType data;
 
 public:
-	DMType_Expression(DMType);
+	DMType_Expression(_DMType);
 	virtual ~DMType_Expression();
 
 	virtual DMType values(int op = 0) const;
