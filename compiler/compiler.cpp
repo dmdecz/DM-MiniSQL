@@ -14,12 +14,12 @@ void Compiler::execute_statement(Statement * s)
 {
 	if (s) {
 		if (s->type() == SOURCE_TYPE) {
-			file = s->args().to_string();
+			file_name = s->args().to_string();
 			delete s;
 			result = 1;
 		} else {
 			result = this->api->execute(s);
-			file.clear();
+			file_name.clear();
 		}
 	}
 }
@@ -40,35 +40,42 @@ Compiler::Compiler(API * a)
 	: api(a), trace_parsing (false), trace_scanning (false) {}
 
 Compiler::Compiler(API * a, const std::string & file_name)
-		: api(a), trace_parsing (false), trace_scanning (false), file(file_name) {}
+		: api(a), trace_parsing (false), trace_scanning (false), file_name(file_name) {}
 
-int Compiler::parse()
+void Compiler::parse()
 {
-	this->scan_string();
-	FILE * fp = fopen(".log", "w");
-	fprintf(fp, "%s", this->instructions.c_str());
-	fclose(fp);
-	fp = fopen(".log", "r");
+	try {
+		this->scan_string();
+		FILE *fp = fopen(".log", "w");
+		fprintf(fp, "%s", this->instructions.c_str());
+		fclose(fp);
+		fp = fopen(".log", "r");
 
-	location.initialize (&file);
-	scan_begin(fp);
-	yy::parser parse (*this);
-	parse.set_debug_level (trace_parsing);
-	int res = parse ();
-	scan_end();
-	return res;
+		location.initialize(&file_name);
+		scan_begin(fp);
+		yy::parser parse(*this);
+		parse.set_debug_level(trace_parsing);
+		parse();
+		scan_end();
+	} catch (Error & e) {
+		e.diagnose();
+	}
 }
 
 void Compiler::scan_string()
 {
-	if (file.empty()) {
+	if (file_name.empty()) {
 		this->instructions = getCmd();
 	} else {
-		std::ifstream fp(file);
+		std::ifstream fp(file_name);
 		if (fp.is_open()) {
 			std::stringstream buffer;
 			buffer << fp.rdbuf();
 			this->instructions = buffer.str();
+		} else {
+			std::string file = file_name;
+			file_name.clear();
+			throw Error(1, "Open '" + file + "' failed.");
 		}
 	}
 }

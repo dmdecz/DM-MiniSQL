@@ -14,7 +14,7 @@ YY_DECL;
 class Compiler
 {
 private:
-	std::string file;
+	std::string file_name;
 	std::string instructions;
 
 	bool trace_scanning;
@@ -33,7 +33,7 @@ public:
 	virtual ~Compiler();
 
 	// parser
-	int parse ();
+	void parse ();
 	bool trace_parsing;
 	void scan_begin(FILE * fp);
   	void scan_end();

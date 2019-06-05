@@ -180,6 +180,9 @@ void Record_Manager::select_record(const std::string & table_name, std::vector<s
 			begin += record_length;
 		}
 	}
+	if (total) {
+		std::cout << table;
+	}
 	std::cout << "Query OK, " <<  total << " in set." << std::endl;
 }
 

@@ -233,8 +233,7 @@ constrain_exp:
 void
 yy::parser::error (const location_type& l, const std::string& m)
 {
-    Error e(0, "Syntax Error: " + m);
-    e.diagnose();
+    throw Error(0, "Syntax Error: " + m);
 }
 
 
