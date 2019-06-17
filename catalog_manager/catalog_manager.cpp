@@ -133,7 +133,7 @@ void Table_Message::write_back()
 		fp.write((char*)&it, sizeof(int));
 	}
 	fp.close();
-	this->dirty = 0;
+	this->dirty = false;
 }
 
 bool Table_Message::has_attribute(const std::string & attr_name)

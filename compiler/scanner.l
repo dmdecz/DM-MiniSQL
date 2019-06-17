@@ -70,9 +70,13 @@
 	// A number symbol corresponding to the value in S.
 	yy::parser::symbol_type
 	make_NUMBER (const std::string &s, const yy::parser::location_type& loc);
+
+	yy::parser::symbol_type
+    make_DECIMAL (const std::string &s, const yy::parser::location_type& loc);
 %}
 
-int				[0-9]+
+int				[\-]?[0-9]+
+decimal			[\-]?[0-9]+\.[0-9]+
 blank			[ \t\r]
 string		[A-Z_a-z][a-zA-Z_0-9]*
 filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
@@ -92,6 +96,7 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 {blank}+   			loc.step ();
 \n+        			loc.lines (yyleng); loc.step ();
 {int}				return make_NUMBER (yytext, loc);
+{decimal}			return make_DECIMAL (yytext, loc);
 ";"					return yy::parser::make_ENDL  (loc);
 "SHOW"|"show"	    return yy::parser::make_SHOW(loc);
 "SELECT"|"select"	return yy::parser::make_SELECT(loc);
@@ -138,11 +143,21 @@ filename	[a-zA-Z_0-9]+\.[a-zA-Z_0-9]+
 yy::parser::symbol_type
 make_NUMBER (const std::string &s, const yy::parser::location_type& loc)
 {
-	errno = 0;
-	long n = strtol (s.c_str(), NULL, 10);
-	// if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE))
-	// 	throw yy::parser::syntax_error (loc, "integer is out of range: " + s);
-	return yy::parser::make_NUMBER ((int) n, loc);
+	std::istringstream i(s);
+    int x;
+    if (!(i >> x))
+       return yy::parser::make_NUMBER ((int) 0, loc);
+    return yy::parser::make_NUMBER ((int) x, loc);
+}
+
+yy::parser::symbol_type
+make_DECIMAL (const std::string &s, const yy::parser::location_type& loc)
+{
+	std::istringstream i(s);
+    double x;
+    if (!(i >> x))
+       return yy::parser::make_DECIMAL ((int) 0, loc);
+    return yy::parser::make_DECIMAL ((int) x, loc);
 }
 
 void

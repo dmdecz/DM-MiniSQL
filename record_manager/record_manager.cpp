@@ -20,7 +20,8 @@ Record::Record(AttrInfo & _type, std::map<std::string, DMType> & _value, bool _e
 void Record::get_value(char * data)
 {
 	for (auto & it : this->type) {
-		this->value[it.first] = DMType(data, it.second.first);
+		DMType a = DMType(data, it.second.first);
+		this->value[it.first] = a;
 		data += attrTypeLength(it.second.first);
 	}
 	this->empty = *(bool*)data;
@@ -61,7 +62,7 @@ int Record::write_to_block(Block * block, int offset)
 {
 	for (auto & it : this->type) {
 		int length = attrTypeLength(it.second.first);
-		block->datacpy(offset, this->value[it.first], sizeof(char) * length);
+		block->datacpy(offset, this->value[it.first].data_address(), sizeof(char) * length);
 		offset += length;
 	}
 

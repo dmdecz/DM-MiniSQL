@@ -51,7 +51,7 @@ public:
 	char to_char() { return std::get<char>(data); }
 	std::string to_string() { return ::DMType_to_string(data); }
 	ExpressionList * to_expression_list() { return std::get<ExpressionList*>(data); }
-	const void * data_address() { return ::DMType_to_void_pointer(data); }
+	const void * data_address();
 	bool type_match(AttrType a) { return ::type_match(a, data); }
 
 	bool operator==(DMType & d) const { return data == d.data; }

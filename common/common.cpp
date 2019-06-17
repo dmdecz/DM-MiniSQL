@@ -50,22 +50,21 @@ std::ostream& operator<<(std::ostream & output, DMType & v)
 	return output;
 }
 
-const void * DMType_to_void_pointer(_DMType v)
+const void * DMType::data_address()
 {
-    size_t type = v.index();
+    size_t type = this->index();
     switch (type) {
         case 0:
-            return (void*)&(std::get<int>(v));
+            return (void*)&(std::get<int>(data));
         case 1:
-            return (void*)&(std::get<double>(v));
+            return (void*)&(std::get<double>(data));
         case 2:
-            return (void*)&(std::get<char>(v));
+            return (void*)&(std::get<char>(data));
         case 3:
-            return (void*)(std::get<std::string>(v).c_str());
-        case 4:
+            return (void*)(std::get<std::string>(data).c_str());
+	    default:
             return nullptr;
     }
-	return nullptr;
 }
 
 _DMType void_pointer_to_DMType(const void * p, AttrType a)

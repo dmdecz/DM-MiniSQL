@@ -403,16 +403,19 @@ namespace yy {
       // create_table_statement
       char dummy3[sizeof (Statement *)];
 
+      // DECIMAL
+      char dummy4[sizeof (double)];
+
       // NUMBER
       // variant_type
-      char dummy4[sizeof (int)];
+      char dummy5[sizeof (int)];
 
       // STRING
       // FILENAME
-      char dummy5[sizeof (std::string)];
+      char dummy6[sizeof (std::string)];
 
       // statement_list
-      char dummy6[sizeof (std::vector<Statement*>)];
+      char dummy7[sizeof (std::vector<Statement*>)];
     };
 
     /// The size of the largest semantic type.
@@ -461,47 +464,48 @@ namespace yy {
       enum yytokentype
       {
         TOK_NUMBER = 258,
-        TOK_SELECT = 259,
-        TOK_FROM = 260,
-        TOK_WHERE = 261,
-        TOK_QUIT = 262,
-        TOK_SOURCE = 263,
-        TOK_CREATE = 264,
-        TOK_TABLE = 265,
-        TOK_USE = 266,
-        TOK_DATABASE = 267,
-        TOK_DROP = 268,
-        TOK_INSERT = 269,
-        TOK_INTO = 270,
-        TOK_VALUES = 271,
-        TOK_DELETE = 272,
-        TOK_INDEX = 273,
-        TOK_UNIQUE = 274,
-        TOK_ON = 275,
-        TOK_SHOW = 276,
-        TOK_BLANK = 277,
-        TOK_END = 278,
-        TOK_ENDL = 279,
-        TOK_MINUS = 280,
-        TOK_PLUS = 281,
-        TOK_STAR = 282,
-        TOK_SLASH = 283,
-        TOK_LPAREN = 284,
-        TOK_RPAREN = 285,
-        TOK_COMMA = 286,
-        TOK_INT = 287,
-        TOK_DOUBLE = 288,
-        TOK_CHAR = 289,
-        TOK_EQUAL = 290,
-        TOK_LESS = 291,
-        TOK_LARGE = 292,
-        TOK_NOT = 293,
-        TOK_AND = 294,
-        TOK_OR = 295,
-        TOK_PRIMARY_KEY = 296,
-        TOK_FOREIGN_KEY = 297,
-        TOK_STRING = 298,
-        TOK_FILENAME = 299
+        TOK_DECIMAL = 259,
+        TOK_SELECT = 260,
+        TOK_FROM = 261,
+        TOK_WHERE = 262,
+        TOK_QUIT = 263,
+        TOK_SOURCE = 264,
+        TOK_CREATE = 265,
+        TOK_TABLE = 266,
+        TOK_USE = 267,
+        TOK_DATABASE = 268,
+        TOK_DROP = 269,
+        TOK_INSERT = 270,
+        TOK_INTO = 271,
+        TOK_VALUES = 272,
+        TOK_DELETE = 273,
+        TOK_INDEX = 274,
+        TOK_UNIQUE = 275,
+        TOK_ON = 276,
+        TOK_SHOW = 277,
+        TOK_BLANK = 278,
+        TOK_END = 279,
+        TOK_ENDL = 280,
+        TOK_MINUS = 281,
+        TOK_PLUS = 282,
+        TOK_STAR = 283,
+        TOK_SLASH = 284,
+        TOK_LPAREN = 285,
+        TOK_RPAREN = 286,
+        TOK_COMMA = 287,
+        TOK_INT = 288,
+        TOK_DOUBLE = 289,
+        TOK_CHAR = 290,
+        TOK_EQUAL = 291,
+        TOK_LESS = 292,
+        TOK_LARGE = 293,
+        TOK_NOT = 294,
+        TOK_AND = 295,
+        TOK_OR = 296,
+        TOK_PRIMARY_KEY = 297,
+        TOK_FOREIGN_KEY = 298,
+        TOK_STRING = 299,
+        TOK_FILENAME = 300
       };
     };
 
@@ -595,6 +599,19 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, double&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const double& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, int&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -656,50 +673,54 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 63: // select_condition_exp
-      case 65: // exp
-      case 68: // attribute_exp
-      case 71: // constrain_exp
+      case 64: // select_condition_exp
+      case 66: // exp
+      case 69: // attribute_exp
+      case 72: // constrain_exp
         value.template destroy< Expression * > ();
         break;
 
-      case 52: // attr_list
-      case 53: // value_list
-      case 59: // select_list
-      case 60: // table_list
-      case 61: // select_condition
-      case 62: // select_condition_list
-      case 67: // attribute_list
-      case 70: // constrain_list
+      case 53: // attr_list
+      case 54: // value_list
+      case 60: // select_list
+      case 61: // table_list
+      case 62: // select_condition
+      case 63: // select_condition_list
+      case 68: // attribute_list
+      case 71: // constrain_list
         value.template destroy< ExpressionList * > ();
         break;
 
-      case 47: // statement
-      case 48: // show_statement
-      case 49: // create_index_statement
-      case 50: // drop_index_statement
-      case 51: // insert_statement
-      case 54: // drop_table_statement
-      case 55: // drop_db_statement
-      case 56: // use_statement
-      case 57: // create_db_statement
-      case 58: // select_statement
-      case 64: // delete_statement
-      case 66: // create_table_statement
+      case 48: // statement
+      case 49: // show_statement
+      case 50: // create_index_statement
+      case 51: // drop_index_statement
+      case 52: // insert_statement
+      case 55: // drop_table_statement
+      case 56: // drop_db_statement
+      case 57: // use_statement
+      case 58: // create_db_statement
+      case 59: // select_statement
+      case 65: // delete_statement
+      case 67: // create_table_statement
         value.template destroy< Statement * > ();
         break;
 
+      case 4: // DECIMAL
+        value.template destroy< double > ();
+        break;
+
       case 3: // NUMBER
-      case 69: // variant_type
+      case 70: // variant_type
         value.template destroy< int > ();
         break;
 
-      case 43: // STRING
-      case 44: // FILENAME
+      case 44: // STRING
+      case 45: // FILENAME
         value.template destroy< std::string > ();
         break;
 
-      case 46: // statement_list
+      case 47: // statement_list
         value.template destroy< std::vector<Statement*> > ();
         break;
 
@@ -792,6 +813,19 @@ switch (yytype)
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      symbol_type (int tok, double v, location_type l)
+        : super_type(token_type (tok), std::move (v), std::move (l))
+      {
+        YYASSERT (tok == token::TOK_DECIMAL);
+      }
+#else
+      symbol_type (int tok, const double& v, const location_type& l)
+        : super_type(token_type (tok), v, l)
+      {
+        YYASSERT (tok == token::TOK_DECIMAL);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, int v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
       {
@@ -867,6 +901,21 @@ switch (yytype)
       make_NUMBER (const int& v, const location_type& l)
       {
         return symbol_type (token::TOK_NUMBER, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DECIMAL (double v, location_type l)
+      {
+        return symbol_type (token::TOK_DECIMAL, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DECIMAL (const double& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_DECIMAL, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1790,12 +1839,12 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 120,     ///< Last index in yytable_.
+      yylast_ = 119,     ///< Last index in yytable_.
       yynnts_ = 27,  ///< Number of nonterminal symbols.
       yyfinal_ = 40, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 45  ///< Number of tokens.
+      yyntokens_ = 46  ///< Number of tokens.
     };
 
 
@@ -1842,9 +1891,10 @@ switch (yytype)
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41,    42,    43,    44
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45
     };
-    const unsigned user_token_number_max_ = 299;
+    const unsigned user_token_number_max_ = 300;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int> (t) <= yyeof_)
@@ -1865,50 +1915,54 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 63: // select_condition_exp
-      case 65: // exp
-      case 68: // attribute_exp
-      case 71: // constrain_exp
+      case 64: // select_condition_exp
+      case 66: // exp
+      case 69: // attribute_exp
+      case 72: // constrain_exp
         value.move< Expression * > (std::move (that.value));
         break;
 
-      case 52: // attr_list
-      case 53: // value_list
-      case 59: // select_list
-      case 60: // table_list
-      case 61: // select_condition
-      case 62: // select_condition_list
-      case 67: // attribute_list
-      case 70: // constrain_list
+      case 53: // attr_list
+      case 54: // value_list
+      case 60: // select_list
+      case 61: // table_list
+      case 62: // select_condition
+      case 63: // select_condition_list
+      case 68: // attribute_list
+      case 71: // constrain_list
         value.move< ExpressionList * > (std::move (that.value));
         break;
 
-      case 47: // statement
-      case 48: // show_statement
-      case 49: // create_index_statement
-      case 50: // drop_index_statement
-      case 51: // insert_statement
-      case 54: // drop_table_statement
-      case 55: // drop_db_statement
-      case 56: // use_statement
-      case 57: // create_db_statement
-      case 58: // select_statement
-      case 64: // delete_statement
-      case 66: // create_table_statement
+      case 48: // statement
+      case 49: // show_statement
+      case 50: // create_index_statement
+      case 51: // drop_index_statement
+      case 52: // insert_statement
+      case 55: // drop_table_statement
+      case 56: // drop_db_statement
+      case 57: // use_statement
+      case 58: // create_db_statement
+      case 59: // select_statement
+      case 65: // delete_statement
+      case 67: // create_table_statement
         value.move< Statement * > (std::move (that.value));
         break;
 
+      case 4: // DECIMAL
+        value.move< double > (std::move (that.value));
+        break;
+
       case 3: // NUMBER
-      case 69: // variant_type
+      case 70: // variant_type
         value.move< int > (std::move (that.value));
         break;
 
-      case 43: // STRING
-      case 44: // FILENAME
+      case 44: // STRING
+      case 45: // FILENAME
         value.move< std::string > (std::move (that.value));
         break;
 
-      case 46: // statement_list
+      case 47: // statement_list
         value.move< std::vector<Statement*> > (std::move (that.value));
         break;
 
@@ -1927,50 +1981,54 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 63: // select_condition_exp
-      case 65: // exp
-      case 68: // attribute_exp
-      case 71: // constrain_exp
+      case 64: // select_condition_exp
+      case 66: // exp
+      case 69: // attribute_exp
+      case 72: // constrain_exp
         value.copy< Expression * > (YY_MOVE (that.value));
         break;
 
-      case 52: // attr_list
-      case 53: // value_list
-      case 59: // select_list
-      case 60: // table_list
-      case 61: // select_condition
-      case 62: // select_condition_list
-      case 67: // attribute_list
-      case 70: // constrain_list
+      case 53: // attr_list
+      case 54: // value_list
+      case 60: // select_list
+      case 61: // table_list
+      case 62: // select_condition
+      case 63: // select_condition_list
+      case 68: // attribute_list
+      case 71: // constrain_list
         value.copy< ExpressionList * > (YY_MOVE (that.value));
         break;
 
-      case 47: // statement
-      case 48: // show_statement
-      case 49: // create_index_statement
-      case 50: // drop_index_statement
-      case 51: // insert_statement
-      case 54: // drop_table_statement
-      case 55: // drop_db_statement
-      case 56: // use_statement
-      case 57: // create_db_statement
-      case 58: // select_statement
-      case 64: // delete_statement
-      case 66: // create_table_statement
+      case 48: // statement
+      case 49: // show_statement
+      case 50: // create_index_statement
+      case 51: // drop_index_statement
+      case 52: // insert_statement
+      case 55: // drop_table_statement
+      case 56: // drop_db_statement
+      case 57: // use_statement
+      case 58: // create_db_statement
+      case 59: // select_statement
+      case 65: // delete_statement
+      case 67: // create_table_statement
         value.copy< Statement * > (YY_MOVE (that.value));
         break;
 
+      case 4: // DECIMAL
+        value.copy< double > (YY_MOVE (that.value));
+        break;
+
       case 3: // NUMBER
-      case 69: // variant_type
+      case 70: // variant_type
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 43: // STRING
-      case 44: // FILENAME
+      case 44: // STRING
+      case 45: // FILENAME
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
-      case 46: // statement_list
+      case 47: // statement_list
         value.copy< std::vector<Statement*> > (YY_MOVE (that.value));
         break;
 
@@ -1996,50 +2054,54 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 63: // select_condition_exp
-      case 65: // exp
-      case 68: // attribute_exp
-      case 71: // constrain_exp
+      case 64: // select_condition_exp
+      case 66: // exp
+      case 69: // attribute_exp
+      case 72: // constrain_exp
         value.move< Expression * > (YY_MOVE (s.value));
         break;
 
-      case 52: // attr_list
-      case 53: // value_list
-      case 59: // select_list
-      case 60: // table_list
-      case 61: // select_condition
-      case 62: // select_condition_list
-      case 67: // attribute_list
-      case 70: // constrain_list
+      case 53: // attr_list
+      case 54: // value_list
+      case 60: // select_list
+      case 61: // table_list
+      case 62: // select_condition
+      case 63: // select_condition_list
+      case 68: // attribute_list
+      case 71: // constrain_list
         value.move< ExpressionList * > (YY_MOVE (s.value));
         break;
 
-      case 47: // statement
-      case 48: // show_statement
-      case 49: // create_index_statement
-      case 50: // drop_index_statement
-      case 51: // insert_statement
-      case 54: // drop_table_statement
-      case 55: // drop_db_statement
-      case 56: // use_statement
-      case 57: // create_db_statement
-      case 58: // select_statement
-      case 64: // delete_statement
-      case 66: // create_table_statement
+      case 48: // statement
+      case 49: // show_statement
+      case 50: // create_index_statement
+      case 51: // drop_index_statement
+      case 52: // insert_statement
+      case 55: // drop_table_statement
+      case 56: // drop_db_statement
+      case 57: // use_statement
+      case 58: // create_db_statement
+      case 59: // select_statement
+      case 65: // delete_statement
+      case 67: // create_table_statement
         value.move< Statement * > (YY_MOVE (s.value));
         break;
 
+      case 4: // DECIMAL
+        value.move< double > (YY_MOVE (s.value));
+        break;
+
       case 3: // NUMBER
-      case 69: // variant_type
+      case 70: // variant_type
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 43: // STRING
-      case 44: // FILENAME
+      case 44: // STRING
+      case 45: // FILENAME
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
-      case 46: // statement_list
+      case 47: // statement_list
         value.move< std::vector<Statement*> > (YY_MOVE (s.value));
         break;
 
@@ -2111,13 +2173,13 @@ switch (yytype)
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297,   298,   299
+     295,   296,   297,   298,   299,   300
     };
     return token_type (yytoken_number_[type]);
   }
 
 } // yy
-#line 2121 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
+#line 2183 "/Users/chenzhuo/Desktop/Working/DM/compiler/parser.hpp"
 
 
 

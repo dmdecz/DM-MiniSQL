@@ -63,12 +63,6 @@ void Block::datacpy(int offset, const void * s, size_t length)
 	this->dirty = true;
 }
 
-void Block::datacpy(int offset, DMType & d, size_t length)
-{
-	memcpy(this->data + offset, d.data_address(), length);
-	this->dirty = true;
-}
-
 void Block::zero(int begin, int end)
 {
 	memset(this->data + begin, 0, sizeof(char) * (end - begin));

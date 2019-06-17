@@ -91,7 +91,7 @@ void Node::write_back_to_block(Block * block, AttrType key_type)
 		block->datacpy(p, &number, sizeof(int));
 		p += sizeof(int);
 		for (auto &it : this->key) {
-			block->datacpy(p, it, sizeof(char) * key_length);
+			block->datacpy(p, it.data_address(), sizeof(char) * key_length);
 			p += key_length;
 		}
 		for (auto &it : this->pointer) {
@@ -465,7 +465,7 @@ void Index_Manager::create_index(const std::string & table_name, const std::stri
 		int end = *(int*)block->get_data(0);
 		int record_number = (end - begin) / record_length;
 		for (int j = 0; j < record_number; ++j) {
-			tuple->get_value(block->get_data(begin));
+			tuple->get_value(this->m_buffer->get_block(table_name, i)->get_data(begin));
 			if (tuple->is_valid()) {
 				DMType data = (*tuple)[key_name];
 				tree->insert_key(data, i);

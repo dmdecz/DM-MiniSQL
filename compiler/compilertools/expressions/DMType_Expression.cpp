@@ -1,11 +1,11 @@
 #include "DMType_Expression.hpp"
 
-DMType_Expression::DMType_Expression(_DMType d)
+DMType_Expression::DMType_Expression(DMType d)
 	: data(d) {}
 
 DMType_Expression::~DMType_Expression() {}
 
 DMType DMType_Expression::values(int op) const
 {
-	return DMType(this->data);
+	return this->data;
 }

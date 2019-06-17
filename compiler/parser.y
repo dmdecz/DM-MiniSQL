@@ -33,6 +33,7 @@
 %define api.token.prefix {TOK_}
 
 %token <int> NUMBER;
+%token <double> DECIMAL;
 %token SELECT FROM WHERE QUIT SOURCE CREATE TABLE USE DATABASE DROP INSERT INTO VALUES DELETE INDEX UNIQUE ON SHOW
 %token
 	BLANK
@@ -187,8 +188,9 @@ delete_statement:
     ;
 
 exp:
-	STRING { $$ = new DMType_Expression(std::string($1)); }
-	| NUMBER { $$ = new DMType_Expression($1); }
+	STRING { $$ = new DMType_Expression(DMType($1)); }
+	| NUMBER { $$ = new DMType_Expression(DMType($1)); }
+	| DECIMAL { $$ = new DMType_Expression(DMType($1)); }
 	;
 
 create_table_statement:
